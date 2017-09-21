@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://appconfig.aura.nav.no" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://appconfig.aura.nav.no http://maven.adeo.no/xsd/appconfig.xsd">
+
+    <name>fastlegefront</name>
+
+    <selftest>
+        <path>fastlege/internal/selftest</path>
+        <humanReadablePath>fastlege/internal/selftest</humanReadablePath>
+    </selftest>
+
+    <artifacts>
+        <ear groupId="no.nav.syfo" artifactId="fastlegefront-ear"/>
+    </artifacts>
+
+    <security serviceUserResourceAlias="srvfastlegefront" />
+
+    <resources>
+        <rest alias="oidc-login-api" mapToProperty="oidc-redirect"/>
+        <baseUrl alias="modapp" mapToProperty="modapp"/>
+        <rest alias="fastlegeapi" mapToProperty="fastlegeapi.fss"/>
+        <rest alias="iadecorator-js" mapToProperty="iadecorator"/>
+
+        <baseUrl alias="isso-host"/>
+        <baseUrl alias="isso-jwks"/>
+        <baseUrl alias="isso-issuer"/>
+        <credential alias="OpenIdConnectAgent"/>
+    </resources>
+
+    <loadBalancer isAlive="/sykefravaer/internal/isAlive" />
+</application>

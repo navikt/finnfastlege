@@ -1,0 +1,28 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+    <deployment>
+        <exclude-subsystems>
+            <subsystem name="webservices"/>
+            <subsystem name="jaxrs"/>
+        </exclude-subsystems>
+        <exclusions>
+            <module name="org.slf4j"/>
+            <module name="org.slf4j.impl"/>
+            <module name="com.sun.xml.bind"/>
+        </exclusions>
+    </deployment>
+    <sub-deployment name="fastlegefront-web.war">
+        <exclusions>
+            <module name="org.slf4j"/>
+            <module name="org.slf4j.impl"/>
+        </exclusions>
+        <dependencies>
+            <module name="sun.jdk"/>
+            <system>
+                <paths>
+                    <path name="com/sun/org/apache/xerces/internal/jaxp/datatype"/>
+                    <path name="com/sun/image/codec/jpeg"/>
+                </paths>
+            </system>
+        </dependencies>
+    </sub-deployment>
+</jboss-deployment-structure>

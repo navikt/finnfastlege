@@ -1,0 +1,33 @@
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60em;
+}
+
+.panel {
+    padding: 1em 1em 1.25em 1em;
+    background-color: #fff;
+    margin-bottom: 2em;
+
+    @media (min-width: 30em) {
+        padding: 2em 2em 2.25em 2em;
+    }
+}
+
+.panel--melding {
+    text-align: center;
+}
+
+.panel--ramme {
+    border: 1px solid @ikonGraa;
+}
+
+.rad--adskilt {
+    border-bottom: 1px solid @ikonGraa;
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+
+.rad--adskilt:first-of-type {
+    border-top: 1px solid @ikonGraa;
+}
