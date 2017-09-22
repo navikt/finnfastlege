@@ -28,7 +28,7 @@ public class SelftestServlet extends SelfTestBaseServlet{
     @Override
     protected Collection<? extends Pingable> getPingables() {
         return asList(
-                pingUrl("FASTLEGE_API", getProperty("fastlegeapi.fss") + "/fastlege/v1/ping")
+                pingUrl("FASTLEGE_V1_API", getProperty("fastlegeapi.fss.url") + "/fastlege/v1/ping")
         );
     }
 
