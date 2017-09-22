@@ -18,7 +18,7 @@ var dev = {
 
 var prod = {
     timestamp: timestamp,
-    buildRoot: '/sykefravaer/js',
+    buildRoot: '/fastlege/js',
     fastlegerestRoot: '/fastlegerest/api',
     bundleFileName: 'bundle-prod.js',
     decoratorRoot: '',
