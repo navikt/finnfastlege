@@ -12,6 +12,7 @@ export function* hentFastlege(action) {
     } catch (e) {
         if (e.message === '404') {
             yield put(actions.fastlegeIkkeFunnet());
+            return;
         }
         yield put(actions.hentFastlegeFeilet());
     }
