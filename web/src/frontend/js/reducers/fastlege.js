@@ -23,6 +23,7 @@ export default function fastlege(state = initiellState, action) {
                 henter: true,
                 hentingFeilet: false,
                 harSoktBruker: true,
+                ikkeFunnet: false,
             });
         }
         case actiontyper.FASTLEGE_IKKE_FUNNET: {
