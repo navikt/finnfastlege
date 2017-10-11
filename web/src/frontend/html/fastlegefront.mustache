@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <script>
-        const finnMiljoStreng = () => {
-            const host = window.location.host;
-            const bindestrekIndex = host.indexOf('-');
+        var finnMiljoStreng = function() {
+            var host = window.location.host;
+            var bindestrekIndex = host.indexOf('-');
             if (bindestrekIndex === -1) {
                 return '';
             }
-            const dotIndex = host.indexOf('.');
+            var dotIndex = host.indexOf('.');
             return host.substring(bindestrekIndex, dotIndex);
         };
 
-        const script = document.createElement('script');
-        script.src = `https://app${finnMiljoStreng()}.adeo.no/internarbeidsflatedecorator/js/head.min.js?rev=${Date.now().toString()}`;
-        script.onload = () => {
-            const DOMContentLoaded_event = document.createEvent("Event");
+        var script = document.createElement('script');
+        script.src = 'https://app' + finnMiljoStreng() + '.adeo.no/internarbeidsflatedecorator/js/head.min.js?rev=' + Date.now().toString();
+        script.onload = function() {
+            var DOMContentLoaded_event = document.createEvent("Event");
             DOMContentLoaded_event.initEvent("DOMContentLoaded", true, true);
             window.document.dispatchEvent(DOMContentLoaded_event);
         };

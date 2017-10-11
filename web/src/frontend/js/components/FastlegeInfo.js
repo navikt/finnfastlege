@@ -33,15 +33,19 @@ const FastlegeInfo = ({fastlege}) => {
                             <label className="js-status">{fastlege.fastlegekontor.navn}</label>
                         </div>
                         <div className="nokkelopplysning nokkelopplysning--statusopplysning">
-                            <label className="nokkelopplysning__tittel">Adresse</label>
-                            <label className="js-status">{fastlege.fastlegekontor.adresse}</label>
+                            <label className="nokkelopplysning__tittel">Besøksadresse</label>
+                            <label className="js-status">{fastlege.fastlegekontor.besoeksadresse}</label>
                         </div>
                     </div>
 
-                    <div className="statusopplysninger">
+                    <div className="statusopplysninger js-rad">
                         <div className="nokkelopplysning">
                             <label className="nokkelopplysning__tittel">Telefon</label>
                             <label className="js-status">{fastlege.fastlegekontor.telefon}</label>
+                        </div>
+                        <div className="nokkelopplysning nokkelopplysning--statusopplysning">
+                            <label className="nokkelopplysning__tittel">Postadresse</label>
+                            <label className="js-status">{fastlege.fastlegekontor.postadresse}</label>
                         </div>
                     </div>
                 </div>
