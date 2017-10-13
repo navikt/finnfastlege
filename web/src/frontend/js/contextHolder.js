@@ -9,9 +9,6 @@ export const opprettWebsocketConnection = (callback) => {
 
     const connection = new ContextholderConnection();
     connection.onmessage = (e) => {
-        if (e.data === 'Connection Established') {
-            return;
-        }
         callback(e);
     };
     connection.onerror = () => {
