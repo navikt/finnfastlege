@@ -30,17 +30,17 @@ sagaMiddleware.run(rootSaga);
 const config = {
     config: {
         dataSources: {
-            veileder: `https://modapp${finnMiljoStreng()}.adeo.no/mote/rest/veilederinfo`,
-            enheter: `https://modapp${finnMiljoStreng()}.adeo.no/mote/rest/enheter`,
+            veileder: `https://app${finnMiljoStreng()}.adeo.no/mote/rest/veilederinfo`,
+            enheter: `https://app${finnMiljoStreng()}.adeo.no/mote/rest/enheter`,
         },
         toggles: {
             visEnhetVelger: true,
             visVeileder: true,
             visSokefelt: true,
-            toggleSendEventVedEnEnhet: true,
+            toggleSendEventVedEnEnhet: false,
         },
         handlePersonsokSubmit: (nyttFnr) => {
-            window.location = `/sykefravaer/${nyttFnr}`;
+            window.location = `https://modapp${finnMiljoStreng()}.adeo.no/sykefravaer/${nyttFnr}`;
         },
         applicationName: 'Sykefravær',
         handleChangeEnhet: (data) => {
