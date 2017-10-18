@@ -55,6 +55,15 @@ const config = {
     },
 };
 
+store.dispatch(hentAktivEnhet({
+    callback: (aktivEnhet) => {
+        if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
+            config.config.initiellEnhet = aktivEnhet;
+            window.renderDecoratorHead(config);
+        }
+    },
+}));
+
 render(<Provider store={store}>
         <AppRouter history={history} /></Provider>,
     document.getElementById('maincontent'));
