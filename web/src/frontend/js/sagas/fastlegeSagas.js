@@ -18,10 +18,25 @@ export function* hentFastlege(action) {
     }
 }
 
+export function* sjekkFastlegeTilgang() {
+    yield put(actions.sjekkerFastlegeTilgang());
+    try {
+        const data = yield call(get, `${window.APP_SETTINGS.FASTLEGEREST_ROOT}/tilgang`);
+        yield put(actions.fastlegeTilgangHentet(data));
+    } catch (e) {
+        yield put(actions.sjekkFastlegeTilgangFeilet());
+    }
+}
+
 function* watchHentFastlege() {
     yield* takeEvery(actiontyper.HENT_FASTLEGE_FORESPURT, hentFastlege);
 }
 
+function* watchSjekkTilgang() {
+    yield* takeEvery(actiontyper.SJEKK_FASTLEGE_TILGANG_FORESPURT, sjekkFastlegeTilgang);
+}
+
 export default function* fastlegeSagas() {
     yield fork(watchHentFastlege);
+    yield fork(watchSjekkTilgang);
 }

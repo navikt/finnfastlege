@@ -9,6 +9,7 @@ import history from './history.js';
 import rootSaga from './sagas/index';
 import modiacontext from './reducers/modiacontext';
 import fastlege from './reducers/fastlege';
+import tilgang from './reducers/tilgang';
 import { opprettWebsocketConnection } from './contextHolder';
 import { finnMiljoStreng } from './sagas/util';
 import { pushModiaContext, hentAktivEnhet } from './actions/modiacontext_actions';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     modiacontext,
     history,
     fastlege,
+    tilgang,
 });
 
 const sagaMiddleware = createSagaMiddleware();

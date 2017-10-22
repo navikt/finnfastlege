@@ -31,3 +31,28 @@ export function hentFastlege(fnr) {
         fnr,
     };
 }
+
+export function sjekkerFastlegeTilgang() {
+    return {
+        type: actiontyper.SJEKKER_FASTLEGE_TILGANG,
+    };
+}
+
+export function sjekkFastlegeTilgangFeilet() {
+    return {
+        type: actiontyper.SJEKK_FASTLEGE_TILGANG_FEILET,
+    };
+}
+
+export function fastlegeTilgangHentet(data) {
+    return {
+        type: actiontyper.FASTLEGE_TILGANG_HENTET,
+        data,
+    };
+}
+
+export function sjekkFastlegeTilgang() {
+    return {
+        type: actiontyper.SJEKK_FASTLEGE_TILGANG_FORESPURT,
+    };
+}
