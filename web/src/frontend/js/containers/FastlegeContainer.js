@@ -29,8 +29,8 @@ export class FastlegeSide extends Component {
                                              melding= {{ __html: '<p>Vi fikk ikke sjekket om du har tilgang til tjenesten. Vennligst prøv igjen senere!</p>' }} />);
                     }
                     if (!tilgang.harTilgang) {
-                        return (<Feilmelding tittel="Ops! Du har visst ikke tilgang til sykefraværsoppfølgingen"
-                                             melding= {{ __html: '<p>For å få tilgang til disse funksjonene må du ta kontakt med din lokalt ident-ansvarlige.</p>' }} />);
+                        return (<Feilmelding tittel="Ops! Du har visst ikke tilgang til sykefravær i Modia"
+                                             melding= {{ __html: '<p>For å få tilgang må du ta kontakt med din lokale identansvarlige.</p>' }} />);
                     }
                     return <Fastlege fastlege={fastlege} hentFastlege={hentFastlege} />;
                 })()
