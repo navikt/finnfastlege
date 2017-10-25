@@ -6,8 +6,8 @@
   "test": "npm run test",
   "scripts": {
     "prebuild": "node createProdFolders.js",
-    "dev": "title fastlegefront && parallelshell \"npm run prebuild\" \"npm run images\" \"npm run static:build:local\" \"npm run scripts:watch\"",
-    "build": "parallelshell \"npm run prebuild\" \"npm run images\" \"npm run static:build\" \"npm run scripts:build\"",
+    "dev": "title fastlegefront && npm-run-all prebuild images static:build:local scripts:watch",
+    "build": "npm-run-all prebuild images static:build scripts:build",
     "test:watch": "title fastlegefront && cross-env NODE_ENV=test nyc mocha --watch -G --compilers js:babel-core/register --require babel-polyfill ./test/setup.js --recursive test",
     "test": "cross-env NODE_ENV=test nyc mocha -G --compilers js:babel-core/register --require babel-polyfill ./test/setup.js --recursive test",
     "posttest": "nyc report --reporter=html --reporter=lcov",
@@ -17,7 +17,7 @@
     "scripts:watch": "title fastlegefront && webpack-dev-server --inline  --port 3040",
     "lint": "eslint js/. --ext .js",
     "lint:fix": "eslint js/. --ext .js --fix",
-    "images": "parallelshell \"cp -R img ../main/webapp\""
+    "images": "cp -R img ../main/webapp"
   },
   "nyc": {
     "require": [
@@ -104,9 +104,9 @@
     "nav-frontend-knapper-design": "2.0.2",
     "nav-frontend-skjema-design": "1.0.21",
     "nav-frontend-typografi-design": "1.0.4",
+    "npm-run-all": "4.1.1",
     "nodemon": "1.8.1",
     "nyc": "10.1.2",
-    "parallelshell": "2.0.0",
     "pre-commit": "1.1.3",
     "proxy-middleware": "0.15.0",
     "react-addons-test-utils": "0.14.7",
