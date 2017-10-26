@@ -17,7 +17,7 @@ export class FastlegeSide extends Component {
     }
 
     render() {
-        const { fastlege, hentFastlege, tilgang } = this.props;
+        const { fastlege, actions, tilgang } = this.props;
         return (<Side>
             {
                 (() => {
@@ -32,7 +32,7 @@ export class FastlegeSide extends Component {
                         return (<Feilmelding tittel="Ops! Du har visst ikke tilgang til sykefravær i Modia"
                                              melding= {{ __html: '<p>For å få tilgang må du ta kontakt med din lokale identansvarlige.</p>' }} />);
                     }
-                    return <Fastlege fastlege={fastlege} hentFastlege={hentFastlege} />;
+                    return <Fastlege fastlege={fastlege} hentFastlege={actions.hentFastlege} />;
                 })()
             }
 
