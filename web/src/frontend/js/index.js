@@ -32,8 +32,8 @@ sagaMiddleware.run(rootSaga);
 const config = {
     config: {
         dataSources: {
-            veileder: `https://app${finnMiljoStreng()}.adeo.no/mote/rest/veilederinfo`,
-            enheter: `https://app${finnMiljoStreng()}.adeo.no/mote/rest/enheter`,
+            veileder: `${window.location.origin}/mote/rest/veilederinfo`,
+            enheter: `${window.location.origin}/mote/rest/enheter`,
         },
         toggles: {
             visEnhetVelger: true,
