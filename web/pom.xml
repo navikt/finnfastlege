@@ -31,11 +31,7 @@
         <dependency>
             <groupId>no.nav.dialogarena</groupId>
             <artifactId>oidc-security</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.geronimo.components</groupId>
-            <artifactId>geronimo-jaspi</artifactId>
+            <version>2.0-digisyfo</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -45,10 +41,6 @@
         <dependency>
             <groupId>no.nav.sbl.dialogarena</groupId>
             <artifactId>common-jetty</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -79,22 +71,12 @@
         </dependency>
         <dependency>
             <groupId>no.nav.modig</groupId>
-            <artifactId>modig-security-core</artifactId>
-            <type>test-jar</type>
-        </dependency>
-        <dependency>
-            <groupId>no.nav.modig</groupId>
             <artifactId>modig-lang</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>no.nav.sbl.dialogarena</groupId>
             <artifactId>common-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-jaas</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

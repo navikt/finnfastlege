@@ -33,7 +33,45 @@
                 <version>${bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>no.nav.dialogarena</groupId>
+                        <artifactId>oidc-security</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.9</version>
+                <executions>
+                    <execution>
+                        <id>analyze</id>
+                        <goals>
+                            <goal>analyze-only</goal>
+                        </goals>
+                        <configuration>
+                            <failOnWarning>false</failOnWarning>
+                            <ignoreNonCompile>true</ignoreNonCompile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>analyze-pom</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>analyze-dep-mgt</goal>
+                        </goals>
+                        <configuration>
+                            <failBuild>false</failBuild>
+                            <ignoreDirect>false</ignoreDirect>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
