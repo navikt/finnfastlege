@@ -1,5 +1,7 @@
+import { finnMiljoStreng } from './utils/index'
+
 const ContextholderConnection = () => {
-    return new WebSocket(`wss://${window.location.hostname}/modiaeventdistribution/websocket`);
+    return new WebSocket(`wss://veilederflatehendelser${finnMiljoStreng()}.adeo.no/modiaeventdistribution/websocket`);
 };
 
 export const opprettWebsocketConnection = (callback) => {
