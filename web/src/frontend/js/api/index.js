@@ -8,7 +8,7 @@ export function get(url) {
         if (res.status === 404) {
             throw new Error('404');
         } else if (res.status === 403) {
-            throw new Error('403');
+            return res.json();
         }
         if (res.status > 400) {
             throw new Error('Det oppstod en feil');
@@ -43,4 +43,18 @@ export function post(url, body) {
         log(err);
         throw err;
     });
+}
+
+export function getWithoutThrows(url) {
+    return fetch(url, {
+        credentials: 'include',
+    })
+        .then((res) => {
+        console.log(res);
+            return res.json();
+        })
+        .catch((err) => {
+            log(err);
+            throw err;
+        });
 }

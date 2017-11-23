@@ -18,6 +18,14 @@ export function fastlegeIkkeFunnet() {
     };
 }
 
+
+export function fastlegeIkkeTilgang(ikkeTilgangGrunn) {
+    return {
+        type: actiontyper.FASTLEGE_IKKE_TILGANG,
+        ikkeTilgangGrunn,
+    };
+}
+
 export function fastlegeHentet(data) {
     return {
         type: actiontyper.FASTLEGE_HENTET,

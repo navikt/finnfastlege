@@ -8,6 +8,10 @@ export function* hentFastlege(action) {
     yield put(actions.henterFastlege());
     try {
         const data = yield call(get, `${window.APP_SETTINGS.FASTLEGEREST_ROOT}/fastlege/v1?fnr=${action.fnr}`);
+        if (!data.harTilgang) {
+            yield put(actions.fastlegeIkkeTilgang(data.ikkeTilgangGrunn));
+            return;
+        }
         yield put(actions.fastlegeHentet(data));
     } catch (e) {
         if (e.message === '404') {

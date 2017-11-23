@@ -1,6 +1,7 @@
 import * as actiontyper from '../actions/actiontyper';
 
 const initiellState = {
+    ikkeTilgangGrunn: {},
     harSoktBruker: false,
     henter: false,
     ikkeFunnet: false,
@@ -20,6 +21,7 @@ export default function fastlege(state = initiellState, action) {
         case actiontyper.HENTER_FASTLEGE: {
             return Object.assign({}, state, {
                 data: {},
+                ikkeTilgangGrunn: {},
                 henter: true,
                 hentingFeilet: false,
                 harSoktBruker: true,
@@ -36,6 +38,13 @@ export default function fastlege(state = initiellState, action) {
         case actiontyper.FASTLEGE_HENTET: {
             return Object.assign({}, state, {
                 data: action.data,
+                henter: false,
+                hentingFeilet: false,
+            });
+        }
+        case actiontyper.FASTLEGE_IKKE_TILGANG: {
+            return Object.assign({}, state, {
+                ikkeTilgangGrunn: action.ikkeTilgangGrunn,
                 henter: false,
                 hentingFeilet: false,
             });
