@@ -30,7 +30,7 @@ const Fastlege = ({ fastlege, hentFastlege }) => {
                     return (<AppSpinner />);
                 } else if (!fastlege.harSoktBruker) {
                     return null;
-                } else if (fastlege.ikkeTilgangGrunn) {
+                } else if (fastlege.ikkeTilgang) {
                     return (<Feilmelding tittel="Ingen tilgang"
                                          melding={{ __html: `<p>${ikkeTilgangFeilmelding(fastlege.ikkeTilgangGrunn)}</p>` }} />);
                 } else if (fastlege.ikkeFunnet) {
