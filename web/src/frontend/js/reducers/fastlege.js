@@ -52,6 +52,24 @@ export default function fastlege(state = initiellState, action) {
                 hentingFeilet: false,
             });
         }
+        case actiontyper.DISKRESJONSKODE_HENTET: {
+            return Object.assign({}, state, {
+                data: Object.assign({}, state.data, {
+                    pasient: Object.assign({}, state.data.pasient, {
+                        diskresjonskode: action.data.diskresjonskode,
+                    })
+                })
+            });
+        }
+        case actiontyper.EGENANSATT_HENTET: {
+            return Object.assign({}, state, {
+                data: Object.assign({}, state.data, {
+                    pasient: Object.assign({}, state.data.pasient, {
+                        egenansatt: action.data.erEgenAnsatt,
+                    })
+                })
+            });
+        }
         default: {
             return state;
         }

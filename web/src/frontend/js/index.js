@@ -10,6 +10,8 @@ import rootSaga from './sagas/index';
 import modiacontext from './reducers/modiacontext';
 import fastlege from './reducers/fastlege';
 import tilgang from './reducers/tilgang';
+import egenansatt from './reducers/egenansatt';
+import diskresjonskode from './reducers/diskresjonskode';
 import { opprettWebsocketConnection } from './contextHolder';
 import { finnMiljoStreng } from './sagas/util';
 import { pushModiaContext, hentAktivEnhet } from './actions/modiacontext_actions';
@@ -19,6 +21,8 @@ const rootReducer = combineReducers({
     history,
     fastlege,
     tilgang,
+    diskresjonskode,
+    egenansatt,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -42,7 +46,7 @@ const config = {
             toggleSendEventVedEnEnhet: false,
         },
         handlePersonsokSubmit: (nyttFnr) => {
-            window.location = `https://modapp${finnMiljoStreng()}.adeo.no/sykefravaer/${nyttFnr}`;
+            window.location = `https://app${finnMiljoStreng()}.adeo.no/sykefravaer/${nyttFnr}`;
         },
         applicationName: 'Sykefravær',
         handleChangeEnhet: (data) => {

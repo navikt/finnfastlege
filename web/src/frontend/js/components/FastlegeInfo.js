@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import PersonIkon from '../svg/PersonIkon'
 import LegeIkon from '../svg/LegeIkon'
+import OrangeInfoLabel from './OrangeInfoLabel'
 import { tilLangtDatoFormat } from '../utils/datoUtils'
 
 const FastlegeInfo = ({fastlege}) => {
@@ -15,6 +16,9 @@ const FastlegeInfo = ({fastlege}) => {
                     <label>{fastlege.pasient.fnr}</label>
                 </div>
             </div>
+            { fastlege.pasient.egenansatt && <OrangeInfoLabel tekst="Egen ansatt" /> }
+            { fastlege.pasient.diskresjonskode && fastlege.pasient.diskresjonskode === '6' && <OrangeInfoLabel tekst="Kode 6" /> }
+            { fastlege.pasient.diskresjonskode && fastlege.pasient.diskresjonskode === '7' && <OrangeInfoLabel tekst="Kode 7" /> }
         </div>
 
         <div className="panel blokk--s">

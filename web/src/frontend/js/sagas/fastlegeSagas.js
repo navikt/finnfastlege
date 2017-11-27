@@ -2,6 +2,8 @@ import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { get } from '../api/index';
 import * as actions from '../actions/fastlege_actions';
+import * as egenansattActions from '../actions/egenansatt_actions';
+import * as diskresjonskodeActions from '../actions/diskresjonskode_actions';
 import * as actiontyper from '../actions/actiontyper';
 
 export function* hentFastlege(action) {
@@ -13,6 +15,8 @@ export function* hentFastlege(action) {
             return;
         }
         yield put(actions.fastlegeHentet(data));
+        yield put(egenansattActions.hentEgenansatt(action.fnr));
+        yield put(diskresjonskodeActions.hentDiskresjonskode(action.fnr));
     } catch (e) {
         if (e.message === '404') {
             yield put(actions.fastlegeIkkeFunnet());
