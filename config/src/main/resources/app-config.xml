@@ -20,6 +20,7 @@
         <baseUrl alias="modapp" mapToProperty="modapp"/>
         <rest alias="fastlegeapi" mapToProperty="fastlegeapi.fss"/>
         <rest alias="iadecorator-js" mapToProperty="iadecorator"/>
+        <rest alias="modiasyfoapi" mapToProperty="sykefravaerapi.fss"/>
 
         <baseUrl alias="isso-host"/>
         <baseUrl alias="isso-jwks"/>
