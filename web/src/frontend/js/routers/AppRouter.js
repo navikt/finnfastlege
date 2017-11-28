@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Router, Route } from 'react-router';
 import FastlegeContainer from '../containers/FastlegeContainer';
-import FeilsideContainer from '../containers/FeilsideContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>

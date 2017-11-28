@@ -1,14 +1,14 @@
-import React, {PropTypes} from 'react';
-import PersonIkon from '../svg/PersonIkon'
-import LegeIkon from '../svg/LegeIkon'
-import OrangeInfoLabel from './OrangeInfoLabel'
-import { tilLangtDatoFormat } from '../utils/datoUtils'
+import React, { PropTypes } from 'react';
+import PersonIkon from '../svg/PersonIkon';
+import LegeIkon from '../svg/LegeIkon';
+import OrangeInfoLabel from './OrangeInfoLabel';
+import { tilLangtDatoFormat } from '../utils/datoUtils';
 
-const FastlegeInfo = ({fastlege}) => {
+const FastlegeInfo = ({ fastlege }) => {
     return (<div>
-        <div className="panel" style={{marginBottom: '.25em'}}>
+        <div className="panel" style={{ marginBottom: '.25em' }}>
             <div className="flexbox">
-                <div style={{marginRight: '2em'}}>
+                <div style={{ marginRight: '2em' }}>
                     <PersonIkon />
                 </div>
                 <div>
@@ -23,7 +23,7 @@ const FastlegeInfo = ({fastlege}) => {
 
         <div className="panel blokk--s">
             <div className="flexbox">
-                <div style={{marginRight: '2em'}}>
+                <div style={{ marginRight: '2em' }}>
                     <LegeIkon />
                 </div>
                 <div className="blokk--xs">

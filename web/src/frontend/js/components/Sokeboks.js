@@ -28,18 +28,19 @@ class Sokeboks extends Component {
             value: event.target.value,
             valideringsfeil: false,
         });
-    };
+    }
 
     render() {
         return (<div>
             { this.state.valideringsfeil && <p className="skjema__feilmelding">Du må skrive inn et gyldig fødselsnummer (11 siffer)</p>}
             <form onSubmit={this.onSubmit} className="blokk--l" >
                 <div className="flexbox">
-                    <input type="search"
-                           onChange={this.sokefeltEndret}
-                           placeholder="Søk"
-                           className={`${this.state.valideringsfeil ? 'input--feil' : ''} sokefelt`}
-                           value={this.state.value} />
+                    <input
+                        type="search"
+                        onChange={this.sokefeltEndret}
+                        placeholder="Søk"
+                        className={`${this.state.valideringsfeil ? 'input--feil' : ''} sokefelt`}
+                        value={this.state.value} />
                     <button type="submit" className="knapp">Søk</button>
                 </div>
             </form>

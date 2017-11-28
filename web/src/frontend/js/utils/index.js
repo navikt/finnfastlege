@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const finnMiljoStreng = () => {
     const host = window.location.host;
     const bindestrekIndex = host.indexOf('-');

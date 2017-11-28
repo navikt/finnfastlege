@@ -1,25 +1,25 @@
 import React from 'react';
 
-const ArbeidsplassIkon = () => (
-    <svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1">
+const ArbeidsplassIkon = () => {
+    return (<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1">
         <title>Arbeidsplassikon</title>
         <defs>
             <polygon id="path-1" points="31.3333333 1.33333333 0.666666667 1.33333333 0.666666667 0.666666667 31.3333333 0.666666667"></polygon>
             <polygon id="path-3" points="0 32 32 32 32 0 0 0"></polygon>
         </defs>
-        <g id="NAV-Veileder" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="NAV-Veileder" stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
             <g id="Velge-arbeidsgiver-nå-flere--internt" transform="translate(-412.000000, -431.000000)">
                 <g id="Arbeidsplassikon" transform="translate(412.000000, 431.000000)">
                     <g id="Group-8">
                         <g id="Group-3" transform="translate(0.000000, 30.666667)">
                             <mask id="mask-2" fill="white">
-                                <use xlink:href="#path-1"></use>
+                                <use xlinkHref="#path-1"></use>
                             </mask>
                             <g id="Clip-2"></g>
                             <path d="M0.666666667,0.666666667 L31.3333333,0.666666667" id="Stroke-1" stroke="#000000" strokeLinecap="round" strokeLinejoin="round" mask="url(#mask-2)"></path>
                         </g>
                         <mask id="mask-4" fill="white">
-                            <use xlink:href="#path-3"></use>
+                            <use xlinkHref="#path-3"></use>
                         </mask>
                         <g id="Clip-5"></g>
                         <polygon id="Stroke-4" stroke="#000000" strokeLinecap="round" strokeLinejoin="round" mask="url(#mask-4)" points="6 31.3333333 26 31.3333333 26 6 6 6"></polygon>
@@ -40,7 +40,7 @@ const ArbeidsplassIkon = () => (
                 </g>
             </g>
         </g>
-    </svg>
-);
+    </svg>);
+};
 
 export default ArbeidsplassIkon;

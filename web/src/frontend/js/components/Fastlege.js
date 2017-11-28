@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Feilmelding from './Feilmelding';
 import AppSpinner from './AppSpinner';
 import FastlegeInfo from './FastlegeInfo';
@@ -31,13 +31,15 @@ const Fastlege = ({ fastlege, hentFastlege }) => {
                 } else if (!fastlege.harSoktBruker) {
                     return null;
                 } else if (fastlege.ikkeTilgang) {
-                    return (<Feilmelding tittel="Ingen tilgang"
-                                         melding={{ __html: `<p>${ikkeTilgangFeilmelding(fastlege.ikkeTilgangGrunn)}</p>` }} />);
+                    return (<Feilmelding
+                        tittel="Ingen tilgang"
+                        melding={{ __html: `<p>${ikkeTilgangFeilmelding(fastlege.ikkeTilgangGrunn)}</p>` }} />);
                 } else if (fastlege.ikkeFunnet) {
-                    return (<Feilmelding tittel="Finner ikke fastlegen"
-                                         melding={{ __html: '<p>Det kan hende brukeren ikke har en registrert fastlege. Ta kontakt med brukeren for å få behandlers kontaktopplysninger.</p>' }} />);
+                    return (<Feilmelding
+                        tittel="Finner ikke fastlegen"
+                        melding={{ __html: '<p>Det kan hende brukeren ikke har en registrert fastlege. Ta kontakt med brukeren for å få behandlers kontaktopplysninger.</p>' }} />);
                 }
-                return <FastlegeInfo fastlege={fastlege.data} />
+                return <FastlegeInfo fastlege={fastlege.data} />;
             })()
         }
     </div>);
@@ -45,6 +47,7 @@ const Fastlege = ({ fastlege, hentFastlege }) => {
 
 Fastlege.propTypes = {
     fastlege: PropTypes.object,
+    hentFastlege: PropTypes.func,
 };
 
 export default Fastlege;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const PersonLogo = () => (
-    <svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1">
+const PersonLogo = () => {
+    return (<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1">
         <title>Personbruker</title>
         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
             <g id="Desktop-Copy-11" transform="translate(-207.000000, -323.000000)" stroke="#000000">
@@ -14,7 +14,7 @@ const PersonLogo = () => (
                 </g>
             </g>
         </g>
-    </svg>
-);
+    </svg>);
+};
 
 export default PersonLogo;

@@ -49,12 +49,11 @@ export function getWithoutThrows(url) {
     return fetch(url, {
         credentials: 'include',
     })
-        .then((res) => {
-        console.log(res);
-            return res.json();
-        })
-        .catch((err) => {
-            log(err);
-            throw err;
-        });
+    .then((res) => {
+        return res.json();
+    })
+    .catch((err) => {
+        log(err);
+        throw err;
+    });
 }

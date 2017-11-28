@@ -2,7 +2,7 @@ import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { get, post } from '../api/index';
 import * as actions from '../actions/modiacontext_actions';
-import { PUSH_MODIACONTEXT_FORESPURT, HENT_AKTIVBRUKER_FORESPURT, HENT_AKTIVENHET_FORESPURT } from '../actions/actiontyper';
+import { PUSH_MODIACONTEXT_FORESPURT, HENT_AKTIVENHET_FORESPURT } from '../actions/actiontyper';
 import { finnMiljoStreng } from './util';
 
 export function* pushModiacontextSaga(action) {

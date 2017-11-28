@@ -1,7 +1,7 @@
 import React from 'react';
 
-const LegeLogo = () => (
-    <svg width="32px" height="27px" viewBox="0 0 32 27" version="1.1">
+const LegeLogo = () => {
+    return (<svg width="32px" height="27px" viewBox="0 0 32 27" version="1.1">
         <title>Lege</title>
         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
             <g id="Desktop-Copy-11" transform="translate(-207.000000, -435.000000)" stroke="#000000">
@@ -14,7 +14,7 @@ const LegeLogo = () => (
                 </g>
             </g>
         </g>
-    </svg>
-);
+    </svg>);
+};
 
 export default LegeLogo;

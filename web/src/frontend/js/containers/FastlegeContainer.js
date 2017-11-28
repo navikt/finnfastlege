@@ -25,17 +25,18 @@ export class FastlegeSide extends Component {
                         return <AppSpinner />;
                     }
                     if (tilgang.hentingFeilet) {
-                        return (<Feilmelding tittel="Det skjedde en feil!"
-                                             melding= {{ __html: '<p>Vi fikk ikke sjekket om du har tilgang til tjenesten. Vennligst prøv igjen senere!</p>' }} />);
+                        return (<Feilmelding
+                            tittel="Det skjedde en feil!"
+                            melding= {{ __html: '<p>Vi fikk ikke sjekket om du har tilgang til tjenesten. Vennligst prøv igjen senere!</p>' }} />);
                     }
                     if (!tilgang.harTilgang) {
-                        return (<Feilmelding tittel="Ops! Du har visst ikke tilgang til sykefravær i Modia"
-                                             melding= {{ __html: '<p>For å få tilgang må du ta kontakt med din lokale identansvarlige.</p>' }} />);
+                        return (<Feilmelding
+                            tittel="Ops! Du har visst ikke tilgang til sykefravær i Modia"
+                            melding= {{ __html: '<p>For å få tilgang må du ta kontakt med din lokale identansvarlige.</p>' }} />);
                     }
                     return <Fastlege fastlege={fastlege} hentFastlege={actions.hentFastlege} />;
                 })()
             }
-
         </Side>);
     }
 }
