@@ -1,6 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Row } from 'nav-frontend-grid';
+import {
+    Sidetittel,
+    Undertekst,
+} from 'nav-frontend-typografi';
+import NavFrontendSpinner from 'nav-frontend-spinner';
 import Feilmelding from './Feilmelding';
-import AppSpinner from './AppSpinner';
 import FastlegeInfo from './FastlegeInfo';
 import Sokeboks from './Sokeboks';
 
@@ -18,16 +24,20 @@ const ikkeTilgangFeilmelding = (ikkeTilgangGrunn) => {
 };
 
 const Fastlege = ({ fastlege, hentFastlege }) => {
-    return (<div>
-        <h1>Finn fastlegen</h1>
-        <p>Søk opp fastlegen ved å skrive brukerens fødselsnummer</p>
-        <Sokeboks hentFastlege={hentFastlege} />
+    return (<div className="fastlege">
+        <Sidetittel>Finn fastlegen</Sidetittel>
+        <div className="fastlege__sokeboks">
+            <Undertekst>Søk opp fastlegen ved å skrive brukerens fødselsnummer</Undertekst>
+            <Sokeboks hentFastlege={hentFastlege} />
+        </div>
         {
             (() => {
                 if (fastlege.hentingFeilet) {
                     return (<Feilmelding />);
                 } else if (fastlege.henter) {
-                    return (<AppSpinner />);
+                    return (<Row className="row-centered">
+                        <NavFrontendSpinner type="X" />
+                    </Row>);
                 } else if (!fastlege.harSoktBruker) {
                     return null;
                 } else if (fastlege.ikkeTilgang) {

@@ -1,7 +1,9 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Row, Column } from 'nav-frontend-grid';
+import NavFrontendSpinner from 'nav-frontend-spinner';
 import Fastlege from '../components/Fastlege';
 import Side from '../sider/Side';
-import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -19,10 +21,13 @@ export class FastlegeSide extends Component {
     render() {
         const { fastlege, actions, tilgang } = this.props;
         return (<Side>
+            <Column className="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
             {
                 (() => {
                     if (tilgang.henter) {
-                        return <AppSpinner />;
+                        return (<Row className="row-centered">
+                            <NavFrontendSpinner type="XL" />
+                        </Row>);
                     }
                     if (tilgang.hentingFeilet) {
                         return (<Feilmelding
@@ -37,6 +42,7 @@ export class FastlegeSide extends Component {
                     return <Fastlege fastlege={fastlege} hentFastlege={actions.hentFastlege} />;
                 })()
             }
+            </Column>
         </Side>);
     }
 }

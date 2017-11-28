@@ -1,0 +1,40 @@
+.fastlegeInfo {
+  .panel {
+    margin-bottom: 0.5em;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    @media(min-width: @screen-sm-min) {
+      flex-direction: row;
+    }
+  }
+  .row {
+    &:not(:last-child) {
+      margin-bottom: 1em;
+    }
+  }
+  .typo-etikett-liten {
+    color: #7f756c;
+  }
+}
+
+.fastlegeInfo__ikon {
+  @media(min-width: @screen-sm-min) {
+    margin-right: 2em;
+  }
+}
+
+.fastlegeInfo__etiketter {
+  display: flex;
+  flex-direction: column;
+  div:not(:last-child) {
+    margin-bottom: .5em;
+  }
+  @media(min-width: @screen-sm-min) {
+    flex-direction: row;
+    div:not(:last-child) {
+      margin-bottom: 0;
+      margin-right: .5em;
+    }
+  }
+}

@@ -1,9 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Undertittel } from 'nav-frontend-typografi';
 
 const Feilmelding = ({ tittel = 'Beklager, det oppstod en feil', melding = { __html: '<p>Vennligst prøv igjen litt senere.</p>' } }) => {
-    return (<div className="panel panel--melding">
-            <h3 className="hode hode--feil">{tittel}</h3>
-            <div dangerouslySetInnerHTML={melding} />
+    return (<div className="feilmelding panel">
+            <Undertittel className="hode hode--feil">{tittel}</Undertittel>
+        <div dangerouslySetInnerHTML={melding} />
     </div>);
 };
 

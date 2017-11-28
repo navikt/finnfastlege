@@ -1,96 +1,19 @@
-@nodeModulesPath: "node_modules/";
+@import "~nav-frontend-core/less/core";
+@import "~nav-frontend-lenker-style/src/lenker-style";
+@import "~nav-frontend-skjema-style/src/index";
+@import "~nav-frontend-typografi-style/src/index";
 
-@import "~nav-frontend-core/less/styles";
-@import "~nav-frontend-typografi-design/less/styles";
-@import "~nav-frontend-knapper-design/less/styles";
-@import "~nav-frontend-skjema-design/less/styles";
-@import "~nav-frontend-hjelpetekst-design/less/styles";
-@import "~nav-frontend-brodsmuler-design/less/styles";
-
-@import "vendor/_loader";
-@import "vendor/_grid";
-
-@import "_temp_hode";
 @import "_avstander";
+@import "_fastlege";
+@import "_fastlegeInfo";
+@import "_feilmelding";
+@import "_gridUtils";
+@import "_sokeboks";
 @import "_typografi";
-@import "_layout";
-@import "_statusopplysninger";
-@import "_sokefelt";
-
-@greenLight: #63b282;
-@blueLight: #c3ddf4;
-@textColor: #3e3832;
-@skjermLiten: 30em;
-@skjermMedium: 40em;
 
 body {
   background-color: #f1f1f1;
 }
-
-.mixin-panel-padding() {
-    padding-left: 1rem; 
-    padding-right: 1rem; 
-
-    @media(min-width: @skjermMini) {
-        padding-left: 2rem; 
-        padding-right: 2rem; 
-    }
-}
-
-.medHjelpetekst {
-    display: flex;
-    position: relative;
-    padding-right: 2em;
-}
-
-.redaksjonelt-innhold {
-
-    // Brukes på redaktørstyrt HTML.
-
-    line-height: 1.6; 
-
-    h2, h3, h4 {
-        .mixin-typo-element(); 
-        margin-top: 20px;
-        margin-bottom: 0; 
-    }
-
-    a {
-      .lenke;
-    }
-}
-
-.hjelpetekstlenke {
-  color: #0067c5;
-  border-bottom: 1px solid #b7b1a9;
-  text-decoration: none;
-}
-
-a {
-  text-decoration: none;
-}
-
-button.lenke {
-  padding: 0;
-  border-left: 0;
-  border-top: 0;
-  border-right: 0;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.knapp--enten, .rammeknapp {
-  margin-right: 2em;
-}
-
 .flexbox {
   display: flex;
-}
-
-.infolabel {
-  background-color: #ffbd66;
-  display: inline-block;
-  margin-right: 1em;
-  margin-top: 1.25em;
-  padding: 0.25em 1em;
 }
