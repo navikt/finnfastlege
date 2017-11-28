@@ -1,4 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Hovedknapp } from 'nav-frontend-knapper';
+import { Input } from 'nav-frontend-skjema';
 
 class Sokeboks extends Component {
     constructor(props) {
@@ -31,18 +34,17 @@ class Sokeboks extends Component {
     }
 
     render() {
-        return (<div>
-            { this.state.valideringsfeil && <p className="skjema__feilmelding">Du må skrive inn et gyldig fødselsnummer (11 siffer)</p>}
-            <form onSubmit={this.onSubmit} className="blokk--l" >
-                <div className="flexbox">
-                    <input
-                        type="search"
-                        onChange={this.sokefeltEndret}
-                        placeholder="Søk"
-                        className={`${this.state.valideringsfeil ? 'input--feil' : ''} sokefelt`}
-                        value={this.state.value} />
-                    <button type="submit" className="knapp">Søk</button>
-                </div>
+        return (<div className="sokeboks blokk">
+            <form onSubmit={this.onSubmit} >
+                <Input
+                    feil={this.state.valideringsfeil && {
+                        feilmelding: 'Du må skrive inn et gyldig fødselsnummer (11 siffer)',
+                    }}
+                    type="search"
+                    onChange={this.sokefeltEndret}
+                    placeholder="Søk"
+                    value={this.state.value} />
+                <Hovedknapp>Søk</Hovedknapp>
             </form>
         </div>);
     }

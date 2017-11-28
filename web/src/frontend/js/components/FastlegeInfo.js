@@ -1,60 +1,83 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Row, Column } from 'nav-frontend-grid';
+import { Panel } from 'nav-frontend-paneler';
+import { EtikettFokus } from 'nav-frontend-etiketter';
+import {
+    Systemtittel,
+    Undertekst,
+    EtikettLiten,
+} from 'nav-frontend-typografi';
 import PersonIkon from '../svg/PersonIkon';
 import LegeIkon from '../svg/LegeIkon';
-import OrangeInfoLabel from './OrangeInfoLabel';
 import { tilLangtDatoFormat } from '../utils/datoUtils';
 
 const FastlegeInfo = ({ fastlege }) => {
-    return (<div>
-        <div className="panel" style={{ marginBottom: '.25em' }}>
-            <div className="flexbox">
-                <div style={{ marginRight: '2em' }}>
-                    <PersonIkon />
-                </div>
-                <div>
-                    <label className="typo-undertittel">{fastlege.pasient.navn}</label>
-                    <label>{fastlege.pasient.fnr}</label>
-                </div>
-            </div>
-            { fastlege.pasient.egenansatt && <OrangeInfoLabel tekst="Egen ansatt" /> }
-            { fastlege.pasient.diskresjonskode && fastlege.pasient.diskresjonskode === '6' && <OrangeInfoLabel tekst="Kode 6" /> }
-            { fastlege.pasient.diskresjonskode && fastlege.pasient.diskresjonskode === '7' && <OrangeInfoLabel tekst="Kode 7" /> }
-        </div>
+    return (<div className="fastlegeInfo">
+        <Panel>
+            <Column className="fastlegeInfo__ikon">
+                <PersonIkon />
+            </Column>
+            <Column>
+                <Row className="no-gutter">
+                    <Column>
+                        <Systemtittel>{fastlege.pasient.navn}</Systemtittel>
+                        <Undertekst>{fastlege.pasient.fnr}</Undertekst>
+                    </Column>
+                </Row>
+                <Row className="no-gutter fastlegeInfo__etiketter">
+                    { fastlege.pasient.egenansatt && <div><EtikettFokus>
+                        Egen ansatt
+                    </EtikettFokus>
+                    </div>
+                    }
+                    { !fastlege.pasient.diskresjonskode && fastlege.pasient.diskresjonskode === '6' && <div><EtikettFokus>
+                        Kode 6
+                    </EtikettFokus>
+                    </div>
+                    }
+                    { !fastlege.pasient.diskresjonskode && fastlege.pasient.diskresjonskode === '7' && <div><EtikettFokus>
+                        Kode 7
+                    </EtikettFokus>
+                    </div>
+                    }
+                </Row>
+            </Column>
+        </Panel>
 
-        <div className="panel blokk--s">
-            <div className="flexbox">
-                <div style={{ marginRight: '2em' }}>
-                    <LegeIkon />
-                </div>
-                <div className="blokk--xs">
-                    <div className="blokk--xs">
-                        <label className="typo-undertittel">{fastlege.navn}</label>
-                        <label>{`Fastlege: ${tilLangtDatoFormat(fastlege.pasientforhold.fom)} - nå`}</label>
-                    </div>
-                    <div className="statusopplysninger js-rad">
-                        <div className="nokkelopplysning">
-                            <label className="nokkelopplysning__tittel">Legekontor</label>
-                            <label className="js-status">{fastlege.fastlegekontor.navn}</label>
-                        </div>
-                        <div className="nokkelopplysning nokkelopplysning--statusopplysning">
-                            <label className="nokkelopplysning__tittel">Besøksadresse</label>
-                            <label className="js-status">{fastlege.fastlegekontor.besoeksadresse}</label>
-                        </div>
-                    </div>
-
-                    <div className="statusopplysninger js-rad">
-                        <div className="nokkelopplysning">
-                            <label className="nokkelopplysning__tittel">Telefon</label>
-                            <label className="js-status">{fastlege.fastlegekontor.telefon}</label>
-                        </div>
-                        <div className="nokkelopplysning nokkelopplysning--statusopplysning">
-                            <label className="nokkelopplysning__tittel">Postadresse</label>
-                            <label className="js-status">{fastlege.fastlegekontor.postadresse}</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Panel>
+            <Column className="fastlegeInfo__ikon">
+                <LegeIkon />
+            </Column>
+            <Column>
+                <Row className="no-gutter">
+                    <Column>
+                        <Systemtittel>{fastlege.navn}</Systemtittel>
+                        <Undertekst>{`Fastlege: ${tilLangtDatoFormat(fastlege.pasientforhold.fom)} - nå`}</Undertekst>
+                    </Column>
+                </Row>
+                <Row className="no-gutter">
+                    <Column className="col-xs-12 col-sm-6">
+                        <EtikettLiten>Legekontor</EtikettLiten>
+                        <Undertekst>{fastlege.fastlegekontor.navn}</Undertekst>
+                    </Column>
+                    <Column className="col-xs-12 col-sm-6">
+                        <EtikettLiten>Besøksadresse</EtikettLiten>
+                        <Undertekst>{fastlege.fastlegekontor.besoeksadresse}</Undertekst>
+                    </Column>
+                </Row>
+                <Row className="no-gutter">
+                    <Column className="col-xs-12 col-sm-6">
+                        <EtikettLiten>Telefon</EtikettLiten>
+                        <Undertekst>{fastlege.fastlegekontor.telefon}</Undertekst>
+                    </Column>
+                    <Column className="col-xs-12 col-sm-6">
+                        <EtikettLiten>Postadresse</EtikettLiten>
+                        <Undertekst>{fastlege.fastlegekontor.postadresse}</Undertekst>
+                    </Column>
+                </Row>
+            </Column>
+        </Panel>
     </div>);
 };
 

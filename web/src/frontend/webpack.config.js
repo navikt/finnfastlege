@@ -22,7 +22,7 @@ module.exports = {
             },
             { 
                 test: /\.less$/,
-                loader: "style!css!autoprefixer!less"
+                loaders: ['style-loader', 'css-loader', 'less-loader?{"globalVars":{"nodeModulesPath":"\'~\'", "coreModulePath":"\'~\'"}}']
             }, 
             {
                 test: /\.json$/, 
