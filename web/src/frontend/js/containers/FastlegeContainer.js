@@ -28,13 +28,11 @@ export class FastlegeSide extends Component {
                         return (<Row className="row-centered">
                             <NavFrontendSpinner type="XL" />
                         </Row>);
-                    }
-                    if (tilgang.hentingFeilet) {
+                    } else if (tilgang.hentingFeilet) {
                         return (<Feilmelding
                             tittel="Det skjedde en feil!"
                             melding= {{ __html: '<p>Vi fikk ikke sjekket om du har tilgang til tjenesten. Vennligst prøv igjen senere!</p>' }} />);
-                    }
-                    if (!tilgang.harTilgang) {
+                    } else if (!tilgang.harTilgang) {
                         return (<Feilmelding
                             tittel="Ops! Du har visst ikke tilgang til sykefravær i Modia"
                             melding= {{ __html: '<p>For å få tilgang må du ta kontakt med din lokale identansvarlige.</p>' }} />);
