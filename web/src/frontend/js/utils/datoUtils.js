@@ -2,6 +2,6 @@ const kortManeder = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli'
 
 export const tilLangtDatoFormat = (dato) => {
     const newDato = new Date(dato);
-    const maned = kortManeder[newDato.getMonth() - 1];
+    const maned = kortManeder[newDato.getMonth()];
     return `${newDato.getDate()}. ${maned} ${newDato.getFullYear()}`;
 };
