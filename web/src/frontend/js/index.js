@@ -48,7 +48,7 @@ const config = {
         handlePersonsokSubmit: (nyttFnr) => {
             window.location = `https://app${finnMiljoStreng()}.adeo.no/sykefravaer/${nyttFnr}`;
         },
-        applicationName: 'Sykefravær',
+        applicationName: 'Sykefraværsoppfølging',
         handleChangeEnhet: (data) => {
             if (config.config.initiellEnhet !== data) {
                 store.dispatch(pushModiaContext({
