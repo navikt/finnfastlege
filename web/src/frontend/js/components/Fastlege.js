@@ -20,7 +20,7 @@ const ikkeTilgangFeilmelding = (ikkeTilgangGrunn) => {
     } else if (ikkeTilgangGrunn === 'SYFO') {
         return 'Du har ikke tilgang til sykefraværsoppfølgingen';
     }
-    return '';
+    return 'Du har ikke tilgang';
 };
 
 const Fastlege = ({ fastlege, hentFastlege }) => {
