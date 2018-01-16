@@ -31,12 +31,12 @@ const FastlegeInfo = ({ fastlege }) => {
                     </EtikettFokus>
                     </div>
                     }
-                    { !fastlege.pasient.diskresjonskode && fastlege.pasient.diskresjonskode === '6' && <div><EtikettFokus>
+                    { fastlege.pasient.diskresjonskode && fastlege.pasient.diskresjonskode === '6' && <div><EtikettFokus>
                         Kode 6
                     </EtikettFokus>
                     </div>
                     }
-                    { !fastlege.pasient.diskresjonskode && fastlege.pasient.diskresjonskode === '7' && <div><EtikettFokus>
+                    { fastlege.pasient.diskresjonskode && fastlege.pasient.diskresjonskode === '7' && <div><EtikettFokus>
                         Kode 7
                     </EtikettFokus>
                     </div>
