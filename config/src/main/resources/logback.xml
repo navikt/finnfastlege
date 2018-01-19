@@ -26,6 +26,8 @@
         <throwableExcluded>true</throwableExcluded>
     </appender>
 
+    <logger name="no.nav.sbl.dialogarena.common.web.selftest.SelfTestBaseServlet" level="OFF" />
+
     <root level="${ROOT_LOG_LEVEL:-ERROR}">
         <appender-ref ref="infolog"/>
         <appender-ref ref="SYSLOG"/>

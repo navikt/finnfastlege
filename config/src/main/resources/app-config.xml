@@ -16,7 +16,7 @@
     <security serviceUserResourceAlias="srvfastlegefront" />
 
     <resources>
-        <rest alias="oidc-login-api" mapToProperty="oidc-redirect"/>
+        <rest alias="veilarblogin.redirect-url" mapToProperty="oidc-redirect"/>
         <baseUrl alias="modapp" mapToProperty="modapp"/>
         <rest alias="fastlegeapi" mapToProperty="fastlegeapi.fss"/>
         <rest alias="iadecorator-js" mapToProperty="iadecorator"/>
@@ -25,7 +25,7 @@
         <baseUrl alias="isso-host"/>
         <baseUrl alias="isso-jwks"/>
         <baseUrl alias="isso-issuer"/>
-        <credential alias="OpenIdConnectAgent" />
+        <credential alias="isso-rp-user"/>
     </resources>
 
     <loadBalancer isAlive="/fastlege/internal/isAlive" />
