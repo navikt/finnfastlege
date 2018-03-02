@@ -5,9 +5,8 @@
   "main": "index.js",
   "test": "npm run test",
   "scripts": {
-    "prebuild": "node createProdFolders.js",
-    "dev": "title fastlegefront && npm-run-all prebuild images static:build:local scripts:watch",
-    "build": "npm-run-all prebuild images static:build scripts:build",
+    "dev": "title fastlegefront && npm-run-all images static:build:local scripts:watch",
+    "build": "npm-run-all images static:build scripts:build",
     "test:watch": "title fastlegefront && cross-env NODE_ENV=test nyc mocha --watch -G --require ignore-styles --compilers js:babel-core/register --require babel-polyfill ./test/setup.js --recursive test",
     "test": "cross-env NODE_ENV=test nyc mocha -G --require ignore-styles --compilers js:babel-core/register --require babel-polyfill ./test/setup.js --recursive test",
     "posttest": "nyc report --reporter=html --reporter=lcov",
