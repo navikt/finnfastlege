@@ -1,0 +1,44 @@
+# ref https://raw.githubusercontent.com/nais/naisd/master/nais_example.yaml
+image: docker.adeo.no:5000/digisyfo/fastlegefront
+replicas:
+  min: 1
+  max: 2
+  cpuThresholdPercentage: 50
+port: 8080
+healthcheck:
+  liveness:
+    path: fastlege/internal/isAlive
+    initialDelay: 60
+  readiness:
+    path: fastlege/internal/isAlive
+    initialDelay: 60
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+fasitResources:
+  used:
+  - alias: srvfastlegefront
+    resourceType: credential
+  - alias: loadbalancer:fastlegefront
+    resourceType: loadbalancerconfig
+  - alias: securityTokenService
+    resourceType: baseUrl
+  - alias: isso-host
+    resourceType: baseurl
+  - alias: isso-jwks
+    resourceType: baseurl
+  - alias: isso-issuer
+    resourceType: baseurl
+  - alias: isso.isalive
+    resourceType: baseurl
+  - alias: isso-rp-user
+    resourceType: credential
+  - alias: veilarblogin.redirect-url
+    resourceType: restservice
+  - alias: fastlegeapi
+    resourceType: restservice
+  - alias: iadecorator-js
+    resourceType: restservice
+  - alias: modiasyfoapi
+    resourceType: restservice
