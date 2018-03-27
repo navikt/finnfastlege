@@ -4,21 +4,14 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>Ubeskyttet</web-resource-name>
-            <url-pattern>/internal/*</url-pattern>
-        </web-resource-collection>
-    </security-constraint>
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>Alt annet beskyttet</web-resource-name>
-            <url-pattern>/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>**</role-name>
-        </auth-constraint>
-    </security-constraint>
+    <filter>
+        <filter-name>CacheFilter</filter-name>
+        <filter-class>no.nav.sbl.dialogarena.common.web.security.DisableCacheHeadersFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CacheFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>isAlive</servlet-name>
