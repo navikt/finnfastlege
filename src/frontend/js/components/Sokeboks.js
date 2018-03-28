@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
+import { erGyldigFodselsnummer } from '../utils/fnrValideringUtil';
 
 class Sokeboks extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Sokeboks extends Component {
     onSubmit(event) {
         event.preventDefault();
         const input = this.state.value.replace(/\s/g, '');
-        if (input.match(new RegExp('[0-9]{11}'))) {
+        if (erGyldigFodselsnummer(input)) {
             this.props.hentFastlege(input);
         } else {
             this.setState({
