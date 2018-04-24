@@ -36,7 +36,7 @@ const Fastlege = ({ fastlege, hentFastlege }) => {
                     return (<Feilmelding />);
                 } else if (fastlege.henter) {
                     return (<Row className="row-centered">
-                        <NavFrontendSpinner type="X" />
+                        <NavFrontendSpinner type="XL" />
                     </Row>);
                 } else if (!fastlege.harSoktBruker) {
                     return null;

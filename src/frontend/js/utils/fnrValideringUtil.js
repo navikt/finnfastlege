@@ -42,7 +42,7 @@ export function erGyldigFodselsnummer(fodselsnummer) {
     if (!erGyldigFodselsdato(fodselsnummer.substring(0, 6))) {
         return false;
     }
-    const fodselsnummerListe = fodselsnummer.split('').map(x => parseInt(x, decimalRadix));
+    const fodselsnummerListe = fodselsnummer.split('').map(x => { return parseInt(x, decimalRadix); });
     const kontrollSiffer1 = hentKontrollSiffer(fodselsnummerListe.slice(0, 9), kontrollRekke1);
     const kontrollSiffer2 = hentKontrollSiffer(fodselsnummerListe.slice(0, 10), kontrollRekke2);
     return fodselsnummerListe[9] === kontrollSiffer1 && fodselsnummerListe[10] === kontrollSiffer2;
