@@ -12,6 +12,24 @@ import PersonIkon from '../svg/PersonIkon';
 import LegeIkon from '../svg/LegeIkon';
 import { tilLangtDatoFormat } from '../utils/datoUtils';
 
+const VERDI_IKKE_FUNNET = 'Ikke funnet';
+
+export const hentTekstPasientNavn = (pasient) => {
+    return pasient ? `${pasient.fornavn} ${pasient.etternavn}` : VERDI_IKKE_FUNNET;
+};
+
+export const hentTekstFastlegeNavn = (fastlege) => {
+    return fastlege ? `${fastlege.fornavn} ${fastlege.etternavn}` : VERDI_IKKE_FUNNET;
+};
+
+export const hentTekstFastlegeBesoeksadresse = (besoeksadresse) => {
+    return besoeksadresse ? `${besoeksadresse.adresse}, ${besoeksadresse.postnummer} ${besoeksadresse.poststed}` : VERDI_IKKE_FUNNET;
+};
+
+export const hentTekstFastlegePostadresse = (postadresse) => {
+    return postadresse ? `Postboks ${postadresse.adresse}, ${postadresse.postnummer} ${postadresse.poststed}` : VERDI_IKKE_FUNNET;
+};
+
 const FastlegeInfo = ({ fastlege }) => {
     return (<div className="fastlegeInfo">
         <Panel>
@@ -21,7 +39,7 @@ const FastlegeInfo = ({ fastlege }) => {
             <Column>
                 <Row className="no-gutter">
                     <Column>
-                        <Systemtittel>{fastlege.pasient.navn}</Systemtittel>
+                        <Systemtittel>{hentTekstPasientNavn(fastlege.pasient)}</Systemtittel>
                         <Undertekst>{fastlege.pasient.fnr}</Undertekst>
                     </Column>
                 </Row>
@@ -50,32 +68,37 @@ const FastlegeInfo = ({ fastlege }) => {
                 <LegeIkon />
             </Column>
             <Column>
+                { fastlege &&
                 <Row className="no-gutter">
                     <Column>
-                        <Systemtittel>{fastlege.navn}</Systemtittel>
+                        <Systemtittel>{hentTekstFastlegeNavn(fastlege)}</Systemtittel>
                         <Undertekst>{`Fastlege: ${tilLangtDatoFormat(fastlege.pasientforhold.fom)} - nå`}</Undertekst>
                     </Column>
                 </Row>
-                <Row className="no-gutter">
-                    <Column className="col-xs-12 col-sm-6">
-                        <EtikettLiten>Legekontor</EtikettLiten>
-                        <Undertekst>{fastlege.fastlegekontor.navn}</Undertekst>
-                    </Column>
-                    <Column className="col-xs-12 col-sm-6">
-                        <EtikettLiten>Besøksadresse</EtikettLiten>
-                        <Undertekst>{fastlege.fastlegekontor.besoeksadresse}</Undertekst>
-                    </Column>
-                </Row>
-                <Row className="no-gutter">
-                    <Column className="col-xs-12 col-sm-6">
-                        <EtikettLiten>Telefon</EtikettLiten>
-                        <Undertekst>{fastlege.fastlegekontor.telefon}</Undertekst>
-                    </Column>
-                    <Column className="col-xs-12 col-sm-6">
-                        <EtikettLiten>Postadresse</EtikettLiten>
-                        <Undertekst>{fastlege.fastlegekontor.postadresse}</Undertekst>
-                    </Column>
-                </Row>
+                }
+                { fastlege.fastlegekontor && [
+                    <Row className="no-gutter">
+                        <Column className="col-xs-12 col-sm-6">
+                            <EtikettLiten>Legekontor</EtikettLiten>
+                            <Undertekst>{fastlege.fastlegekontor.navn}</Undertekst>
+                        </Column>
+                        <Column className="col-xs-12 col-sm-6">
+                            <EtikettLiten>Besøksadresse</EtikettLiten>
+                            <Undertekst>{hentTekstFastlegeBesoeksadresse(fastlege.fastlegekontor.besoeksadresse)}</Undertekst>
+                        </Column>
+                    </Row>,
+                    <Row className="no-gutter">
+                        <Column className="col-xs-12 col-sm-6">
+                            <EtikettLiten>Telefon</EtikettLiten>
+                            <Undertekst>{fastlege.fastlegekontor.telefon}</Undertekst>
+                        </Column>
+                        <Column className="col-xs-12 col-sm-6">
+                            <EtikettLiten>Postadresse</EtikettLiten>
+                            <Undertekst>{hentTekstFastlegePostadresse(fastlege.fastlegekontor.postadresse)}</Undertekst>
+                        </Column>
+                    </Row>,
+                ]
+                }
             </Column>
         </Panel>
     </div>);
