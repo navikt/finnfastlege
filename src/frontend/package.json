@@ -48,6 +48,8 @@
     "isomorphic-fetch": "2.2.1",
     "json-loader": "0.5.4",
     "lodash.throttle": "4.1.1",
+    "nav-frontend-alertstriper": "0.2.18",
+    "nav-frontend-alertstriper-style": "0.2.23",
     "nav-frontend-core": "4.0.5",
     "nav-frontend-etiketter": "0.2.15",
     "nav-frontend-etiketter-style": "0.3.4",

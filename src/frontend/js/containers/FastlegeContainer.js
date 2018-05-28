@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Column } from 'nav-frontend-grid';
+import { Row } from 'nav-frontend-grid';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import Fastlege from '../components/Fastlege';
 import Side from '../sider/Side';
@@ -21,7 +21,6 @@ export class FastlegeSide extends Component {
     render() {
         const { fastlege, actions, tilgang } = this.props;
         return (<Side>
-            <Column className="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
             {
                 (() => {
                     if (tilgang.henter) {
@@ -40,7 +39,6 @@ export class FastlegeSide extends Component {
                     return <Fastlege fastlege={fastlege} hentFastlege={actions.hentFastlege} />;
                 })()
             }
-            </Column>
         </Side>);
     }
 }

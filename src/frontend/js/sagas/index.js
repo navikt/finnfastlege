@@ -2,6 +2,7 @@ import fastlegeSagas from './fastlegeSagas';
 import modiacontextSagas from './modiacontextSagas';
 import egenansattSagas from './egenansattSagas';
 import diskresjonskodeSagas from './diskresjonskodeSagas';
+import veilederinfoSagas from './veilederinfoSagas';
 
 export default function * rootSaga() {
     yield [
@@ -9,5 +10,6 @@ export default function * rootSaga() {
         modiacontextSagas(),
         egenansattSagas(),
         diskresjonskodeSagas(),
+        veilederinfoSagas(),
     ];
 }

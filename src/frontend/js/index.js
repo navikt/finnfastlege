@@ -12,9 +12,10 @@ import fastlege from './reducers/fastlege';
 import tilgang from './reducers/tilgang';
 import egenansatt from './reducers/egenansatt';
 import diskresjonskode from './reducers/diskresjonskode';
-import { opprettWebsocketConnection } from './contextHolder';
+import veilederinfo from './reducers/veilederinfo';
 import { finnMiljoStreng } from './sagas/util';
 import { pushModiaContext, hentAktivEnhet } from './actions/modiacontext_actions';
+import { CONTEXT_EVENT_TYPE } from './konstanter';
 
 const rootReducer = combineReducers({
     modiacontext,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     tilgang,
     diskresjonskode,
     egenansatt,
+    veilederinfo,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -53,14 +55,13 @@ const config = {
             if (config.config.initiellEnhet !== data) {
                 store.dispatch(pushModiaContext({
                     verdi: data,
-                    eventType: 'NY_AKTIV_ENHET',
+                    eventType: CONTEXT_EVENT_TYPE.NY_AKTIV_ENHET,
                 }));
                 config.config.initiellEnhet = data;
             }
         },
     },
 };
-
 store.dispatch(hentAktivEnhet({
     callback: (aktivEnhet) => {
         if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
@@ -76,20 +77,6 @@ render(<Provider store={store}>
 
 document.addEventListener('DOMContentLoaded', () => {
     window.renderDecoratorHead && window.renderDecoratorHead(config);
-});
-
-
-opprettWebsocketConnection((wsCallback) => {
-    if (wsCallback.data === 'NY_AKTIV_ENHET') {
-        store.dispatch(hentAktivEnhet({
-            callback: (aktivEnhet) => {
-                if (config.config.initiellEnhet !== aktivEnhet) {
-                    config.config.initiellEnhet = aktivEnhet;
-                    window.renderDecoratorHead(config);
-                }
-            },
-        }));
-    }
 });
 
 export {
