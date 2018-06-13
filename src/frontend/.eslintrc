@@ -1,7 +1,18 @@
 {
     "extends": "airbnb",
     "globals": {
-        "$": false
+        "$": false,
+        "config": true,
+        "window": true,
+        "document": true,
+        "localStorage": true,
+        "WebSocket": true,
+        "Headers": true,
+        "fetch": true,
+        "it": true,
+        "describe": true,
+        "beforeEach": true,
+        "afterEach": true
     },
     "rules": {
         "indent": ["error", 4, {"SwitchCase": 1}],

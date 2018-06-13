@@ -14,8 +14,8 @@ const opprettWSConnection = (actions, veilederinfo) => {
         if (wsCallback.data === CONTEXT_EVENT_TYPE.NY_AKTIV_ENHET) {
             actions.hentAktivEnhet({
                 callback: (aktivEnhet) => {
-                    if (config.initiellEnhet !== aktivEnhet) {
-                        config.initiellEnhet = aktivEnhet;
+                    if (config.config.initiellEnhet !== aktivEnhet) {
+                        config.config.initiellEnhet = aktivEnhet;
                         window.renderDecoratorHead(config);
                     }
                 },
