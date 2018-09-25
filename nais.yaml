@@ -13,6 +13,9 @@ healthcheck:
   readiness:
     path: fastlege/internal/isAlive
     initialDelay: 60
+prometheus:
+  enabled: true
+  path: /actuator/metrics
 resources:
   limits:
     cpu: 500m
