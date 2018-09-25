@@ -1,5 +1,6 @@
 # ref https://raw.githubusercontent.com/nais/naisd/master/nais_example.yaml
 image: docker.adeo.no:5000/digisyfo/fastlegefront
+team: sykefravaer
 replicas:
   min: 1
   max: 2
@@ -13,6 +14,9 @@ healthcheck:
     path: fastlege/internal/isAlive
     initialDelay: 60
 resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
   requests:
     cpu: 200m
     memory: 256Mi
@@ -20,6 +24,8 @@ fasitResources:
   used:
   - alias: srvfastlegefront
     resourceType: credential
+  - alias: appdynamics
+    resourceType: applicationproperties
   - alias: loadbalancer:fastlegefront
     resourceType: loadbalancerconfig
   - alias: securityTokenService
