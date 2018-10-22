@@ -16,14 +16,8 @@ import static no.nav.sbl.dialogarena.types.Pingable.Ping.feilet;
 import static no.nav.sbl.dialogarena.types.Pingable.Ping.lyktes;
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class SelftestServlet extends SelfTestBaseServlet{
-    private static final String APPLIKASJONS_NAVN = "fastlegefront";
+public class SelftestServlet extends SelfTestBaseServlet {
     private static final Logger logger = getLogger(SelftestServlet.class);
-
-    @Override
-    protected String getApplicationName() {
-        return APPLIKASJONS_NAVN;
-    }
 
     @Override
     protected Collection<? extends Pingable> getPingables() {
