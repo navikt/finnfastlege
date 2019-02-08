@@ -11,7 +11,7 @@ export function* hentFastlege(action) {
     try {
         const data = yield call(get, `${window.APP_SETTINGS.FASTLEGEREST_ROOT}/fastlege/v1?fnr=${action.fnr}`);
         if (data.ikkeTilgang) {
-            yield put(actions.fastlegeIkkeTilgang(data.ikkeTilgangGrunn));
+            yield put(actions.fastlegeIkkeTilgang(data.begrunnelse));
             return;
         }
         yield put(actions.fastlegeHentet(data));
