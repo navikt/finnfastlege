@@ -10,7 +10,7 @@ export function get(url) {
         } else if (res.status === 403) {
             return res.json();
         }
-        if (res.status > 400) {
+        if (res.status >= 400) {
             throw new Error('Det oppstod en feil');
         }
         return res.json();
@@ -32,7 +32,7 @@ export function post(url, body) {
         },
     })
     .then((res) => {
-        if (res.status > 400) {
+        if (res.status >= 400) {
             log(res);
             throw new Error('Forespørsel feilet');
         } else {
