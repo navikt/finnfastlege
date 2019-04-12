@@ -10,14 +10,14 @@ export function* hentFastlege(action) {
     yield put(actions.henterFastlege());
     try {
         const data = yield call(get, `${window.APP_SETTINGS.FASTLEGEREST_ROOT}/fastlege/v1?fnr=${action.fnr}`);
-        if (data.ikkeTilgang) {
-            yield put(actions.fastlegeIkkeTilgang(data.begrunnelse));
-            return;
-        }
         yield put(actions.fastlegeHentet(data));
         yield put(egenansattActions.hentEgenansatt(action.fnr));
         yield put(diskresjonskodeActions.hentDiskresjonskode(action.fnr));
     } catch (e) {
+        if (e.status === 403) {
+            yield put(actions.fastlegeIkkeTilgang(e.tilgang.begrunnelse));
+            return;
+        }
         if (e.message === '404') {
             yield put(actions.fastlegeIkkeFunnet());
             return;
