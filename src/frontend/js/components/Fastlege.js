@@ -19,6 +19,8 @@ const ikkeTilgangFeilmelding = (ikkeTilgangGrunn) => {
         return 'Bruker er egen ansatt, du har ikke tilgang til å se informasjon om bruker';
     } else if (ikkeTilgangGrunn === 'SYFO') {
         return 'Du har ikke tilgang til sykefraværsoppfølgingen';
+    } else if (ikkeTilgangGrunn === 'GEOGRAFISK') {
+        return 'Personen tilhører et område du ikke har tilgang til';
     }
     return 'Du har ikke tilgang';
 };
