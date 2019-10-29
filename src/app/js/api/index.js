@@ -1,5 +1,13 @@
-import { getCookie, log } from 'digisyfo-npm';
 import { Error403 } from './errors';
+
+const log = () => {
+};
+
+export const getCookie = (name) => {
+    const re = new RegExp(`${name}=([^;]+)`);
+    const match = re.exec(document.cookie);
+    return match !== null ? match[1] : '';
+};
 
 export function get(url) {
     return fetch(url, {

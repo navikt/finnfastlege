@@ -1,0 +1,29 @@
+{
+  "extends": "airbnb",
+  "plugins": ["prettier"],
+
+  "globals": {
+    "$": false,
+    "config": true,
+    "window": true,
+    "document": true,
+    "localStorage": true,
+    "WebSocket": true,
+    "Headers": true,
+    "fetch": true,
+    "it": true,
+    "describe": true,
+    "beforeEach": true,
+    "afterEach": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "no-mixed-spaces-and-tabs": "off",
+    "indent": ["error", 4, { "SwitchCase": 1 }],
+    "arrow-body-style": ["error", "always"],
+    "react/jsx-indent-props": ["error", 4],
+    "react/jsx-closing-bracket-location": 0,
+    "max-len": ["warn", 220],
+    "prefer-template": 1
+  }
+}

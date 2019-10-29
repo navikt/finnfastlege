@@ -1,0 +1,7 @@
+{
+    "prettier.singleQuote": true,
+    "javascript.preferences.renameShorthandProperties": true,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "prettier.tabWidth": 4
+}

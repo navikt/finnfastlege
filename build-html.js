@@ -1,12 +1,12 @@
-var fs = require("fs");
-var Mustache = require("mustache");
+const fs = require('fs');
+const Mustache = require('mustache');
 
-front = process.argv[2];
-env = process.argv[3];
+const front = process.argv[2];
+const env = process.argv[3];
 
-var timestamp = Date.now().toString();
+const timestamp = Date.now().toString();
 
-var dev = {
+const dev = {
     timestamp: timestamp,
     buildRoot: 'http://localhost:3040/assets',
     fastlegerestRoot: 'http://localhost:8585/fastlegerest/api',
@@ -15,10 +15,10 @@ var dev = {
     bundleFileName: 'bundle.js',
     decoratorRoot: 'https://app-t6.adeo.no',
     contextholderRoot: 'http://localhost:8090/eventdistributer',
-    enableLogging: true,
+    enableLogging: true
 };
 
-var prod = {
+const prod = {
     timestamp: timestamp,
     buildRoot: '/fastlege/js',
     fastlegerestRoot: '/fastlegerest/api',
@@ -27,13 +27,13 @@ var prod = {
     bundleFileName: 'bundle-prod.js',
     decoratorRoot: '',
     contextholderRoot: '/eventdistributer',
-    enableLogging: false,
+    enableLogging: false
 };
 
-fs.readFile(front, function (err, data) {
+fs.readFile(front, (err, data) => {
     if (err) throw err;
     const html = Mustache.render(data.toString(), env === 'prod' ? prod : dev);
-    fs.writeFile('../main/webapp/fastlegefront.html', html, 'utf-8', (err) => {
+    fs.writeFile('build/fastlegefront.html', html, 'utf-8', err => {
         if (err) throw err;
     });
 });

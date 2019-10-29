@@ -1,5 +1,5 @@
 FROM docker.adeo.no:5000/pus/node as node-builder
-ADD /src/frontend /source
+ADD /src/app /source
 ADD /src/main /main
 WORKDIR /source
 RUN npm ci && npm run test && npm run build
