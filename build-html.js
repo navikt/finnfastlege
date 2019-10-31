@@ -9,9 +9,9 @@ const timestamp = Date.now().toString();
 const dev = {
     timestamp: timestamp,
     buildRoot: 'http://localhost:3040/assets',
-    fastlegerestRoot: 'http://localhost:8585/fastlegerest/api',
-    modiasyforestRoot: 'http://localhost:8084/modiasyforest/api',
-    veilederoppgaverRestRoot: 'http://localhost:8999/syfoveilederoppgaver/api',
+    fastlegerestRoot: '/fastlegerest/api',
+    modiasyforestRoot: '/modiasyforest/api',
+    veilederoppgaverRestRoot: '/syfoveilederoppgaver/api',
     bundleFileName: 'bundle.js',
     decoratorRoot: 'https://app-t6.adeo.no',
     contextholderRoot: 'http://localhost:8090/eventdistributer',

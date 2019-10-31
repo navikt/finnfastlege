@@ -1,3 +1,10 @@
 .git/
 node_modules/
 .babelrc
+.eslintignore
+.gitignore
+.babelrc
+.nais.yaml
+Dockerfile
+build-html.js
+node_modules
