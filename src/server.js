@@ -3,6 +3,8 @@ const serverConfig = require('./serverConfig');
 if (serverConfig.isDev) {
     console.log('Configuring dotgenv');
     dotenv.config();
+} else {
+    dotenv.config({ path: '/var/run/secrets/nais.io/vault/.env' });
 }
 const express = require('express');
 const path = require('path');
@@ -33,6 +35,9 @@ const setupOidcRoutes = () => {
 };
 
 const setupRoutes = () => {
+    app.get('/health/isReady', (req, res) => res.status(200).send('Im ready!'));
+    app.get('/health/isAlive', (req, res) => res.status(200).send('Im alive!'));
+
     app.use('/fastlege', authMiddleware.ensureAuthenticated(false));
     if (serverConfig.isDev) {
         app.use(mockRouter);
