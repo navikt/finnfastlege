@@ -8,7 +8,7 @@ const hentPassportConfig = () => {
         case 'local':
             config = {
                 allowHttpForRedirectUrl: true,
-                cookieDomain: 'localhost',
+                cookieDomain: host,
                 logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=http:\\\\localhost:8000`,
                 redirectUrl: 'http://localhost:8080/fastlege/oidc/callback',
                 tenant: 'navq.onmicrosoft.com'
@@ -17,7 +17,7 @@ const hentPassportConfig = () => {
         case 'q1':
             config = {
                 allowHttpForRedirectUrl: false,
-                cookieDomain: `${host}-dev.nais.preprod.local`,
+                cookieDomain: host,
                 logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}-dev.nais.preprod.local`,
                 redirectUrl: `https://${host}-dev.nais.preprod.local/fastlege/oidc/callback`,
                 tenant: 'navq.onmicrosoft.com'
@@ -26,7 +26,7 @@ const hentPassportConfig = () => {
         case 'preprod':
             config = {
                 allowHttpForRedirectUrl: false,
-                cookieDomain: `${host}.nais.preprod.local`,
+                cookieDomain: host,
                 logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.nais.preprod.local`,
                 redirectUrl: `https://${host}.nais.preprod.local/fastlege/oidc/callback`,
                 tenant: 'navq.onmicrosoft.com'
@@ -35,7 +35,7 @@ const hentPassportConfig = () => {
         case 'production':
             config = {
                 allowHttpForRedirectUrl: false,
-                cookieDomain: `${host}.nais.adeo.no`,
+                cookieDomain: host,
                 logoutUri: `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.nais.adeo.no`,
                 redirectUrl: `https://${host}.nais.adeo.no/fastlege/oidc/callback`,
                 tenant: 'navno.onmicrosoft.com'
