@@ -33,6 +33,9 @@ const prod = {
 fs.readFile(front, (err, data) => {
     if (err) throw err;
     const html = Mustache.render(data.toString(), env === 'prod' ? prod : dev);
+    if (!fs.existsSync('build/')) {
+        fs.mkdirSync('build/');
+    }
     fs.writeFile('build/fastlegefront.html', html, 'utf-8', err => {
         if (err) throw err;
     });
