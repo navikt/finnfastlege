@@ -3,7 +3,7 @@ const serverConfig = require('../serverConfig');
 const hentPassportConfig = () => {
     let config = {};
 
-    const host = 'argus';
+    const host = serverConfig.host || 'fastlegefront';
     switch (serverConfig.env) {
         case 'local':
             config = {
