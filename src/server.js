@@ -27,6 +27,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(configureSession());
+app.set('trust proxy', 1);
 
 const setupOidcRoutes = () => {
     app.use(
