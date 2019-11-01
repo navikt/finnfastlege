@@ -8,8 +8,8 @@ metadata:
 spec:
   image: "docker.pkg.github.com/navikt/fastlegefront:2019.10.31-7b6c6df"
   replicas:
-    min: 2
-    max: 4
+    min: 1
+    max: 2
     cpuThresholdPercentage: 90
   port: 8080
   liveness:
