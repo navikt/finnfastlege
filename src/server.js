@@ -1,10 +1,17 @@
+const LOG = require('./logger');
 const dotenv = require('dotenv');
 const serverConfig = require('./serverConfig');
 if (serverConfig.isDev) {
     console.log('Configuring dotgenv');
     dotenv.config();
 } else {
-    dotenv.config({ path: '/var/run/secrets/nais.io/vault/.env' });
+    const { parsed } = dotenv.config({
+        path: '/var/run/secrets/nais.io/vault/.env',
+        encoding: 'UTF-8'
+    });
+    Object.keys(parsed).forEach(e => {
+        LOG.info('Parsed env: ' + parsed);
+    });
 }
 const express = require('express');
 const path = require('path');
@@ -13,7 +20,6 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const { configureSession } = require('./auth/session');
 const mockRouter = require('./mock');
-const LOG = require('./logger');
 const authMiddleware = require('./auth/authMiddleware');
 const configurePassport = require('./config/passport');
 const app = express();
