@@ -10,7 +10,7 @@ if (serverConfig.isDev) {
         encoding: 'UTF-8'
     });
     Object.keys(parsed).forEach(e => {
-        LOG.info('Parsed env: ' + parsed);
+        LOG.info('Parsed env: ' + e);
     });
 }
 const express = require('express');
@@ -44,8 +44,13 @@ const setupOidcRoutes = () => {
 };
 
 const setupRoutes = () => {
-    app.get('/health/isReady', (req, res) => res.status(200).send('Im ready!'));
-    app.get('/health/isAlive', (req, res) => res.status(200).send('Im alive!'));
+    app.get('/fastlege/internal/isAlive', (req, res) =>
+        res.status(200).send('Im ready!')
+    );
+    app.get('/fastlege/internal/isAlive', (req, res) =>
+        res.status(200).send('Im alive!')
+    );
+
     if (serverConfig.isDev) {
         app.use(mockRouter);
     }
