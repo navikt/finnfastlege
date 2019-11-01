@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamsykefravr
 spec:
-  image: "docker.pkg.github.com/navikt/fastlegefront:2019.10.31-7b6c6df"
+  image: "docker.pkg.github.com/navikt/fastlegefront:2019.11.01-90d1410"
   replicas:
     min: 1
     max: 2
@@ -24,7 +24,7 @@ spec:
     periodSeconds: 5
     timeout: 5
   prometheus:
-    enabled: true
+    enabled: false
     path: /actuator/metrics
   vault:
     enabled: true
