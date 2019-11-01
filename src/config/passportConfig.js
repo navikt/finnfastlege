@@ -14,21 +14,12 @@ const hentPassportConfig = () => {
                 tenant: 'navq.onmicrosoft.com'
             };
             break;
-        case 'q1':
+        case ('q1', 'preprod'):
             config = {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: host,
                 logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\app-q1.adeo.no`,
-                redirectUrl: `https://app-q1.adep.no.preprod.local/fastlege/oidc/callback`,
-                tenant: 'navq.onmicrosoft.com'
-            };
-            break;
-        case 'preprod':
-            config = {
-                allowHttpForRedirectUrl: false,
-                cookieDomain: host,
-                logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\app-q1.adeo.no`,
-                redirectUrl: `https://app-q1.adep.no/fastlege/oidc/callback`,
+                redirectUrl: `https://app-q1.adeo.no/fastlege/oidc/callback`,
                 tenant: 'navq.onmicrosoft.com'
             };
             break;
@@ -37,7 +28,7 @@ const hentPassportConfig = () => {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: host,
                 logoutUri: `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\app.adeo.no`,
-                redirectUrl: `https://${host}.nais.adeo.no/fastlege/oidc/callback`,
+                redirectUrl: `https://app.adeo.no/fastlege/oidc/callback`,
                 tenant: 'navno.onmicrosoft.com'
             };
             break;
