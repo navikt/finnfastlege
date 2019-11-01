@@ -32,7 +32,9 @@ const setupOidcRoutes = () => {
         authMiddleware.authenticateAzureCallback()
     );
     app.use('/fastlege/login', authMiddleware.authenticateAzure());
-    app.get('/fastlege/error', "Noe gikk galt under innlogging")
+    app.get('/fastlege/error', (req, res) =>
+        res.send('Noe gikk galt under innlogging')
+    );
 };
 
 const setupRoutes = () => {
