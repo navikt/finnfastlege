@@ -2,7 +2,7 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: fastlegefront
-  namespace: q1
+  namespace: default
   labels:
     team: teamsykefravr
 spec:
@@ -23,9 +23,9 @@ spec:
     initialDelay: 30
     periodSeconds: 5
     timeout: 5
-  prometheus:
-    enabled: false
-    path: /actuator/metrics
+  # prometheus:
+  #   enabled: false
+  #   path: /actuator/metrics
   vault:
     enabled: true
   env:
