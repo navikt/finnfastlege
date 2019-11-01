@@ -14,7 +14,16 @@ const hentPassportConfig = () => {
                 tenant: 'navq.onmicrosoft.com'
             };
             break;
-        case ('q1', 'preprod'):
+        case 'q1':
+            config = {
+                allowHttpForRedirectUrl: false,
+                cookieDomain: host,
+                logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\app-q1.adeo.no`,
+                redirectUrl: `https://app-q1.adeo.no/fastlege/oidc/callback`,
+                tenant: 'navq.onmicrosoft.com'
+            };
+            break;
+        case 'preprod':
             config = {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: host,

@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamsykefravr
 spec:
-  image: "docker.pkg.github.com/navikt/fastlegefront:2019.11.01-212e124"
+  image: "docker.pkg.github.com/navikt/fastlegefront:2019.11.01-acb5725"
   replicas:
     min: 1
     max: 2
@@ -30,7 +30,7 @@ spec:
     enabled: true
   env:
     - name: ENV
-      value: q1
+      value: preprod
     - name: HOST
       value: app-q1.adeo.no
   resources:
