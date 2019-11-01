@@ -27,9 +27,6 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(configureSession());
-configurePassport(passport);
-app.use(passport.initialize());
-app.use(passport.session());
 
 const setupOidcRoutes = () => {
     app.use(
@@ -43,12 +40,8 @@ const setupOidcRoutes = () => {
 };
 
 const setupRoutes = () => {
-    app.get('/fastlege/internal/isAlive', (req, res) =>
-        res.status(200).send('Im ready!')
-    );
-    app.get('/fastlege/internal/isAlive', (req, res) =>
-        res.status(200).send('Im alive!')
-    );
+    app.get('/health/isReady', (req, res) => res.status(200).send('Im ready!'));
+    app.get('/health/isAlive', (req, res) => res.status(200).send('Im alive!'));
 
     if (serverConfig.isDev) {
         app.use(require('./mock'));
@@ -78,6 +71,10 @@ const startServer = () => {
         );
     });
 };
+
+configurePassport(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
 setupOidcRoutes();
 setupRoutes();
