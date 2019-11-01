@@ -18,8 +18,8 @@ const hentPassportConfig = () => {
             config = {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: host,
-                logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}-dev.nais.preprod.local`,
-                redirectUrl: `https://${host}-dev.nais.preprod.local/fastlege/oidc/callback`,
+                logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\app-q1.adeo.no`,
+                redirectUrl: `https://app-q1.adep.no.preprod.local/fastlege/oidc/callback`,
                 tenant: 'navq.onmicrosoft.com'
             };
             break;
@@ -27,8 +27,8 @@ const hentPassportConfig = () => {
             config = {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: host,
-                logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.nais.preprod.local`,
-                redirectUrl: `https://${host}.nais.preprod.local/fastlege/oidc/callback`,
+                logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\app-q1.adeo.no`,
+                redirectUrl: `https://app-q1.adep.no/fastlege/oidc/callback`,
                 tenant: 'navq.onmicrosoft.com'
             };
             break;
@@ -36,7 +36,7 @@ const hentPassportConfig = () => {
             config = {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: host,
-                logoutUri: `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.nais.adeo.no`,
+                logoutUri: `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\app.adeo.no`,
                 redirectUrl: `https://${host}.nais.adeo.no/fastlege/oidc/callback`,
                 tenant: 'navno.onmicrosoft.com'
             };
