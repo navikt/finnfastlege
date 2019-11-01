@@ -32,12 +32,12 @@ const setupOidcRoutes = () => {
         authMiddleware.authenticateAzureCallback()
     );
     app.use('/fastlege/login', authMiddleware.authenticateAzure());
+    app.get('/fastlege/error', "Noe gikk galt under innlogging")
 };
 
 const setupRoutes = () => {
     app.get('/health/isReady', (req, res) => res.status(200).send('Im ready!'));
     app.get('/health/isAlive', (req, res) => res.status(200).send('Im alive!'));
-
     if (serverConfig.isDev) {
         app.use(mockRouter);
     }

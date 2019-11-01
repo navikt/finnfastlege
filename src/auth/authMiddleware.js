@@ -37,7 +37,7 @@ exports.authenticateAzureCallback = () => {
             passport.authenticate('azuread-openidconnect', {
                 response: res,
                 successRedirect: req.session.redirectUrl || '/',
-                failureRedirect: '/error'
+                failureRedirect: '/fastlege/error'
             })(req, res, next);
         } catch (err) {
             throw `Error during authentication: ${err}`;
@@ -55,7 +55,9 @@ exports.ensureAuthenticated = sendUnauthorized => {
         if (sendUnauthorized) {
             res.status(401).send('Unauthorized');
         } else {
-            res.redirect(`/fastlege/login?redirectUrl=${pathname}`);
+            res.redirect(
+                `/fastlege/login?redirectUrl=${req.hostname}/${pathname}`
+            );
         }
     };
 };
