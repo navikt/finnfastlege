@@ -19,7 +19,6 @@ const helmet = require('helmet');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const { configureSession } = require('./auth/session');
-const mockRouter = require('./mock');
 const authMiddleware = require('./auth/authMiddleware');
 const configurePassport = require('./config/passport');
 const app = express();
@@ -52,7 +51,7 @@ const setupRoutes = () => {
     );
 
     if (serverConfig.isDev) {
-        app.use(mockRouter);
+        app.use(require('./mock'));
     }
 
     app.use('/fastlege', express.static(path.join(__dirname, '..', 'build')));
@@ -73,7 +72,10 @@ const setupRoutes = () => {
 
 const startServer = () => {
     app.listen(serverConfig.port, () => {
-        LOG.info(`App listening on port ${serverConfig.port}`);
+        LOG.info(
+            `App listening on port ${serverConfig.port} with configuration}`,
+            serverConfig
+        );
     });
 };
 
