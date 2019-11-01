@@ -38,19 +38,24 @@ const setupRoutes = () => {
     app.get('/health/isReady', (req, res) => res.status(200).send('Im ready!'));
     app.get('/health/isAlive', (req, res) => res.status(200).send('Im alive!'));
 
-    app.use('/fastlege', authMiddleware.ensureAuthenticated(false));
     if (serverConfig.isDev) {
         app.use(mockRouter);
     }
 
     app.use('/fastlege', express.static(path.join(__dirname, '..', 'build')));
-    app.get('*', (req, res, next) => {
-        res.cookie('isso-idtoken', req.session.accessToken, {
-            httpOnly: true,
-            secure: true
-        });
-        res.sendFile(path.join(__dirname, '..', 'build', 'fastlegefront.html'));
-    });
+    app.get(
+        '*',
+        authMiddleware.ensureAuthenticated(false),
+        (req, res, next) => {
+            res.cookie('isso-idtoken', req.session.accessToken, {
+                httpOnly: true,
+                secure: true
+            });
+            res.sendFile(
+                path.join(__dirname, '..', 'build', 'fastlegefront.html')
+            );
+        }
+    );
 };
 
 const startServer = () => {
