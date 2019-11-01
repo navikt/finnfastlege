@@ -5,7 +5,7 @@
     "main": "index.js",
     "test": "npm run test",
     "scripts": {
-        "dev": "npm-run-all static:build:local scripts:watch dev:server",
+        "dev": "npm-run-all static:build:local scripts:watch",
         "dev:server:watch": "NODE_ENV=development nodemon src/server.js local",
         "dev:server": "NODE_ENV=development node src/server.js local",
         "build": "npm-run-all static:build scripts:build",

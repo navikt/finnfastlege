@@ -55,9 +55,7 @@ exports.ensureAuthenticated = sendUnauthorized => {
         if (sendUnauthorized) {
             res.status(401).send('Unauthorized');
         } else {
-            res.redirect(
-                `/fastlege/login?redirectUrl=${req.hostname}/${pathname}`
-            );
+            res.redirect(`/fastlege/login?redirectUrl=/fastlege`);
         }
     };
 };

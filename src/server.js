@@ -48,8 +48,9 @@ const setupRoutes = () => {
     }
 
     app.use('/fastlege', express.static(path.join(__dirname, '..', 'build')));
+
     app.get(
-        '*',
+        '/fastlege/*',
         authMiddleware.ensureAuthenticated(false),
         (req, res, next) => {
             res.cookie('isso-idtoken', req.session.accessToken, {

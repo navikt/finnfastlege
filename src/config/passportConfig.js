@@ -70,7 +70,7 @@ const hentPassportConfig = () => {
         loggingLevel: 'info',
         passReqToCallback: true,
         responseMode: 'form_post',
-        responseType: 'id_token',
+        responseType: 'code',
         scope: 'profile offline_access',
         tokenURI: `https://login.microsoftonline.com/${config.tenant}/oauth2/token`,
         useCookieInsteadOfSession: false,
