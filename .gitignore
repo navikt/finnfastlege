@@ -8,4 +8,5 @@ npm-debug.log*
 coverage/
 .nyc_output
 .env
-naiserator-*.yml
+naiserator-dev.yaml
+naiserator-prod.yaml
