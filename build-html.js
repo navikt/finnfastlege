@@ -23,7 +23,7 @@ const prod = {
     buildRoot: '/fastlege/js',
     fastlegerestRoot: '/fastlegerest/api',
     modiasyforestRoot: '/modiasyforest/api',
-    veilederoppgaverRestRoot: '/syfoveilederoppgaver/api',
+    veilederoppgaverRestRoot: '/syfomoteadmin/api/internad/veilederinfo',
     bundleFileName: 'bundle-prod.js',
     decoratorRoot: '',
     contextholderRoot: '/eventdistributer',
