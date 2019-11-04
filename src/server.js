@@ -2,7 +2,6 @@ const LOG = require('./logger');
 const dotenv = require('dotenv');
 const serverConfig = require('./serverConfig');
 if (serverConfig.isDev) {
-    console.log('Configuring dotgenv');
     dotenv.config();
 } else {
     const { parsed } = dotenv.config({
