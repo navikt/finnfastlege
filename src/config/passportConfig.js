@@ -62,16 +62,16 @@ const hentPassportConfig = () => {
         clientSecret: process.env.CLIENT_SECRET
             ? process.env.CLIENT_SECRET
             : '',
-        cookieEncryptionKeys: [
-            { key: key1, iv: key3 },
-            { key: key2, iv: key4 }
-        ],
+        // cookieEncryptionKeys: [
+        //     { key: key1, iv: key3 },
+        //     { key: key2, iv: key4 }
+        // ],
         identityMetadata: `https://login.microsoftonline.com/${config.tenant}/.well-known/openid-configuration`,
         loggingLevel: 'info',
         passReqToCallback: true,
         responseMode: 'form_post',
         responseType: 'code',
-        scope: 'profile offline_access',
+        scope: 'profile offline_access openid'.split(' '),
         tokenURI: `https://login.microsoftonline.com/${config.tenant}/oauth2/token`,
         useCookieInsteadOfSession: false,
         validateIssuer: true

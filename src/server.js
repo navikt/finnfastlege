@@ -53,11 +53,10 @@ const setupRoutes = () => {
         '/fastlege/*',
         authMiddleware.ensureAuthenticated(false),
         (req, res, next) => {
-            res.cookie('isso-idtoken', req.session.accessToken, {
+            res.cookie('isso-idtoken', req.session.idToken, {
                 httpOnly: true,
                 secure: true
-            });
-            res.sendFile(
+            }).sendFile(
                 path.join(__dirname, '..', 'build', 'fastlegefront.html')
             );
         }

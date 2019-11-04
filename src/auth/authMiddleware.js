@@ -24,7 +24,7 @@ exports.authenticateAzure = () => {
 
         req.session.redirectUrl = successRedirect;
         try {
-            passport.authenticate('azuread-openidconnect')(req, res, next);
+            passport.authenticate('azuread-openidconnect', {  })(req, res, next);
         } catch (err) {
             throw `Error during authentication: ${err}`;
         }
@@ -33,6 +33,7 @@ exports.authenticateAzure = () => {
 
 exports.authenticateAzureCallback = () => {
     return (req, res, next) => {
+        LOG.info('req.query', JSON.stringify(req.query));
         try {
             passport.authenticate('azuread-openidconnect', {
                 response: res,

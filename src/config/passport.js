@@ -1,6 +1,7 @@
 const { passportConfig } = require('./passportConfig');
 const passport = require('passport');
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
+const BearerStrategy = require('passport-azure-ad').BearerStrategy;
 const LOG = require('../logger');
 /**
  * @param passport {passport}
@@ -18,8 +19,18 @@ module.exports = passport => {
     passport.use(
         'azuread-openidconnect',
         new OIDCStrategy(
-            passportConfig,
-            (req, iss, sub, profile, accessToken, refreshToken, done) => {
+            { ...passportConfig, responseType: 'code id_token' },
+            (
+                req,
+                iss,
+                sub,
+                profile,
+                jwtClaims,
+                accessToken,
+                refreshToken,
+                params,
+                done
+            ) => {
                 if (!profile.oid) {
                     return done(new Error('No oid found'), null);
                 }
@@ -33,6 +44,8 @@ module.exports = passport => {
                     user.groups = JSON.parse(profile._json.groups);
                     user.refreshToken = refreshToken;
 
+                    console.log(params);
+
                     req.session.oid = user.oid;
                     req.session.upn = user.upn;
                     req.session.displayName = user.displayName;
@@ -41,7 +54,8 @@ module.exports = passport => {
                     req.session.groups = user.groups;
                     req.session.refreshToken = refreshToken;
                     req.session.accessToken = accessToken;
-                    
+                    req.session.idToken = params.id_token;
+
                     return done(null, user);
                 });
             }
