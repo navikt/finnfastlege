@@ -7,7 +7,7 @@ import { HENT_VEILEDERINFO_FORESPURT } from '../actions/actiontyper';
 export function* hentVeilederinfoSaga() {
     yield put(actions.henterVeilederinfo());
     try {
-        const url = `${window.APP_SETTINGS.VEILEDEROPPGAVERREST_ROOT}/veilederinfo`;
+        const url = `/syfomoteadmin/api/internad/veilederinfo`;
         const data = yield call(get, url);
         yield put(actions.veilederinfoHentet(data));
     } catch (e) {
@@ -20,7 +20,5 @@ function* watchHentVeilederinfo() {
 }
 
 export default function* veilederinfoSagas() {
-    yield [
-        fork(watchHentVeilederinfo),
-    ];
+    yield [fork(watchHentVeilederinfo)];
 }
