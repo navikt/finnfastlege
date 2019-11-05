@@ -8,7 +8,7 @@ const passport = require('passport');
  */
 exports.configureSession = (app, passport) => {
     const configuredSession = session({
-        secret: 'secret cat'
+        secret: 'session_secret'
     });
     return configuredSession;
 };

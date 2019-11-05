@@ -45,16 +45,16 @@ const hentPassportConfig = () => {
 
     const key1 = process.env.PASSPORTCOOKIE_KEY1
         ? process.env.PASSPORTCOOKIE_KEY1
-        : '';
+        : 'dwadawdadawdadadwadawdadadwawdwa';
     const key2 = process.env.PASSPORTCOOKIE_KEY2
         ? process.env.PASSPORTCOOKIE_KEY2
-        : '';
+        : 'dwadawdadawdadadwadawdadadwawdwa';
     const key3 = process.env.PASSPORTCOOKIE_KEY3
         ? process.env.PASSPORTCOOKIE_KEY3
-        : '';
+        : 'dwadawdadawd';
     const key4 = process.env.PASSPORTCOOKIE_KEY4
         ? process.env.PASSPORTCOOKIE_KEY4
-        : '';
+        : 'dwadawdadawd';
 
     return {
         ...config,
@@ -62,15 +62,14 @@ const hentPassportConfig = () => {
         clientSecret: process.env.CLIENT_SECRET
             ? process.env.CLIENT_SECRET
             : '',
-        // cookieEncryptionKeys: [
-        //     { key: key1, iv: key3 },
-        //     { key: key2, iv: key4 }
-        // ],
+        cookieEncryptionKeys: [
+            { key: '12345678901234567890123456789012', iv: '123456789012' }
+        ],
         identityMetadata: `https://login.microsoftonline.com/${config.tenant}/.well-known/openid-configuration`,
-        loggingLevel: 'info',
+        loggingLevel: 'debug',
         passReqToCallback: true,
         responseMode: 'form_post',
-        responseType: 'code',
+        responseType: 'code id_token',
         scope: 'profile offline_access openid'.split(' '),
         tokenURI: `https://login.microsoftonline.com/${config.tenant}/oauth2/token`,
         useCookieInsteadOfSession: false,

@@ -17,21 +17,30 @@ const path = require('path');
 const helmet = require('helmet');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const { configureSession } = require('./auth/session');
 const authMiddleware = require('./auth/authMiddleware');
 const configurePassport = require('./config/passport');
+const cookieParser = require('cookie-parser');
+const { configureSession } = require('./auth/session');
 const app = express();
 
 app.use(helmet());
+app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(configureSession());
+
 app.set('trust proxy', 1);
 
 const setupOidcRoutes = () => {
     app.use(
         '/fastlege/oidc/callback',
-        authMiddleware.authenticateAzureCallback()
+        authMiddleware.authenticateAzureCallback(),
+        (req, res) => {
+            res.cookie('isso-idtoken', req.session.idToken, {
+                httpOnly: true
+            });
+            res.redirect('/fastlege');
+        }
     );
     app.use('/fastlege/login', authMiddleware.authenticateAzure());
     app.get('/fastlege/error', (req, res) =>
@@ -53,11 +62,9 @@ const setupRoutes = () => {
         '/fastlege/*',
         authMiddleware.ensureAuthenticated(false),
         (req, res, next) => {
-            res.cookie('isso-idtoken', req.session.idToken, {
-                httpOnly: true,
-                secure: true
-            }).sendFile(
-                path.join(__dirname, '..', 'build', 'fastlegefront.html')
+            res.sendFile(
+                path.join(__dirname, '..', 'build', 'fastlegefront.html'),
+                {}
             );
         }
     );

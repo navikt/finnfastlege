@@ -1,7 +1,7 @@
 const passport = require('passport');
 const { passportConfig } = require('../config/passportConfig');
 const LOG = require('../logger');
-// const { loggUtlogging } = require('./bruker');
+const multiparty = require('multiparty');
 
 const allowedRedirectRoutes = ['/fastlege/oidc/callback', '/fastlege', '404'];
 
@@ -18,13 +18,11 @@ exports.authenticateAzure = () => {
             LOG.error(`Ugyldig redirect path [${regex[1]}], fallback '/'`);
         }
 
-        if (!req.session) {
-            req.session = {};
-        }
-
-        req.session.redirectUrl = successRedirect;
         try {
-            passport.authenticate('azuread-openidconnect', {  })(req, res, next);
+            passport.authenticate('azuread-openidconnect', {
+                response: res,
+                session: false
+            })(req, res, next);
         } catch (err) {
             throw `Error during authentication: ${err}`;
         }
@@ -33,15 +31,12 @@ exports.authenticateAzure = () => {
 
 exports.authenticateAzureCallback = () => {
     return (req, res, next) => {
-        LOG.info('req.query', JSON.stringify(req.query));
         try {
             passport.authenticate('azuread-openidconnect', {
                 response: res,
-                successRedirect: req.session.redirectUrl || '/',
-                failureRedirect: '/fastlege/error'
             })(req, res, next);
-        } catch (err) {
-            throw `Error during authentication: ${err}`;
+        } catch (e) {
+            throw `Error during authentication: ${e}`;
         }
     };
 };
@@ -65,7 +60,7 @@ exports.logout = (req, res) => {
     return async (req, res) => {
         try {
             // await loggUtlogging(req);
-            req.session.destroy();
+            // req.session.destroy();
             res.redirect(passportConfig.logoutUri);
         } catch (err) {
             res.status(500).send(err);
