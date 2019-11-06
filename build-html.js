@@ -15,6 +15,7 @@ const dev = {
     bundleFileName: 'bundle.js',
     decoratorRoot: 'https://app-t6.adeo.no',
     contextholderRoot: 'http://localhost:8090/eventdistributer',
+    moteadminHost: 'https://syfomoteadmin.nais.preprod.local',
     enableLogging: true
 };
 
@@ -27,6 +28,7 @@ const prod = {
     bundleFileName: 'bundle-prod.js',
     decoratorRoot: '',
     contextholderRoot: '/eventdistributer',
+    moteadminHost: 'https://syfomoteadmin.nais.adeo.no',
     enableLogging: false
 };
 

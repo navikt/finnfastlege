@@ -7,7 +7,7 @@ import { HENT_VEILEDERINFO_FORESPURT } from '../actions/actiontyper';
 export function* hentVeilederinfoSaga() {
     yield put(actions.henterVeilederinfo());
     try {
-        const url = `https://syfomoteadmin.nais.preprod.local/syfomoteadmin/api/internad/veilederinfo`;
+        const url = `${window.APP_SETTINGS.MOTEADMIN_HOST}/syfomoteadmin/api/internad/veilederinfo`;
         const data = yield call(get, url);
         yield put(actions.veilederinfoHentet(data));
     } catch (e) {

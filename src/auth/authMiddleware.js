@@ -55,16 +55,3 @@ exports.ensureAuthenticated = sendUnauthorized => {
         }
     };
 };
-
-exports.logout = (req, res) => {
-    return async (req, res) => {
-        try {
-            // await loggUtlogging(req);
-            // req.session.destroy();
-            res.redirect(passportConfig.logoutUri);
-        } catch (err) {
-            res.status(500).send(err);
-            LOG.error(`error during logout: ${err}`);
-        }
-    };
-};

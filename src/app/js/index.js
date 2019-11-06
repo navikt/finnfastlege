@@ -38,8 +38,8 @@ sagaMiddleware.run(rootSaga);
 const config = {
     config: {
         dataSources: {
-            veileder: `${window.location.origin}/syfomoteadmin/api/veilederinfo`,
-            enheter: `${window.location.origin}/syfomoteadmin/api/enheter`,
+            veileder: `${window.APP_SETTINGS.MOTEADMIN_HOST}/syfomoteadmin/api/internad/veilederinfo`,
+            enheter: `${window.APP_SETTINGS.MOTEADMIN_HOST}/syfomoteadmin/api/internad/enheter`,
         },
         toggles: {
             visEnhetVelger: true,
