@@ -14,7 +14,10 @@ import egenansatt from './reducers/egenansatt';
 import diskresjonskode from './reducers/diskresjonskode';
 import veilederinfo from './reducers/veilederinfo';
 import { finnMiljoStreng } from './sagas/util';
-import { pushModiaContext, hentAktivEnhet } from './actions/modiacontext_actions';
+import {
+    pushModiaContext,
+    hentAktivEnhet
+} from './actions/modiacontext_actions';
 import { CONTEXT_EVENT_TYPE } from './konstanter';
 
 const rootReducer = combineReducers({
@@ -24,62 +27,64 @@ const rootReducer = combineReducers({
     tilgang,
     diskresjonskode,
     egenansatt,
-    veilederinfo,
+    veilederinfo
 });
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer,
-    applyMiddleware(sagaMiddleware)
-);
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 
 const config = {
     config: {
         dataSources: {
-            veileder: `${window.APP_SETTINGS.MOTEADMIN_HOST}/syfomoteadmin/api/internad/veilederinfo`,
-            enheter: `${window.APP_SETTINGS.MOTEADMIN_HOST}/syfomoteadmin/api/internad/enheter`,
+            veileder: `${window.location.origin}/syfomoteadmin/api/veilederinfo`,
+            enheter: `${window.location.origin}/syfomoteadmin/api/enheter`
         },
         toggles: {
             visEnhetVelger: true,
             visVeileder: true,
             visSokefelt: true,
-            toggleSendEventVedEnEnhet: false,
+            toggleSendEventVedEnEnhet: false
         },
-        handlePersonsokSubmit: (nyttFnr) => {
+        handlePersonsokSubmit: nyttFnr => {
             window.location = `https://app${finnMiljoStreng()}.adeo.no/sykefravaer/${nyttFnr}`;
         },
         applicationName: 'Sykefraværsoppfølging',
-        handleChangeEnhet: (data) => {
+        handleChangeEnhet: data => {
             if (config.config.initiellEnhet !== data) {
-                store.dispatch(pushModiaContext({
-                    verdi: data,
-                    eventType: CONTEXT_EVENT_TYPE.NY_AKTIV_ENHET,
-                }));
+                store.dispatch(
+                    pushModiaContext({
+                        verdi: data,
+                        eventType: CONTEXT_EVENT_TYPE.NY_AKTIV_ENHET
+                    })
+                );
                 config.config.initiellEnhet = data;
             }
-        },
-    },
-};
-store.dispatch(hentAktivEnhet({
-    callback: (aktivEnhet) => {
-        if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
-            config.config.initiellEnhet = aktivEnhet;
-            window.renderDecoratorHead(config);
         }
-    },
-}));
+    }
+};
+store.dispatch(
+    hentAktivEnhet({
+        callback: aktivEnhet => {
+            if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
+                config.config.initiellEnhet = aktivEnhet;
+                window.renderDecoratorHead(config);
+            }
+        }
+    })
+);
 
-render(<Provider store={store}>
-        <AppRouter history={history} /></Provider>,
-    document.getElementById('maincontent'));
+render(
+    <Provider store={store}>
+        <AppRouter history={history} />
+    </Provider>,
+    document.getElementById('maincontent')
+);
 
 document.addEventListener('DOMContentLoaded', () => {
     window.renderDecoratorHead && window.renderDecoratorHead(config);
 });
 
-export {
-    store,
-    history,
-};
+export { store, history };
