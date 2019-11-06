@@ -36,9 +36,7 @@ const setupOidcRoutes = () => {
         '/fastlege/oidc/callback',
         authMiddleware.authenticateAzureCallback(),
         (req, res) => {
-            res.cookie('isso-idtoken', req.session.idToken, {
-                httpOnly: true
-            });
+            res.cookie('isso-idtoken', req.session.idToken, { httpOnly: true });
             res.redirect('/fastlege');
         }
     );
