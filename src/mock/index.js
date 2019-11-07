@@ -1,16 +1,16 @@
 const express = require('express');
-const router = express.Router();
 const fastlegeRestMock = require('./fastlegeRestMock');
 const syfoveilederoppgaverRestMock = require('./syfoveilederoppgaverRestMock');
 const auth = require('../auth/authMiddleware');
-const LOG = require('../logger');
+
+const router = express.Router();
 
 router.get(
     '/fastlegerest/api/tilgang',
     auth.ensureAuthenticated(true),
     (req, res) => {
         res.status(200).json(fastlegeRestMock.harTilgangRespons);
-    }
+    },
 );
 
 router.get(
@@ -18,7 +18,7 @@ router.get(
     auth.ensureAuthenticated(true),
     (req, res) => {
         res.json(fastlegeRestMock.finnFastlegeRespons);
-    }
+    },
 );
 
 router.get(
@@ -26,7 +26,7 @@ router.get(
     auth.ensureAuthenticated(true),
     (req, res) => {
         res.json(syfoveilederoppgaverRestMock.veilederInfoResponse);
-    }
+    },
 );
 
 module.exports = router;

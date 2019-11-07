@@ -16,7 +16,7 @@ const dev = {
     decoratorRoot: 'https://app-t6.adeo.no',
     contextholderRoot: 'http://localhost:8090/eventdistributer',
     moteadminHost: 'https://syfomoteadmin.nais.preprod.local',
-    enableLogging: true
+    enableLogging: true,
 };
 
 const prod = {
@@ -29,7 +29,7 @@ const prod = {
     decoratorRoot: '',
     contextholderRoot: '/eventdistributer',
     moteadminHost: 'https://syfomoteadmin.nais.adeo.no',
-    enableLogging: false
+    enableLogging: false,
 };
 
 fs.readFile(front, (err, data) => {
@@ -38,7 +38,7 @@ fs.readFile(front, (err, data) => {
     if (!fs.existsSync('build/')) {
         fs.mkdirSync('build/');
     }
-    fs.writeFile('build/fastlegefront.html', html, 'utf-8', err => {
-        if (err) throw err;
+    fs.writeFile('build/fastlegefront.html', html, 'utf-8', (writeError) => {
+        if (writeError) throw writeError;
     });
 });

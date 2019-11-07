@@ -1,7 +1,6 @@
 const passport = require('passport');
-const { passportConfig } = require('../config/passportConfig');
+// const { passportConfig } = require('../config/passportConfig');
 const LOG = require('../logger');
-const multiparty = require('multiparty');
 
 const allowedRedirectRoutes = ['/fastlege/oidc/callback', '/fastlege', '404'];
 
@@ -9,11 +8,11 @@ exports.authenticateAzure = () => {
     return (req, res, next) => {
         const regex = /redirectUrl=(.*)/.exec(req.url);
         const validRedirectRoute =
-            allowedRedirectRoutes.find(redirectRoute =>
-                regex[1].includes(redirectRoute)
-            ) !== undefined;
+            allowedRedirectRoutes.find((redirectRoute) => {
+                return regex[1].includes(redirectRoute);
+            }) !== undefined;
 
-        const successRedirect = regex && validRedirectRoute ? regex[1] : '/';
+        // const successRedirect = regex && validRedirectRoute ? regex[1] : '/';
         if (!validRedirectRoute) {
             LOG.error(`Ugyldig redirect path [${regex[1]}], fallback '/'`);
         }
@@ -21,10 +20,10 @@ exports.authenticateAzure = () => {
         try {
             passport.authenticate('azuread-openidconnect', {
                 response: res,
-                session: false
+                session: false,
             })(req, res, next);
         } catch (err) {
-            throw `Error during authentication: ${err}`;
+            throw new Error(`Error during authentication: ${err}`);
         }
     };
 };
@@ -36,18 +35,18 @@ exports.authenticateAzureCallback = () => {
                 response: res,
             })(req, res, next);
         } catch (e) {
-            throw `Error during authentication: ${e}`;
+            throw new Error(`Error during authentication: ${e}`);
         }
     };
 };
 
-exports.ensureAuthenticated = sendUnauthorized => {
-    return async (req, res, next) => {
+exports.ensureAuthenticated = (sendUnauthorized) => {
+    return (req, res, next) => {
         if (req.isAuthenticated()) {
             return next();
         }
 
-        const pathname = req.originalUrl;
+        // const pathname = req.originalUrl;
         if (sendUnauthorized) {
             res.status(401).send('Unauthorized');
         } else {

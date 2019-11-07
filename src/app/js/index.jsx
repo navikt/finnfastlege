@@ -1,11 +1,11 @@
 import './utils/globals';
 import { render } from 'react-dom';
 import React from 'react';
-import AppRouter from './routers/AppRouter.js';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import history from './history.js';
+import AppRouter from './routers/AppRouter';
+import history from './history';
 import rootSaga from './sagas/index';
 import modiacontext from './reducers/modiacontext';
 import fastlege from './reducers/fastlege';
@@ -16,9 +16,10 @@ import veilederinfo from './reducers/veilederinfo';
 import { finnMiljoStreng } from './sagas/util';
 import {
     pushModiaContext,
-    hentAktivEnhet
+    hentAktivEnhet,
 } from './actions/modiacontext_actions';
 import { CONTEXT_EVENT_TYPE } from './konstanter';
+import { setEventHandlersOnConfig } from './global';
 
 const rootReducer = combineReducers({
     modiacontext,
@@ -27,7 +28,7 @@ const rootReducer = combineReducers({
     tilgang,
     diskresjonskode,
     egenansatt,
-    veilederinfo
+    veilederinfo,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -36,55 +37,44 @@ const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 
-const config = {
-    config: {
-        dataSources: {
-            veileder: `${window.location.origin}/syfomoteadmin/api/internad/veilederinfo`,
-            enheter: `${window.location.origin}/syfomoteadmin/api/internad/enheter`
-        },
-        toggles: {
-            visEnhetVelger: true,
-            visVeileder: true,
-            visSokefelt: true,
-            toggleSendEventVedEnEnhet: false
-        },
-        handlePersonsokSubmit: nyttFnr => {
-            window.location = `https://app${finnMiljoStreng()}.adeo.no/sykefravaer/${nyttFnr}`;
-        },
-        applicationName: 'Sykefraværsoppfølging',
-        handleChangeEnhet: data => {
-            if (config.config.initiellEnhet !== data) {
-                store.dispatch(
-                    pushModiaContext({
-                        verdi: data,
-                        eventType: CONTEXT_EVENT_TYPE.NY_AKTIV_ENHET
-                    })
-                );
-                config.config.initiellEnhet = data;
-            }
-        }
+const handleChangeEnhet = (data) => {
+    if (config.config.initiellEnhet !== data) {
+        store.dispatch(
+            pushModiaContext({
+                verdi: data,
+                eventType: CONTEXT_EVENT_TYPE.NY_AKTIV_ENHET,
+            }),
+        );
+        config.config.initiellEnhet = data;
     }
 };
+
+const handlePersonsokSubmit = (nyttFnr) => {
+    window.location = `https://app${finnMiljoStreng()}.adeo.no/sykefravaer/${nyttFnr}`;
+};
+
+setEventHandlersOnConfig(handlePersonsokSubmit, handleChangeEnhet);
+
 store.dispatch(
     hentAktivEnhet({
-        callback: aktivEnhet => {
+        callback: (aktivEnhet) => {
             if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
                 config.config.initiellEnhet = aktivEnhet;
                 window.renderDecoratorHead(config);
             }
-        }
-    })
+        },
+    }),
 );
 
 render(
     <Provider store={store}>
         <AppRouter history={history} />
     </Provider>,
-    document.getElementById('maincontent')
+    document.getElementById('maincontent'),
 );
 
 document.addEventListener('DOMContentLoaded', () => {
-    window.renderDecoratorHead && window.renderDecoratorHead(config);
+    if (window.renderDecoratorHead) window.renderDecoratorHead(config);
 });
 
 export { store, history };

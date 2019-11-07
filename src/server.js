@@ -1,3 +1,5 @@
+/* eslint-disable import/newline-after-import */
+/* eslint-disable import/order */
 const LOG = require('./logger');
 const dotenv = require('dotenv');
 const serverConfig = require('./serverConfig');
@@ -6,10 +8,10 @@ if (serverConfig.isDev) {
 } else {
     const { parsed } = dotenv.config({
         path: '/var/run/secrets/nais.io/vault/.env',
-        encoding: 'UTF-8'
+        encoding: 'UTF-8',
     });
-    Object.keys(parsed).forEach(e => {
-        LOG.info('Parsed env: ' + e);
+    Object.keys(parsed).forEach((e) => {
+        LOG.info(`Parsed env: ${e}`);
     });
 }
 const express = require('express');
@@ -17,10 +19,12 @@ const path = require('path');
 const helmet = require('helmet');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const authMiddleware = require('./auth/authMiddleware');
-const configurePassport = require('./config/passport');
 const cookieParser = require('cookie-parser');
 const { configureSession } = require('./auth/session');
+const authMiddleware = require('./auth/authMiddleware');
+const configurePassport = require('./config/passport');
+const mockRouter = require('./mock');
+
 const app = express();
 
 app.use(helmet());
@@ -38,34 +42,38 @@ const setupOidcRoutes = () => {
         (req, res) => {
             res.cookie('isso-idtoken', req.session.idToken, { httpOnly: true });
             res.redirect('/fastlege');
-        }
+        },
     );
 
     app.use('/fastlege/login', authMiddleware.authenticateAzure());
-    app.get('/fastlege/error', (req, res) =>
-        res.send('Noe gikk galt under innlogging')
-    );
+    app.get('/fastlege/error', (req, res) => {
+        res.send('Noe gikk galt under innlogging');
+    });
 };
 
 const setupRoutes = () => {
-    app.get('/health/isReady', (req, res) => res.status(200).send('Im ready!'));
-    app.get('/health/isAlive', (req, res) => res.status(200).send('Im alive!'));
-
-    if (serverConfig.isDev) {
-        app.use(require('./mock'));
-    }
+    app.get('/health/isReady', (req, res) => {
+        res.status(200).send('Im ready!');
+    });
+    app.get('/health/isAlive', (req, res) => {
+        res.status(200).send('Im alive!');
+    });
 
     app.use('/fastlege', express.static(path.join(__dirname, '..', 'build')));
+
+    if (serverConfig.isDev) {
+        app.use(mockRouter);
+    }
 
     app.get(
         '/fastlege/*',
         authMiddleware.ensureAuthenticated(false),
-        (req, res, next) => {
+        (req, res) => {
             res.sendFile(
                 path.join(__dirname, '..', 'build', 'fastlegefront.html'),
-                {}
+                {},
             );
-        }
+        },
     );
 };
 
@@ -73,7 +81,7 @@ const startServer = () => {
     app.listen(serverConfig.port, () => {
         LOG.info(
             `App listening on port ${serverConfig.port} with configuration}`,
-            serverConfig
+            serverConfig,
         );
     });
 };

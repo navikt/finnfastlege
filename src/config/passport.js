@@ -1,11 +1,11 @@
+/* eslint-disable no-underscore-dangle */
+const { OIDCStrategy } = require('passport-azure-ad');
 const { passportConfig } = require('./passportConfig');
-const passport = require('passport');
-const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 
 /**
  * @param passport {passport}
  */
-module.exports = passport => {
+module.exports = (passport) => {
     passport.serializeUser((user, done) => {
         done(null, user.oid);
     });
@@ -28,23 +28,22 @@ module.exports = passport => {
                 accessToken,
                 refreshToken,
                 params,
-                done
+                done,
             ) => {
                 if (!profile.oid) {
                     return done(new Error('No oid found'), null);
                 }
                 process.nextTick(() => {
-                    let user = {};
-                    user.oid = profile.oid;
-                    user.upn = profile.upn;
-                    user.displayName = profile.displayName;
-                    user.firstName = profile.name.givenName;
-                    user.lastName = profile.name.familyName;
-                    user.groups = JSON.parse(profile._json.groups);
-                    user.refreshToken = refreshToken;
-                    user.idToken = params.idToken;
-
-                    req.session.oid = user.oid;
+                    const user = {
+                        oid: profile.oid,
+                        upn: profile.upn,
+                        displayName: profile.displayName,
+                        firstName: profile.name.givenName,
+                        lastName: profile.name.familyName,
+                        groups: JSON.parse(profile._json.groups),
+                        refreshToken: refreshToken,
+                        idToken: params.idToken,
+                    };
                     req.session.upn = user.upn;
                     req.session.displayName = user.displayName;
                     req.session.firstName = user.firstName;
@@ -56,7 +55,7 @@ module.exports = passport => {
 
                     return done(null, user);
                 });
-            }
-        )
+            },
+        ),
     );
 };

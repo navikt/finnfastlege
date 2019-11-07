@@ -3,5 +3,10 @@
     "javascript.preferences.renameShorthandProperties": true,
     "editor.formatOnSave": true,
     "editor.tabSize": 4,
-    "prettier.tabWidth": 4
+    "editor.insertSpaces": false,
+    "prettier.jsxBracketSameLine": true,
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "all",
+    "prettier.arrowParens": "always",
+    "eslint.enable": true
 }

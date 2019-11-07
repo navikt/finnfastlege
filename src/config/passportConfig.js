@@ -11,7 +11,7 @@ const hentPassportConfig = () => {
                 cookieDomain: host,
                 logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=http:\\\\localhost:8000`,
                 redirectUrl: 'http://localhost:8080/fastlege/oidc/callback',
-                tenant: 'navq.onmicrosoft.com'
+                tenant: 'navq.onmicrosoft.com',
             };
             break;
         case 'q1':
@@ -19,8 +19,8 @@ const hentPassportConfig = () => {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: host,
                 logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\app-q1.adeo.no`,
-                redirectUrl: `https://app-q1.adeo.no/fastlege/oidc/callback`,
-                tenant: 'navq.onmicrosoft.com'
+                redirectUrl: `https://${serverConfig.host}/fastlege/oidc/callback`,
+                tenant: 'navq.onmicrosoft.com',
             };
             break;
         case 'preprod':
@@ -28,8 +28,8 @@ const hentPassportConfig = () => {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: host,
                 logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\app-q1.adeo.no`,
-                redirectUrl: `https://app-q1.adeo.no/fastlege/oidc/callback`,
-                tenant: 'navq.onmicrosoft.com'
+                redirectUrl: `https://${serverConfig.host}/fastlege/oidc/callback`,
+                tenant: 'navq.onmicrosoft.com',
             };
             break;
         case 'production':
@@ -37,24 +37,26 @@ const hentPassportConfig = () => {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: host,
                 logoutUri: `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\app.adeo.no`,
-                redirectUrl: `https://app.adeo.no/fastlege/oidc/callback`,
-                tenant: 'navno.onmicrosoft.com'
+                redirectUrl: `https://${serverConfig.host}/fastlege/oidc/callback`,
+                tenant: 'navno.onmicrosoft.com',
             };
+            break;
+        default:
             break;
     }
 
-    const key1 = process.env.PASSPORTCOOKIE_KEY1
-        ? process.env.PASSPORTCOOKIE_KEY1
-        : 'dwadawdadawdadadwadawdadadwawdwa';
-    const key2 = process.env.PASSPORTCOOKIE_KEY2
-        ? process.env.PASSPORTCOOKIE_KEY2
-        : 'dwadawdadawdadadwadawdadadwawdwa';
-    const key3 = process.env.PASSPORTCOOKIE_KEY3
-        ? process.env.PASSPORTCOOKIE_KEY3
-        : 'dwadawdadawd';
-    const key4 = process.env.PASSPORTCOOKIE_KEY4
-        ? process.env.PASSPORTCOOKIE_KEY4
-        : 'dwadawdadawd';
+    // const key1 = process.env.PASSPORTCOOKIE_KEY1
+    //     ? process.env.PASSPORTCOOKIE_KEY1
+    //     : 'dwadawdadawdadadwadawdadadwawdwa';
+    // const key2 = process.env.PASSPORTCOOKIE_KEY2
+    //     ? process.env.PASSPORTCOOKIE_KEY2
+    //     : 'dwadawdadawdadadwadawdadadwawdwa';
+    // const key3 = process.env.PASSPORTCOOKIE_KEY3
+    //     ? process.env.PASSPORTCOOKIE_KEY3
+    //     : 'dwadawdadawd';
+    // const key4 = process.env.PASSPORTCOOKIE_KEY4
+    //     ? process.env.PASSPORTCOOKIE_KEY4
+    //     : 'dwadawdadawd';
 
     return {
         ...config,
@@ -63,7 +65,7 @@ const hentPassportConfig = () => {
             ? process.env.CLIENT_SECRET
             : '',
         cookieEncryptionKeys: [
-            { key: '12345678901234567890123456789012', iv: '123456789012' }
+            { key: '12345678901234567890123456789012', iv: '123456789012' },
         ],
         identityMetadata: `https://login.microsoftonline.com/${config.tenant}/.well-known/openid-configuration`,
         loggingLevel: 'debug',
@@ -73,7 +75,7 @@ const hentPassportConfig = () => {
         scope: 'profile offline_access openid'.split(' '),
         tokenURI: `https://login.microsoftonline.com/${config.tenant}/oauth2/token`,
         useCookieInsteadOfSession: false,
-        validateIssuer: true
+        validateIssuer: true,
     };
 };
 

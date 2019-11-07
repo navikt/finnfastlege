@@ -1,4 +1,5 @@
-var querystring = require('querystring'),
+/* eslint-disable */
+const querystring = require('querystring'),
     crypto = require('crypto'),
     https = require('https'),
     http = require('http'),
@@ -14,7 +15,7 @@ exports.OAuth2 = function(
     baseSite,
     authorizePath,
     accessTokenPath,
-    customHeaders
+    customHeaders,
 ) {
     this._clientId = clientId;
     this._clientSecret = clientSecret;
@@ -84,7 +85,7 @@ exports.OAuth2.prototype._request = function(
     headers,
     post_body,
     access_token,
-    callback
+    callback,
 ) {
     var parsedUrl = URL.parse(url, true);
     if (parsedUrl.protocol == 'https:' && !parsedUrl.port) {
@@ -130,7 +131,7 @@ exports.OAuth2.prototype._request = function(
         port: parsedUrl.port,
         path: parsedUrl.pathname + queryStr,
         method: method,
-        headers: realHeaders
+        headers: realHeaders,
     };
 
     this._executeRequest(http_library, options, post_body, callback);
@@ -140,7 +141,7 @@ exports.OAuth2.prototype._executeRequest = function(
     http_library,
     options,
     post_body,
-    callback
+    callback,
 ) {
     // Some hosts *cough* google appear to close the connection early / send no content-length header
     // allow this behaviour.
@@ -207,7 +208,7 @@ exports.OAuth2.prototype.getAuthorizeUrl = function(params) {
 exports.OAuth2.prototype.getOAuthAccessToken = function(
     code,
     params,
-    callback
+    callback,
 ) {
     var params = params || {};
     params['client_id'] = this._clientId;
@@ -218,7 +219,7 @@ exports.OAuth2.prototype.getOAuthAccessToken = function(
 
     var post_data = querystring.stringify(params);
     var post_headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
     };
 
     this._request(
@@ -247,7 +248,7 @@ exports.OAuth2.prototype.getOAuthAccessToken = function(
                 delete results['refresh_token'];
                 callback(null, access_token, refresh_token, results); // callback results =-=
             }
-        }
+        },
     );
 };
 
@@ -255,7 +256,7 @@ exports.OAuth2.prototype.getOAuthAccessToken = function(
 exports.OAuth2.prototype.getProtectedResource = function(
     url,
     access_token,
-    callback
+    callback,
 ) {
     this._request('GET', url, {}, '', access_token, callback);
 };

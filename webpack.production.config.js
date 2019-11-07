@@ -1,5 +1,6 @@
 const Webpack = require('webpack');
 const path = require('path');
+
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const buildPath = 'build/js';
 const mainPath = path.resolve(__dirname, 'src', 'app', 'js', 'index.js');
@@ -8,7 +9,7 @@ const stylesPath = path.resolve(
     'src',
     'app',
     'styles',
-    'styles.less'
+    'styles.less',
 );
 
 const config = {
@@ -17,7 +18,7 @@ const config = {
     entry: [mainPath, stylesPath],
     output: {
         path: buildPath,
-        filename: 'bundle-prod.js'
+        filename: 'bundle-prod.js',
     },
     module: {
         loaders: [
@@ -25,38 +26,38 @@ const config = {
                 test: /\.js$/,
                 loader: 'babel',
                 query: {
-                    presets: ['react', 'es2015']
+                    presets: ['react', 'es2015'],
                 },
-                exclude: [nodeModulesPath]
+                exclude: [nodeModulesPath],
             },
             {
                 test: /\.less$/,
                 loaders: [
                     'style-loader',
                     'css-loader',
-                    'less-loader?{"globalVars":{"nodeModulesPath":"\'~\'", "coreModulePath":"\'~\'"}}'
-                ]
+                    'less-loader?{"globalVars":{"nodeModulesPath":"\'~\'", "coreModulePath":"\'~\'"}}',
+                ],
             },
             {
                 test: /\.json$/,
-                loader: 'json'
+                loader: 'json',
             },
             {
                 test: /\.((woff2?|svg)(\?v=[0-9]\.[0-9]\.[0-9]))|(woff2?|svg|jpe?g|png|gif|ico)$/,
-                loader: 'url?limit=10000'
+                loader: 'url?limit=10000',
             },
             {
                 test: /\.((ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9]))|(ttf|eot)$/,
-                loader: 'file'
-            }
-        ]
+                loader: 'file',
+            },
+        ],
     },
 
     plugins: [
         new Webpack.DefinePlugin({
-            'process.env.NODE_ENV': "'production'"
-        })
-    ]
+            'process.env.NODE_ENV': "'production'",
+        }),
+    ],
 };
 
 module.exports = config;
