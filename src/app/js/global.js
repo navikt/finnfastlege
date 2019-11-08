@@ -13,7 +13,7 @@ export const erHerokuApp = () => {
 };
 
 export const finnNaisUrl = () => {
-    return erPreProd() ? '-q1.nais.preprod.local' : '.nais.adeo.no';
+    return erPreProd() ? '.nais.preprod.local' : '.nais.adeo.no';
 };
 
 export const fullNaisUrl = (host, path) => {
