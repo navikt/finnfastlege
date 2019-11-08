@@ -18,7 +18,7 @@ import {
     hentAktivEnhet,
 } from './actions/modiacontext_actions';
 import { CONTEXT_EVENT_TYPE } from './konstanter';
-import { setEventHandlersOnConfig } from './global';
+import { setEventHandlersOnConfig, config } from './global';
 
 const rootReducer = combineReducers({
     modiacontext,
@@ -61,21 +61,20 @@ render(
     document.getElementById('maincontent'),
 );
 
-store.dispatch(
-    hentAktivEnhet({
-        callback: (aktivEnhet) => {
-            // eslint-disable-next-line no-console
-            console.log(`aktivEnhet: ${aktivEnhet}`);
-            if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
-                config.config.initiellEnhet = aktivEnhet;
-                window.renderDecoratorHead(config);
-            }
-        },
-    }),
-);
-
 document.addEventListener('DOMContentLoaded', () => {
     if (window.renderDecoratorHead) window.renderDecoratorHead(config);
+    store.dispatch(
+        hentAktivEnhet({
+            callback: (aktivEnhet) => {
+                // eslint-disable-next-line no-console
+                console.log(`aktivEnhet: ${aktivEnhet}`);
+                if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
+                    config.config.initiellEnhet = aktivEnhet;
+                    window.renderDecoratorHead(config);
+                }
+            },
+        }),
+    );
 });
 
 export { store, history };
