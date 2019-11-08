@@ -13,9 +13,8 @@ const dev = {
     modiasyforestRoot: '/modiasyforest/api',
     veilederoppgaverRestRoot: '/syfoveilederoppgaver/api',
     bundleFileName: 'bundle.js',
-    decoratorRoot: 'https://app-t6.adeo.no',
     contextholderRoot: 'http://localhost:8090/eventdistributer',
-    moteadminHost: 'https://syfomoteadmin.nais.preprod.local',
+    moteadminHost: 'syfomoteadmin',
     enableLogging: true,
 };
 
@@ -26,9 +25,8 @@ const prod = {
     modiasyforestRoot: '/modiasyforest/api',
     veilederoppgaverRestRoot: '/syfoveilederoppgaver/api',
     bundleFileName: 'bundle-prod.js',
-    decoratorRoot: '',
     contextholderRoot: '/eventdistributer',
-    moteadminHost: 'https://syfomoteadmin.nais.adeo.no',
+    moteadminHost: 'syfomoteadmin',
     enableLogging: false,
 };
 

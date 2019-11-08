@@ -35,19 +35,25 @@ class Sokeboks extends Component {
     }
 
     render() {
-        return (<div className="sokeboks blokk">
-            <form onSubmit={this.onSubmit} >
-                <Input
-                    feil={this.state.valideringsfeil && {
-                        feilmelding: 'Du må skrive inn et gyldig fødselsnummer (11 siffer)',
-                    }}
-                    type="search"
-                    onChange={this.sokefeltEndret}
-                    placeholder="Søk"
-                    value={this.state.value} />
-                <Hovedknapp>Søk</Hovedknapp>
-            </form>
-        </div>);
+        const { valideringsfeil, value } = this.state;
+        return (
+            <div className="sokeboks blokk">
+                <form onSubmit={this.onSubmit}>
+                    <Input
+                        feil={
+                            valideringsfeil
+                                ? { feilmelding: 'Du må skrive inn et gyldig fødselsnummer (11 siffer)' }
+                                : undefined
+                        }
+                        type="search"
+                        onChange={this.sokefeltEndret}
+                        placeholder="Søk"
+                        value={value}
+                    />
+                    <Hovedknapp>Søk</Hovedknapp>
+                </form>
+            </div>
+        );
     }
 }
 

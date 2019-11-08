@@ -21,16 +21,14 @@ export function get(url) {
             if (res.status > 400 && res.status !== 403) {
                 throw new Error('Det oppstod en feil');
             }
-            return res.json().then((data) => {
-                if (res.status === 403) {
-                    const tilgang = {
-                        harTilgang: false,
-                        begrunnelse: data.message,
-                    };
-                    throw new Error403('403', 403, tilgang);
-                }
-                return data;
-            });
+            if (res.status === 403) {
+                const tilgang = {
+                    harTilgang: false,
+                    begrunnelse: res.data.message,
+                };
+                throw new Error403('403', 403, tilgang);
+            }
+            return res.data;
         })
         .catch((err) => {
             log(err);
@@ -52,7 +50,7 @@ export function post(url, body) {
                 log(res);
                 throw new Error('Forespørsel feilet');
             } else {
-                return res;
+                return res.data;
             }
         })
         .catch((err) => {

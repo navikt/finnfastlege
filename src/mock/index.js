@@ -22,11 +22,23 @@ router.get(
 );
 
 router.get(
+    '/syfomoteadmin/api/internad/veilederinfo',
+    auth.ensureAuthenticated(true),
+    (req, res) => {
+        res.json(syfoveilederoppgaverRestMock.veilederInfoResponse);
+    },
+);
+
+router.get(
     '/syfoveilederoppgaver/api/veilederinfo',
     auth.ensureAuthenticated(true),
     (req, res) => {
         res.json(syfoveilederoppgaverRestMock.veilederInfoResponse);
     },
 );
+
+router.get('/api/aktivenhet', (req, res) => {
+    res.status(200).json({ aktivBruker: '', aktivEnhet: '3016' });
+});
 
 module.exports = router;

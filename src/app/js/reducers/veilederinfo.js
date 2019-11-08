@@ -1,3 +1,4 @@
+/* eslint-disable prefer-object-spread */
 import {
     HENTER_VEILEDERINFO,
     VEILEDERINFO_HENTET,

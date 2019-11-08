@@ -13,6 +13,6 @@ module.exports = {
     isProd: isProduction(),
     port: process.env.PORT || 8080,
     env: process.env.ENV || 'local',
-    host: process.env.HOST || 'app-q1.adeo.no',
+    host: process.env.HOST || 'finnfastlege.adeo.no',
     logLevel: process.env.LOG_LEVEL || decideLogLevel(),
 };

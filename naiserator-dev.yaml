@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamsykefravr
 spec:
-  image: "docker.pkg.github.com/navikt/fastlegefront:2019.11.06-7454611"
+  image: "docker.pkg.github.com/navikt/fastlegefront:2019.11.07-a0a0374"
   replicas:
     min: 1
     max: 1
@@ -32,7 +32,7 @@ spec:
     - name: ENV
       value: preprod
     - name: HOST
-      value: app-q1.adeo.no
+      value: finnfastlege.nais.preprod.local
   resources:
     limits:
       cpu: 500m

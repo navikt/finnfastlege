@@ -1,5 +1,11 @@
-import { PUSHER_MODIACONTEXT, PUSH_MODIACONTEXT_FEILET, MODIACONTEXT_PUSHET,
-    HENTER_AKTIVENHET, HENT_AKTIVENHET_FEILET } from '../actions/actiontyper';
+/* eslint-disable prefer-object-spread */
+import {
+    PUSHER_MODIACONTEXT,
+    PUSH_MODIACONTEXT_FEILET,
+    MODIACONTEXT_PUSHET,
+    HENTER_AKTIVENHET,
+    HENT_AKTIVENHET_FEILET,
+} from '../actions/actiontyper';
 
 const initiellState = {
     pushet: false,

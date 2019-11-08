@@ -29,7 +29,7 @@
         "operator-linebreak": "off",
         "consistent-return": "off",
         "object-shorthand": "off",
-
+        "prettier/prettier": "off",
         "react/jsx-closing-bracket-location": 0,
         "max-len": ["warn", 220],
         "prefer-template": 1

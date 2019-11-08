@@ -1,5 +1,6 @@
-export const finnMiljoStreng = () => {
-    const host = window.location.host;
+/* eslint-disable import/prefer-default-export */
+const finnMiljoStreng = () => {
+    const { host } = window.location;
     const bindestrekIndex = host.indexOf('-');
     if (bindestrekIndex === -1) {
         return '';
@@ -7,3 +8,5 @@ export const finnMiljoStreng = () => {
     const dotIndex = host.indexOf('.');
     return host.substring(bindestrekIndex, dotIndex);
 };
+
+export { finnMiljoStreng };

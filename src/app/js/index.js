@@ -13,7 +13,6 @@ import tilgang from './reducers/tilgang';
 import egenansatt from './reducers/egenansatt';
 import diskresjonskode from './reducers/diskresjonskode';
 import veilederinfo from './reducers/veilederinfo';
-import { finnMiljoStreng } from './sagas/util';
 import {
     pushModiaContext,
     hentAktivEnhet,
@@ -49,28 +48,30 @@ const handleChangeEnhet = (data) => {
     }
 };
 
-const handlePersonsokSubmit = (nyttFnr) => {
-    window.location = `https://app${finnMiljoStreng()}.adeo.no/sykefravaer/${nyttFnr}`;
+const handlePersonsokSubmit = () => {
+    window.location.href = `/fastlege`;
 };
 
 setEventHandlersOnConfig(handlePersonsokSubmit, handleChangeEnhet);
-
-store.dispatch(
-    hentAktivEnhet({
-        callback: (aktivEnhet) => {
-            if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
-                config.config.initiellEnhet = aktivEnhet;
-                window.renderDecoratorHead(config);
-            }
-        },
-    }),
-);
 
 render(
     <Provider store={store}>
         <AppRouter history={history} />
     </Provider>,
     document.getElementById('maincontent'),
+);
+
+store.dispatch(
+    hentAktivEnhet({
+        callback: (aktivEnhet) => {
+            // eslint-disable-next-line no-console
+            console.log(`aktivEnhet: ${aktivEnhet}`);
+            if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
+                config.config.initiellEnhet = aktivEnhet;
+                window.renderDecoratorHead(config);
+            }
+        },
+    }),
 );
 
 document.addEventListener('DOMContentLoaded', () => {
