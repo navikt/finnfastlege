@@ -8,17 +8,13 @@ import { fullNaisUrl } from '../global';
 export function* hentVeilederinfoSaga() {
     yield put(actions.henterVeilederinfo());
     try {
-        // eslint-disable-next-line no-console
-        console.log(window.APP_SETTINGS);
         const url = fullNaisUrl(
-            window.APP_SETTINGS.MOTEADMIN_HOST,
+            'syfomoteadmin',
             '/syfomoteadmin/api/internad/veilederinfo',
         );
         const data = yield call(get, url);
         yield put(actions.veilederinfoHentet(data));
     } catch (e) {
-        // eslint-disable-next-line no-console
-        console.log(e);
         yield put(actions.hentVeilederinfoFeilet());
     }
 }
