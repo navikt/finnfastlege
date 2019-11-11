@@ -28,11 +28,11 @@ export const config = {
         dataSources: {
             veileder: `${fullNaisUrl(
                 HOST_NAMES.SYFOMOTEADMIN,
-                `syfomoteadmin/api/internad/veilederinfo`,
+                `/syfomoteadmin/api/internad/veilederinfo`,
             )}`,
             enheter: `${fullNaisUrl(
                 HOST_NAMES.SYFOMOTEADMIN,
-                `syfomoteadmin/api/internad/veilederinfo/enheter`,
+                `/syfomoteadmin/api/internad/veilederinfo/enheter`,
             )}`,
         },
         initiellEnhet: erLokal() || erHerokuApp() ? '0316' : '',
