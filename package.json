@@ -49,6 +49,7 @@
         "cookie-parser": "^1.4.4",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
+        "express-http-proxy": "^1.6.0",
         "express-session": "^1.17.0",
         "fetch": "1.0.1",
         "helmet": "^3.21.2",
@@ -58,6 +59,7 @@
         "json-loader": "0.5.4",
         "lodash.throttle": "4.1.1",
         "multiparty": "^4.2.1",
+        "mustache": "2.2.1",
         "nav-frontend-alertstriper": "3.0.7",
         "nav-frontend-alertstriper-style": "2.0.6",
         "nav-frontend-core": "4.0.11",
@@ -104,8 +106,7 @@
         "simple-ajax": "2.6.0",
         "webpack": "1.12.13",
         "whatwg-fetch": "0.11.0",
-        "winston": "^3.2.1",
-        "mustache": "2.2.1"
+        "winston": "^3.2.1"
     },
     "devDependencies": {
         "autoprefixer-loader": "3.2.0",

@@ -24,6 +24,7 @@ const { configureSession } = require('./auth/session');
 const authMiddleware = require('./auth/authMiddleware');
 const configurePassport = require('./config/passport');
 const mockRouter = require('./mock');
+// const proxy = require('express-http-proxy');
 
 const app = express();
 
@@ -32,7 +33,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(configureSession());
-
 app.set('trust proxy', 1);
 
 const setupOidcRoutes = () => {
@@ -40,7 +40,11 @@ const setupOidcRoutes = () => {
         '/fastlege/oidc/callback',
         authMiddleware.authenticateAzureCallback(),
         (req, res) => {
-            res.cookie('isso-idtoken', req.session.idToken, { httpOnly: true });
+            res.cookie('isso-idtoken', req.session.idToken, {
+                httpOnly: true,
+                secure: true,
+                domain: serverConfig.cookieHost,
+            });
             res.redirect('/fastlege');
         },
     );
@@ -50,6 +54,22 @@ const setupOidcRoutes = () => {
         res.send('Noe gikk galt under innlogging');
     });
 };
+
+// const setupProxyRoutes = () => {
+//     app.use(
+//         '/syfomoteadmin',
+//         proxy('syfooversiktsrv.default', {
+//             https: false,
+//             proxyReqPathResolver: (req) => {
+//                 return `/api${req.path}`;
+//             },
+//             proxyErrorHandler: (err, res, next) => {
+//                 LOG.error('Error in proxy', err);
+//                 next(err);
+//             },
+//         }),
+//     );
+// };
 
 const setupRoutes = () => {
     app.get('/health/isReady', (req, res) => {
@@ -90,6 +110,7 @@ configurePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
+// setupProxyRoutes();
 setupOidcRoutes();
 setupRoutes();
 startServer();
