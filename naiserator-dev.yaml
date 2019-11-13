@@ -33,8 +33,8 @@ spec:
       value: preprod
     - name: HOST
       value: finnfastlege.nais.preprod.local
-    - name: PROXY_HOST
-      value:
+    - name: HTTP_PROXY
+      value: http://webproxy.nais:8088
   resources:
     limits:
       cpu: 500m
