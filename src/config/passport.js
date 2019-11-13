@@ -45,6 +45,7 @@ const strategy = async () => {
         req.session.lastName = user.lastName;
         req.session.groups = groups;
         req.session.refreshToken = tokenSet.refresh_token;
+        req.session.idToken = tokenSet.id_token;
 
         return done(null, user);
     };
