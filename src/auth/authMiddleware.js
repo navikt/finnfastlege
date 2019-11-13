@@ -20,7 +20,6 @@ exports.authenticateAzure = () => {
         try {
             passport.authenticate('azuread-openidconnect', {
                 response: res,
-                session: false,
             })(req, res, next);
         } catch (err) {
             throw new Error(`Error during authentication: ${err}`);

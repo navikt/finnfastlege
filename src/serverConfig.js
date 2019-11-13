@@ -8,7 +8,7 @@ const decideLogLevel = () => {
     return 'info';
 };
 
-const fullHost = process.env.HOST || 'finnfastlege.adeo.no';
+const fullHost = process.env.HOST;
 const appName = 'finnfastlege';
 
 const getCookieHostFromFullHostName = () => {
@@ -21,9 +21,10 @@ const config = {
     port: process.env.PORT || 8080,
     env: process.env.ENV || 'local',
     appName: appName,
-    host: fullHost,
+    host: process.env.HOST,
     cookieHost: getCookieHostFromFullHostName(),
     logLevel: process.env.LOG_LEVEL || decideLogLevel(),
+    proxyUrl: process.env.HTTP_PROXY,
 };
 
 module.exports = config;

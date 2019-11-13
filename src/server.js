@@ -1,19 +1,16 @@
 /* eslint-disable import/newline-after-import */
 /* eslint-disable import/order */
-const LOG = require('./logger');
 const dotenv = require('dotenv');
-const serverConfig = require('./serverConfig');
-if (serverConfig.isDev) {
+if (process.env.NODE_ENV === 'development') {
     dotenv.config();
 } else {
-    const { parsed } = dotenv.config({
+    dotenv.config({
         path: '/var/run/secrets/nais.io/vault/.env',
         encoding: 'UTF-8',
     });
-    Object.keys(parsed).forEach((e) => {
-        LOG.info(`Parsed env: ${e}`);
-    });
 }
+const LOG = require('./logger');
+const serverConfig = require('./serverConfig');
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
@@ -24,7 +21,6 @@ const { configureSession } = require('./auth/session');
 const authMiddleware = require('./auth/authMiddleware');
 const configurePassport = require('./config/passport');
 const mockRouter = require('./mock');
-// const proxy = require('express-http-proxy');
 
 const app = express();
 
