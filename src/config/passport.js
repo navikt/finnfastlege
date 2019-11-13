@@ -36,6 +36,7 @@ const strategy = async () => {
             lastName: userinfo.family_name,
             groups: groups,
             refreshToken: tokenSet.refresh_token,
+            idToken: tokenSet.id_token,
         };
         req.session.oid = user.oid;
         req.session.upn = user.upn;
