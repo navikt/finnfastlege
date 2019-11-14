@@ -37,6 +37,10 @@ router.get(
     },
 );
 
+router.get('/syfo-tilgangskontroll/api/tilgang/syfo', auth.ensureAuthenticated(true), (req, res) => {
+    res.status(200).send("værsågod");
+});
+
 router.get('/api/aktivenhet', (req, res) => {
     res.status(200).json({ aktivBruker: '', aktivEnhet: '3016' });
 });
