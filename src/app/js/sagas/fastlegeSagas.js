@@ -7,18 +7,12 @@ import * as diskresjonskodeActions from '../actions/diskresjonskode_actions';
 import * as actiontyper from '../actions/actiontyper';
 import { fullNaisUrl } from '../global';
 
+
 const FASTLEGEREST_ROOT = '/fastlegerest/api';
 const FASTLEGEREST_HOST = 'fastlegerest';
 
-const SYFO_TILGANGSKONTROLL_ROOT = '/syfo-tilgangskontroll/api';
-const SYFO_TILGANGSKONTROLL_HOST = 'syfo-tilgangskontroll';
-
 const fastlegeRestUrl = (path) => {
     return fullNaisUrl(FASTLEGEREST_HOST, path);
-};
-
-const tilgangskontrollRestUrl = (path) => {
-    return fullNaisUrl(SYFO_TILGANGSKONTROLL_HOST, path);
 };
 
 export function* hentFastlege(action) {
@@ -44,7 +38,7 @@ export function* hentFastlege(action) {
 export function* sjekkFastlegeTilgang() {
     yield put(actions.sjekkerFastlegeTilgang());
     try {
-        const data = yield call(get, tilgangskontrollRestUrl(`${SYFO_TILGANGSKONTROLL_ROOT}/tilgang/syfo`));
+        const data = yield call(get, fastlegeRestUrl(`${FASTLEGEREST_ROOT}/internad/tilgang`));
         yield put(actions.fastlegeTilgangHentet(data));
     } catch (e) {
         yield put(actions.sjekkFastlegeTilgangFeilet());
