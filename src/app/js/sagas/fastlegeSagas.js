@@ -5,11 +5,18 @@ import * as actions from '../actions/fastlege_actions';
 import * as egenansattActions from '../actions/egenansatt_actions';
 import * as diskresjonskodeActions from '../actions/diskresjonskode_actions';
 import * as actiontyper from '../actions/actiontyper';
+import { fullNaisUrl } from '../global';
+
+
+const fastlegeRestUrl = (path) => {
+    const host = window.APP_SETTINGS.FASTLEGEREST_HOST || "fastlegerest";
+    return fullNaisUrl(host, path);
+};
 
 export function* hentFastlege(action) {
     yield put(actions.henterFastlege());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.FASTLEGEREST_ROOT}/fastlege/v1?fnr=${action.fnr}`);
+        const data = yield call(get, fastlegeRestUrl(`${window.APP_SETTINGS.FASTLEGEREST_ROOT}/fastlege/v1?fnr=${action.fnr}`));
         yield put(actions.fastlegeHentet(data));
         yield put(egenansattActions.hentEgenansatt(action.fnr));
         yield put(diskresjonskodeActions.hentDiskresjonskode(action.fnr));
@@ -29,7 +36,7 @@ export function* hentFastlege(action) {
 export function* sjekkFastlegeTilgang() {
     yield put(actions.sjekkerFastlegeTilgang());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.FASTLEGEREST_ROOT}/tilgang`);
+        const data = yield call(get, fastlegeRestUrl(`${window.APP_SETTINGS.FASTLEGEREST_ROOT}/tilgang`));
         yield put(actions.fastlegeTilgangHentet(data));
     } catch (e) {
         yield put(actions.sjekkFastlegeTilgangFeilet());

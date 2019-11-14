@@ -16,6 +16,7 @@ const dev = {
     contextholderRoot: 'http://localhost:8090/eventdistributer',
     moteadminHost: 'syfomoteadmin',
     enableLogging: true,
+    fastlegeRestHost: 'fastlegerest',
 };
 
 const prod = {
@@ -28,6 +29,7 @@ const prod = {
     contextholderRoot: '/eventdistributer',
     moteadminHost: 'syfomoteadmin',
     enableLogging: false,
+    fastlegeRestHost: 'fastlegerest',
 };
 
 fs.readFile(front, (err, data) => {
