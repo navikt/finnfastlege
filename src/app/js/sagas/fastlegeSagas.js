@@ -38,7 +38,7 @@ export function* hentFastlege(action) {
 export function* sjekkFastlegeTilgang() {
     yield put(actions.sjekkerFastlegeTilgang());
     try {
-        const data = yield call(get, fastlegeRestUrl(`${FASTLEGEREST_ROOT}/tilgang`));
+        const data = yield call(get, fastlegeRestUrl(`${FASTLEGEREST_ROOT}/internad/tilgang`));
         yield put(actions.fastlegeTilgangHentet(data));
     } catch (e) {
         yield put(actions.sjekkFastlegeTilgangFeilet());
