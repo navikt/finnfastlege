@@ -24,4 +24,10 @@ router.use('/fastlegerest', proxy('fastlegerest.default', {
     https: false,
 }));
 
+router.use('/modiasyforest', proxy('modiasyforest.default', {
+    proxyReqPathResolver: (req) => {
+        return `/modiasyforest${req.path}${getQueryStringFromReq(req)}`;
+    },
+}));
+
 module.exports = router;
