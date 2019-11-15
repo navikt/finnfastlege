@@ -27,6 +27,8 @@ const strategy = async () => {
         if (!userinfo.oid) {
             return done(new Error('No oid found'), null);
         }
+        // eslint-disable-next-line no-console
+        console.log(tokenSet);
         const groups = JSON.parse(userinfo.groups[0]);
         const user = {
             oid: userinfo.oid,
@@ -46,6 +48,7 @@ const strategy = async () => {
         req.session.groups = groups;
         req.session.refreshToken = tokenSet.refresh_token;
         req.session.idToken = tokenSet.id_token;
+        req.session.expires = new Date(tokenSet.expires_at);
 
         return done(null, user);
     };

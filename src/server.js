@@ -44,12 +44,6 @@ const setupOidcRoutes = () => {
                 maxAge: 36000,
                 domain: serverConfig.cookieHost,
             });
-            res.cookie('isso-idtoken', req.session.idToken, {
-                httpOnly: true,
-                secure: true,
-                maxAge: 36000,
-                domain: serverConfig.cookieHost,
-            });
             res.redirect('/fastlege');
         },
     );
@@ -80,6 +74,11 @@ const setupRoutes = () => {
         '/fastlege/*',
         authMiddleware.ensureAuthenticated(false),
         (req, res) => {
+            res.cookie('isso-idtoken', req.session.idToken, {
+                httpOnly: true,
+                secure: true,
+                domain: serverConfig.cookieHost,
+            });
             res.sendFile(
                 path.join(__dirname, '..', 'build', 'fastlegefront.html'),
                 {},
