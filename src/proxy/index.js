@@ -5,7 +5,14 @@ const router = express.Router();
 
 router.use('/syfo-tilgangskontroll', proxy('syfo-tilgangskontroll.default', {
     proxyReqPathResolver: (req) => {
-        return `/syfo-tilgangskontroll/${req.path}`;
+        return `/syfo-tilgangskontroll${req.path}`;
+    },
+    https: false,
+}));
+
+router.use('/fastlegerest', proxy('fastlegerest.default', {
+    proxyReqPathResolver: (req) => {
+        return `/fastlegerest${req.path}`;
     },
     https: false,
 }));

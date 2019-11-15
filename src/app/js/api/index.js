@@ -39,10 +39,6 @@ export function get(url) {
 export function post(url, body) {
     return axios
         .post(url, body, {
-            headers: {
-                'Content-Type': 'application/json',
-                NAV_CSRF_PROTECTION: getCookie('NAV_CSRF_PROTECTION'),
-            },
             withCredentials: true,
         })
         .then((res) => {

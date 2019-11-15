@@ -5,16 +5,12 @@ import * as actions from '../actions/fastlege_actions';
 import * as egenansattActions from '../actions/egenansatt_actions';
 import * as diskresjonskodeActions from '../actions/diskresjonskode_actions';
 import * as actiontyper from '../actions/actiontyper';
-import { fullNaisUrl } from '../global';
 
-
-const FASTLEGEREST_ROOT = '/fastlegerest/api';
-const FASTLEGEREST_HOST = 'fastlegerest';
-
+const FASTLEGEREST_ROOT = '/fastlegerest/api/internad';
 const TILGANGSKONTROLL_AD_PATH = '/syfo-tilgangskontroll/api/tilgang/syfo';
 
 const fastlegeRestUrl = (path) => {
-    return fullNaisUrl(FASTLEGEREST_HOST, path);
+    return path;
 };
 
 export function* hentFastlege(action) {
