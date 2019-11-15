@@ -21,7 +21,7 @@ const { configureSession } = require('./auth/session');
 const authMiddleware = require('./auth/authMiddleware');
 const configurePassport = require('./config/passport');
 const mockRouter = require('./mock');
-
+const proxyRouter = require('./proxy');
 const app = express();
 
 app.use(helmet());
@@ -60,22 +60,6 @@ const setupOidcRoutes = () => {
     });
 };
 
-// const setupProxyRoutes = () => {
-//     app.use(
-//         '/syfomoteadmin',
-//         proxy('syfooversiktsrv.default', {
-//             https: false,
-//             proxyReqPathResolver: (req) => {
-//                 return `/api${req.path}`;
-//             },
-//             proxyErrorHandler: (err, res, next) => {
-//                 LOG.error('Error in proxy', err);
-//                 next(err);
-//             },
-//         }),
-//     );
-// };
-
 const setupRoutes = () => {
     app.get('/health/isReady', (req, res) => {
         res.status(200).send('Im ready!');
@@ -88,6 +72,8 @@ const setupRoutes = () => {
 
     if (serverConfig.isDev) {
         app.use(mockRouter);
+    } else {
+        app.use(proxyRouter);
     }
 
     app.get(

@@ -11,6 +11,8 @@ import { fullNaisUrl } from '../global';
 const FASTLEGEREST_ROOT = '/fastlegerest/api';
 const FASTLEGEREST_HOST = 'fastlegerest';
 
+const TILGANGSKONTROLL_AD_PATH = '/syfo-tilgangskontroll/api/tilgang/syfo';
+
 const fastlegeRestUrl = (path) => {
     return fullNaisUrl(FASTLEGEREST_HOST, path);
 };
@@ -38,7 +40,7 @@ export function* hentFastlege(action) {
 export function* sjekkFastlegeTilgang() {
     yield put(actions.sjekkerFastlegeTilgang());
     try {
-        const data = yield call(get, fastlegeRestUrl(`${FASTLEGEREST_ROOT}/internad/tilgang`));
+        const data = yield call(get, TILGANGSKONTROLL_AD_PATH);
         yield put(actions.fastlegeTilgangHentet(data));
     } catch (e) {
         yield put(actions.sjekkFastlegeTilgangFeilet());
