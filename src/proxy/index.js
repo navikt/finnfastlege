@@ -3,16 +3,23 @@ const express = require('express');
 
 const router = express.Router();
 
+const getQueryStringFromReq = (req) => {
+    const queryString = req.url.split('?')[1];
+    return queryString
+        ? `?${queryString}`
+        : '';
+};
+
 router.use('/syfo-tilgangskontroll', proxy('syfo-tilgangskontroll.default', {
     proxyReqPathResolver: (req) => {
-        return `/syfo-tilgangskontroll${req.path}`;
+        return `/syfo-tilgangskontroll${req.path}${getQueryStringFromReq(req)}`;
     },
     https: false,
 }));
 
 router.use('/fastlegerest', proxy('fastlegerest.default', {
     proxyReqPathResolver: (req) => {
-        return `/fastlegerest${req.path}`;
+        return `/fastlegerest${req.path}${getQueryStringFromReq(req)}`;
     },
     https: false,
 }));
