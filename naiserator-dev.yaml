@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamsykefravr
 spec:
-  image: "docker.pkg.github.com/navikt/fastlegefront:2019.11.15-0400537"
+  image: "docker.pkg.github.com/navikt/fastlegefront:{{tag}}"
   replicas:
     min: 1
     max: 1

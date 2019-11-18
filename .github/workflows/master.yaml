@@ -50,13 +50,21 @@ jobs:
           cluster: dev-fss
           team: teamsykefravr
           resources: naiserator-dev.yaml
-      # - name: deploy to prod-fss
-      #   uses: navikt/deployment-cli/action@0.4.0
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     cluster: prod-fss
-      #     team: teamsykefravr
-      #     resources: naiserator-prod.yaml
-      # - name: Pling!
-      #   run: "curl -s https://syfoping.herokuapp.com/regDeploy?deployedBy=Veden"
+      - name: deploy to dev-fss
+        uses: navikt/deployment-cli/action@0.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          cluster: dev-fss
+          team: teamsykefravr
+          resources: naiserator-dev.yaml
+      - name: deploy to prod-fss
+        uses: navikt/deployment-cli/action@0.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          cluster: prod-fss
+          team: teamsykefravr
+          resources: naiserator-prod.yaml
+      - name: Pling!
+        run: "curl -s https://syfoping.herokuapp.com/regDeploy?deployedBy=Veden"

@@ -66,8 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     store.dispatch(
         hentAktivEnhet({
             callback: (aktivEnhet) => {
-                // eslint-disable-next-line no-console
-                console.log(`aktivEnhet: ${aktivEnhet}`);
                 if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
                     config.config.initiellEnhet = aktivEnhet;
                     window.renderDecoratorHead(config);

@@ -14,7 +14,6 @@ const client = async () => {
     proxy.setup(Issuer);
     const issuer = await Issuer.discover(passportConfig.identityMetadata);
     proxy.setup(issuer);
-    // console.log(`Discovered issuer ${issuer.issuer}`);
 
     const openIdClient = new issuer.Client(metadata);
     proxy.setup(openIdClient);
@@ -27,8 +26,6 @@ const strategy = async () => {
         if (!userinfo.oid) {
             return done(new Error('No oid found'), null);
         }
-        // eslint-disable-next-line no-console
-        console.log(tokenSet);
         const groups = JSON.parse(userinfo.groups[0]);
         const user = {
             oid: userinfo.oid,

@@ -32,8 +32,6 @@ export function* aktivEnhetSaga(action) {
         const path = `/api/aktivenhet`;
         const url = fullNaisUrl(host, path);
         const data = yield call(get, url);
-        // eslint-disable-next-line no-console
-        console.log(data);
         action.data.callback(data.aktivEnhet);
     } catch (e) {
         yield put(actions.hentAktivEnhetFeilet());

@@ -24,7 +24,6 @@ exports.setup = (object) => {
     const proxyUri = proxyUrl;
     const proxyAgent = agent(proxyUri);
     if (proxyAgent) {
-        // console.log(`Proxying requests via ${proxyUri} for '${object.constructor.name}'`);
         object[custom.http_options] = (options) => {
             options.agent = proxyAgent;
             return options;

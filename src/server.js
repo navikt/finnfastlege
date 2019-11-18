@@ -36,14 +36,6 @@ const setupOidcRoutes = () => {
         '/fastlege/oidc/callback',
         authMiddleware.authenticateAzureCallback(),
         (req, res) => {
-            // eslint-disable-next-line no-console
-            console.log({
-                value: req.session.idToken,
-                httpOnly: true,
-                secure: true,
-                maxAge: 36000,
-                domain: serverConfig.cookieHost,
-            });
             res.redirect('/fastlege');
         },
     );

@@ -28,9 +28,7 @@ jobs:
           npm run test
       - name: Build
         run: |
-          cp ./src/auth/oauth2.js ./node_modules/oauth/lib/oauth2.js
           npm run nais-build
-
       - name: Create Docker tag
         env:
           NAME: fastlegefront
