@@ -20,6 +20,7 @@ const config = {
     isProd: isProduction(),
     port: process.env.PORT || 8080,
     env: process.env.ENV || 'local',
+    sessionSecret: process.env.SESSION_SECRET || 'session_secret',
     appName: appName,
     host: process.env.HOST,
     cookieHost: getCookieHostFromFullHostName(),
