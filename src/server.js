@@ -70,6 +70,7 @@ const setupRoutes = () => {
                 httpOnly: true,
                 secure: true,
                 domain: serverConfig.cookieHost,
+                expires: req.session.expires,
             });
             res.sendFile(
                 path.join(__dirname, '..', 'build', 'fastlegefront.html'),
