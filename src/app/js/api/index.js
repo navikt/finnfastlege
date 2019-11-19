@@ -34,10 +34,7 @@ export const lagreRedirectUrlILocalStorage = (href) => {
 };
 
 export function get(url) {
-    return fetch
-        .get(url, {
-            credentials: 'include',
-        })
+    return fetch(url, { credentials: 'include' })
         .then((res) => {
             if (res.status === 401) {
                 log(res, 'Redirect til login');
