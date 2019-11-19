@@ -1,4 +1,5 @@
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
 // const { passportConfig } = require('../config/passportConfig');
 const LOG = require('../logger');
 
@@ -20,6 +21,7 @@ exports.authenticateAzure = () => {
         try {
             passport.authenticate('azuread-openidconnect', {
                 response: res,
+                session: false,
             })(req, res, next);
         } catch (err) {
             throw new Error(`Error during authentication: ${err}`);
@@ -32,6 +34,7 @@ exports.authenticateAzureCallback = () => {
         try {
             passport.authenticate('azuread-openidconnect', {
                 response: res,
+                session: false,
             })(req, res, next);
         } catch (e) {
             throw new Error(`Error during authentication: ${e}`);
@@ -41,10 +44,14 @@ exports.authenticateAzureCallback = () => {
 
 exports.ensureAuthenticated = (sendUnauthorized) => {
     return (req, res, next) => {
-        if (req.isAuthenticated()) {
+        const idToken = cookieParser.signedCookie("isso-idtoken");
+        if (idToken) {
             return next();
         }
-
+        res.cookie("isso-idtoken", { maxAge: Date.now() });
+        // if (req.isAuthenticated()) {
+        //     return next();
+        // }
         // const pathname = req.originalUrl;
         if (sendUnauthorized) {
             res.status(401).send('Unauthorized');

@@ -70,7 +70,7 @@ const setupRoutes = () => {
                 httpOnly: true,
                 secure: true,
                 domain: serverConfig.cookieHost,
-                maxAge: req.user.idTokenExpiresIn + 7200,
+                maxAge: new Date(req.user.idTokenExpiresIn + 7200),
             });
             res.sendFile(
                 path.join(__dirname, '..', 'build', 'fastlegefront.html'),
