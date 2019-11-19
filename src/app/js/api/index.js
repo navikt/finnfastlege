@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const log = () => {};
 
 export const getCookie = (name) => {
@@ -36,9 +34,9 @@ export const lagreRedirectUrlILocalStorage = (href) => {
 };
 
 export function get(url) {
-    return axios
+    return fetch
         .get(url, {
-            withCredentials: true,
+            credentials: 'include',
         })
         .then((res) => {
             if (res.status === 401) {
@@ -53,7 +51,7 @@ export function get(url) {
             } else if (res.status === 204) {
                 return [];
             }
-            return res.data;
+            return res.json();
         })
         .catch((err) => {
             log(err);
@@ -62,15 +60,19 @@ export function get(url) {
 }
 
 export function post(url, body) {
-    return axios
-        .post(url, body, {
-            withCredentials: true,
-        })
+    return fetch(url, {
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: new Headers({
+            'Content-Type': 'application/json',
+        }),
+    })
         .then((res) => {
             if (res.status === 401) {
                 log(res, 'Redirect til login');
                 lagreRedirectUrlILocalStorage(window.location.href);
-                window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl(window.location.href)}/fastlege`;
+                window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl(window.location.href)}`;
                 return null;
             }
             if (res.status === 403) {
@@ -83,7 +85,7 @@ export function post(url, body) {
                 if (contentType.includes('json')) {
                     return res.json();
                 }
-                return res.data;
+                return res;
             }
         })
         .catch((err) => {

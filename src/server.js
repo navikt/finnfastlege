@@ -14,7 +14,6 @@ const serverConfig = require('./serverConfig');
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
-const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { configureSession } = require('./auth/session');
