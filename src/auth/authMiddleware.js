@@ -48,7 +48,6 @@ exports.ensureAuthenticated = (sendUnauthorized) => {
         if (idToken) {
             return next();
         }
-        res.cookie("isso-idtoken", { maxAge: Date.now() });
         // if (req.isAuthenticated()) {
         //     return next();
         // }
