@@ -45,7 +45,7 @@ const strategy = async () => {
         req.session.groups = groups;
         req.session.refreshToken = tokenSet.refresh_token;
         req.session.idToken = tokenSet.id_token;
-        req.session.expires = new Date(tokenSet.expires_at);
+        req.session.expiresIn = tokenSet.expires_in;
 
         return done(null, user);
     };
