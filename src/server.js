@@ -66,11 +66,11 @@ const setupRoutes = () => {
         '/fastlege/*',
         authMiddleware.ensureAuthenticated(false),
         (req, res) => {
-            res.cookie('isso-idtoken', req.session.idToken, {
+            res.cookie('isso-idtoken', req.user.idToken, {
                 httpOnly: true,
                 secure: true,
                 domain: serverConfig.cookieHost,
-                maxAge: req.session.expiresIn + 7200,
+                maxAge: req.user.idTokenExpiresIn + 7200,
             });
             res.sendFile(
                 path.join(__dirname, '..', 'build', 'fastlegefront.html'),
@@ -91,7 +91,7 @@ const startServer = () => {
 
 configurePassport(passport);
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 // setupProxyRoutes();
 setupOidcRoutes();

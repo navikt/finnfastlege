@@ -36,16 +36,17 @@ const strategy = async () => {
             groups: groups,
             refreshToken: tokenSet.refresh_token,
             idToken: tokenSet.id_token,
+            idTokenExpiresIn: tokenSet.expires_in,
         };
-        req.session.oid = user.oid;
-        req.session.upn = user.upn;
-        req.session.displayName = user.displayName;
-        req.session.firstName = user.firstName;
-        req.session.lastName = user.lastName;
-        req.session.groups = groups;
-        req.session.refreshToken = tokenSet.refresh_token;
-        req.session.idToken = tokenSet.id_token;
-        req.session.expiresIn = tokenSet.expires_in;
+        // req.session.oid = user.oid;
+        // req.session.upn = user.upn;
+        // req.session.displayName = user.displayName;
+        // req.session.firstName = user.firstName;
+        // req.session.lastName = user.lastName;
+        // req.session.groups = groups;
+        // req.session.refreshToken = tokenSet.refresh_token;
+        // req.session.idToken = tokenSet.id_token;
+        // req.session.expiresIn = tokenSet.expires_in;
 
         return done(null, user);
     };
