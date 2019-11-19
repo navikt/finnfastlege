@@ -1,5 +1,5 @@
 const passport = require('passport');
-const cookieParser = require('cookie-parser');
+
 // const { passportConfig } = require('../config/passportConfig');
 const LOG = require('../logger');
 
@@ -42,20 +42,21 @@ exports.authenticateAzureCallback = () => {
     };
 };
 
-exports.ensureAuthenticated = (sendUnauthorized) => {
+exports.ensureAuthenticated = () => {
     return (req, res, next) => {
-        const idToken = cookieParser.signedCookie("isso-idtoken");
-        if (idToken) {
-            return next();
-        }
-        // if (req.isAuthenticated()) {
-        //     return next();
-        // }
-        // const pathname = req.originalUrl;
-        if (sendUnauthorized) {
-            res.status(401).send('Unauthorized');
-        } else {
-            res.redirect(`/fastlege/login?redirectUrl=/fastlege`);
-        }
+        next();
     };
 };
+// exports.ensureAuthenticated = (sendUnauthorized) => {
+//     return (req, res, next) => {
+//         // if (req.isAuthenticated()) {
+//         //     return next();
+//         // }
+//         // const pathname = req.originalUrl;
+//         if (sendUnauthorized) {
+//             res.status(401).send('Unauthorized');
+//         } else {
+//             res.redirect(`/fastlege/login?redirectUrl=/fastlege`);
+//         }
+//     };
+// };

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Error403 } from './errors';
 
 const log = () => {};
 
@@ -9,24 +8,50 @@ export const getCookie = (name) => {
     return match !== null ? match[1] : '';
 };
 
+export const erProd = () => {
+    return window.location.href.indexOf('nais.adeo.no') > -1;
+};
+
+export const erPreProd = () => {
+    return window.location.href.indexOf('nais.preprod.local') > -1;
+};
+
+export const hentLoginUrl = () => {
+    if (erProd()) {
+        return 'https://loginservice.nais.adeo.no/login';
+    }
+    // Preprod
+    return 'https://loginservice.nais.preprod.local/login';
+};
+
+export const hentRedirectBaseUrl = () => {
+    if (erProd()) {
+        return 'https://finnfastlege.nais.adeo.no';
+    }
+    return 'https://finnfastlege.nais.preprod.local';
+};
+
+export const lagreRedirectUrlILocalStorage = (href) => {
+    localStorage.setItem('redirecturl', href);
+};
+
 export function get(url) {
     return axios
         .get(url, {
             withCredentials: true,
         })
         .then((res) => {
-            if (res.status === 404) {
-                throw new Error('404');
-            }
-            if (res.status > 400 && res.status !== 403) {
-                throw new Error('Det oppstod en feil');
-            }
-            if (res.status === 403) {
-                const tilgang = {
-                    harTilgang: false,
-                    begrunnelse: res.data.message,
-                };
-                throw new Error403('403', 403, tilgang);
+            if (res.status === 401) {
+                log(res, 'Redirect til login');
+                lagreRedirectUrlILocalStorage(window.location.href);
+                window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl(window.location.href)}/fastlege`;
+            } else if (res.status === 403) {
+                window.location.href = `/na`;
+            } else if (res.status > 400) {
+                log(res);
+                throw new Error('Forespørsel feilet');
+            } else if (res.status === 204) {
+                return [];
             }
             return res.data;
         })
@@ -42,10 +67,22 @@ export function post(url, body) {
             withCredentials: true,
         })
         .then((res) => {
-            if (res.status >= 400) {
+            if (res.status === 401) {
+                log(res, 'Redirect til login');
+                lagreRedirectUrlILocalStorage(window.location.href);
+                window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl(window.location.href)}/fastlege`;
+                return null;
+            }
+            if (res.status === 403) {
+                window.location.href = `/na`;
+            } else if (res.status > 400) {
                 log(res);
                 throw new Error('Forespørsel feilet');
             } else {
+                const contentType = res.headers.get('Content-Type') || '';
+                if (contentType.includes('json')) {
+                    return res.json();
+                }
                 return res.data;
             }
         })

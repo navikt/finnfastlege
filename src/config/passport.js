@@ -1,4 +1,5 @@
 const { Issuer, Strategy } = require('openid-client');
+const CookieStrategy = require('passport-cookie');
 const { passportConfig } = require('./passportConfig');
 const proxy = require('../utils/corporate-proxy');
 
@@ -73,4 +74,14 @@ module.exports = async (passport) => {
     });
 
     passport.use('azuread-openidconnect', await strategy());
+
+    passport.use(new CookieStrategy({
+        cookieName: "isso-idtoken",
+        // eslint-disable-next-line no-console
+    }, (token, done) => {
+        if (token) {
+            return done(null, token);
+        }
+        return done(Error("No id-token found in request"), null);
+    }));
 };
