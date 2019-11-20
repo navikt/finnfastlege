@@ -1,6 +1,4 @@
 const passport = require('passport');
-
-// const { passportConfig } = require('../config/passportConfig');
 const LOG = require('../logger');
 
 const allowedRedirectRoutes = ['/fastlege/oidc/callback', '/fastlege', '404'];
@@ -13,7 +11,6 @@ exports.authenticateAzure = () => {
                 return regex[1].includes(redirectRoute);
             }) !== undefined;
 
-        // const successRedirect = regex && validRedirectRoute ? regex[1] : '/';
         if (!validRedirectRoute) {
             LOG.error(`Ugyldig redirect path [${regex[1]}], fallback '/'`);
         }
@@ -47,16 +44,3 @@ exports.ensureAuthenticated = () => {
         next();
     };
 };
-// exports.ensureAuthenticated = (sendUnauthorized) => {
-//     return (req, res, next) => {
-//         // if (req.isAuthenticated()) {
-//         //     return next();
-//         // }
-//         // const pathname = req.originalUrl;
-//         if (sendUnauthorized) {
-//             res.status(401).send('Unauthorized');
-//         } else {
-//             res.redirect(`/fastlege/login?redirectUrl=/fastlege`);
-//         }
-//     };
-// };
