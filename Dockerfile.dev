@@ -1,0 +1,9 @@
+FROM navikt/node-express:12.2.0
+
+WORKDIR /var/app
+ADD . /var/app/
+ADD ./.env /var/app
+
+RUN npm install
+
+CMD ["npm", "run", "dev:server"]

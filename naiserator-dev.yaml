@@ -1,0 +1,45 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: finnfastlege
+  namespace: default
+  labels:
+    team: teamsykefravr
+spec:
+  image: "docker.pkg.github.com/navikt/fastlegefront:{{tag}}"
+  replicas:
+    min: 1
+    max: 1
+    cpuThresholdPercentage: 90
+  port: 8080
+  liveness:
+    path: /health/isAlive
+    initialDelay: 10
+    timeout: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  readiness:
+    path: /health/isReady
+    initialDelay: 30
+    periodSeconds: 5
+    timeout: 5
+  # prometheus:
+  #   enabled: false
+  #   path: /actuator/metrics
+  vault:
+    enabled: true
+  env:
+    - name: ENV
+      value: preprod
+    - name: HOST
+      value: finnfastlege.nais.preprod.local
+  resources:
+    limits:
+      cpu: 500m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  webproxy: true
+  ingresses:
+    - "https://finnfastlege.nais.preprod.local"
