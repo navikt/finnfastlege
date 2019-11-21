@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <title>Fastlege</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/js/head.min.js"></script>
+    <script>
+            window.APP_SETTINGS = {
+                "FASTLEGEREST_ROOT": "{{{fastlegerestRoot}}}",
+                "MODIASYFOREST_ROOT": "{{{modiasyforestRoot}}}",
+                "VEILEDEROPPGAVERREST_ROOT": "{{{veilederoppgaverRestRoot}}}",
+                "CONTEXTHOLDER_ROOT": "{{{contextholderRoot}}}",
+                "APP_ROOT": "/fastlege",
+                "MOTEADMIN_HOST": "{{{moteadminHost}}}",
+                "FASTLEGEREST_HOST": "{{{fastlegeRestHost}}}",
+                {{#enableLogging}}"LOGGING_ENABLED": {{{enableLogging}}}{{/enableLogging}}
+            };
+        </script>
+</head>
+<body>
+    <div id="header"></div>
+    <div id="maincontent" class="app-fastlegefront side-innhold">
+        <div class="app-spinner blokk-xl" aria-label="Vent litt mens siden laster"></div>
+    </div>
+
+    <script src="{{{buildRoot}}}/{{{bundleFileName}}}?rev={{{timestamp}}}"></script>
+
+</body>
+</html>
