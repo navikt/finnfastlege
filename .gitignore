@@ -3,9 +3,12 @@
 target
 node_modules
 *.log
-build
 npm-debug.log*
-coverage/
-.nyc_output
-.vscode
-.env
+**/webapp/styles/**/*
+**/webapp/img/**/*
+**/webapp/js/**/*
+**/webapp/vendor/**/*
+**/webapp/*.html
+web/src/frontend/img/modig-frontend/**/*
+web/src/frontend/coverage
+web/src/frontend/.nyc_output
