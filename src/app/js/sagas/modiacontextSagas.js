@@ -6,15 +6,11 @@ import {
     PUSH_MODIACONTEXT_FORESPURT,
     HENT_AKTIVENHET_FORESPURT,
 } from '../actions/actiontyper';
-import { HOST_NAMES } from '../konstanter';
-import { fullNaisUrl } from '../global';
 
 export function* pushModiacontextSaga(action) {
     yield put(actions.pusherModiaContext());
     try {
-        const host = HOST_NAMES.SYFOMODIACONTEXTHOLDER;
-        const path = `/api/context`;
-        const url = fullNaisUrl(host, path);
+        const url = `/syfomodiacontextholder/api/context`;
         yield call(post, url, {
             verdi: action.data.verdi,
             eventType: action.data.eventType,
@@ -28,9 +24,7 @@ export function* pushModiacontextSaga(action) {
 export function* aktivEnhetSaga(action) {
     yield put(actions.henterAktivEnhet());
     try {
-        const host = HOST_NAMES.SYFOMODIACONTEXTHOLDER;
-        const path = `/api/aktivenhet`;
-        const url = fullNaisUrl(host, path);
+        const url = `/syfomodiacontextholder/api/aktivenhet`;
         const data = yield call(get, url);
         action.data.callback(data.aktivEnhet);
     } catch (e) {

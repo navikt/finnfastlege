@@ -30,4 +30,10 @@ router.use('/modiasyforest', proxy('modiasyforest.default', {
     },
 }));
 
+router.use('/syfomodiacontextholder', proxy('syfomodiacontextholder.default', {
+    proxyReqPathResolver: (req) => {
+        return `/${req.path}${getQueryStringFromReq(req)}`;
+    },
+}));
+
 module.exports = router;
