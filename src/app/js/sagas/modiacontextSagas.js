@@ -7,11 +7,13 @@ import {
     HENT_AKTIVENHET_FORESPURT,
 } from '../actions/actiontyper';
 
+const modiacontextholderRoot = '/modiacontextholder/api';
+
 export function* pushModiacontextSaga(action) {
     yield put(actions.pusherModiaContext());
     try {
-        const url = `/syfomodiacontextholder/api/context`;
-        yield call(post, url, {
+        const path = `${modiacontextholderRoot}/context`;
+        yield call(post, path, {
             verdi: action.data.verdi,
             eventType: action.data.eventType,
         });
@@ -24,8 +26,8 @@ export function* pushModiacontextSaga(action) {
 export function* aktivEnhetSaga(action) {
     yield put(actions.henterAktivEnhet());
     try {
-        const url = `/syfomodiacontextholder/api/aktivenhet`;
-        const data = yield call(get, url);
+        const path = `${modiacontextholderRoot}/context/aktivenhet`;
+        const data = yield call(get, path);
         action.data.callback(data.aktivEnhet);
     } catch (e) {
         yield put(actions.hentAktivEnhetFeilet());
