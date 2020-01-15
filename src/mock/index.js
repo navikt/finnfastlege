@@ -45,4 +45,8 @@ router.get('/api/aktivenhet', (req, res) => {
     res.status(200).json({ aktivBruker: '', aktivEnhet: '3016' });
 });
 
+router.post('/modiacontextholder/api/context', (req, res) => {
+    res.send(204);
+});
+
 module.exports = router;

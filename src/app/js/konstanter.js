@@ -3,7 +3,6 @@ export const CONTEXT_EVENT_TYPE = {
 };
 
 export const HOST_NAMES = {
-    SYFOMODIACONTEXTHOLDER: 'syfomodiacontextholder',
     SYFOOVERSIKTSRV: 'syfooversiktsrv',
     SYFOPERSON: 'syfoperson',
     SYFOMOTEADMIN: 'syfomoteadmin',
