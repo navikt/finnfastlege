@@ -27,7 +27,7 @@ jobs:
           npm run nais-build
       - name: Create Docker tag
         env:
-          NAME: fastlegefront
+          NAME: finnfastlege-2
         run: |
           echo "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker_image
           echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" > .docker_tag
