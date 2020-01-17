@@ -5,8 +5,13 @@ on:
     branches:
       - master
 
+env:
+  APP_NAME: finnfastlege
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/finnfastlege:${{ github.sha }}
+  COMMITER_NAME: ${{ github.event.pusher.name }}
+
 jobs:
-  build-push-deploy:
+  build:
     name: Checkout code and create docker tag
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +20,7 @@ jobs:
       - name: Use Node
         uses: actions/setup-node@v1
         with:
-          node-version: "12.x"
+          node-version: '12.x'
       - name: Install deps
         run: |
           npm install
@@ -25,38 +30,50 @@ jobs:
       - name: Build
         run: |
           npm run nais-build
-      - name: Create Docker tag
-        env:
-          NAME: finnfastlege-2
-        run: |
-          echo "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker_image
-          echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" > .docker_tag
-      - name: Build Docker image
-        run: |
-          docker build -t $(cat .docker_image):$(cat .docker_tag) .
       - name: Login to Github Package Registry
         env:
           DOCKER_USERNAME: x-access-token
           DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
-      - name: Push Docker image
-        run: "docker push $(cat .docker_image):$(cat .docker_tag)"
-      - name: deploy to dev-fss
-        uses: navikt/deployment-cli/action@0.4.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-        with:
-          cluster: dev-fss
-          team: teamsykefravr
-          resources: naiserator-dev.yaml
-      - name: deploy to prod-fss
-        uses: navikt/deployment-cli/action@0.4.0
+      - name: Build and publish Docker image
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          cluster: prod-fss
-          team: teamsykefravr
-          resources: naiserator-prod.yaml
-      - name: Pling!
-        run: "curl -s https://syfoping.herokuapp.com/regDeploy?deployedBy=Veden"
+        run: |
+          docker build --tag ${IMAGE} .
+          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+          docker push ${IMAGE}
+
+  deploy-dev:
+    name: Deploy to NAIS Dev-fss
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-fss
+          RESOURCE: naiserator-dev.yaml
+
+  deploy-prod:
+    name: Deploy to NAIS Prod-fss
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-fss
+          RESOURCE: naiserator-prod.yaml
+
+  pling:
+    name: Pling!
+    needs: deploy-prod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pling
+        run: |
+          curl -s "https://syfoping.herokuapp.com/regDeploy?deployedBy=${COMMITER_NAME}&app=${APP_NAME}"
+
