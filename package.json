@@ -1,5 +1,5 @@
 {
-    "name": "fastlegefront",
+    "name": "finnfastlege",
     "version": "0.0.1",
     "description": "Digitalisering av sykefraværsoppfølging",
     "main": "index.js",
@@ -13,8 +13,8 @@
         "test:watch": "cross-env NODE_ENV=test nyc mocha --watch -G --require ignore-styles --compilers js:babel-core/register --require babel-polyfill ./test/setup.js --recursive test",
         "test": "cross-env NODE_ENV=test nyc mocha -G --require ignore-styles --compilers js:babel-core/register --require babel-polyfill ./test/setup.js --recursive test",
         "posttest": "nyc report --reporter=html --reporter=lcov",
-        "static:build:local": "node build-html.js src/app/html/fastlegefront.mustache local",
-        "static:build": "node build-html.js src/app/html/fastlegefront.mustache prod",
+        "static:build:local": "node build-html.js src/app/html/finnfastlege.mustache local",
+        "static:build": "node build-html.js src/app/html/finnfastlege.mustache prod",
         "scripts:build": "set NODE_ENV=production&&node deploy.js",
         "scripts:watch": "webpack-dev-server --inline  --port 3040",
         "lint": "echo skip",

@@ -49,7 +49,7 @@ const setupRoutes = () => {
         '/fastlege/*',
         (req, res) => {
             res.sendFile(
-                path.join(__dirname, '..', 'build', 'fastlegefront.html'),
+                path.join(__dirname, '..', 'build', 'finnfastlege.html'),
                 {},
             );
         },
