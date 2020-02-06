@@ -13,6 +13,7 @@ import tilgang from './reducers/tilgang';
 import egenansatt from './reducers/egenansatt';
 import diskresjonskode from './reducers/diskresjonskode';
 import veilederinfo from './reducers/veilederinfo';
+import { fullAppAdeoUrl } from './utils/miljoUtil';
 import {
     pushModiaContext,
     hentAktivEnhet,
@@ -48,8 +49,8 @@ const handleChangeEnhet = (data) => {
     }
 };
 
-const handlePersonsokSubmit = () => {
-    window.location.href = `/fastlege`;
+const handlePersonsokSubmit = (nyttFnr) => {
+    window.location = fullAppAdeoUrl(`/sykefravaer/${nyttFnr}`);
 };
 
 setEventHandlersOnConfig(handlePersonsokSubmit, handleChangeEnhet);

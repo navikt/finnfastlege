@@ -38,7 +38,7 @@ fs.readFile(front, (err, data) => {
     if (!fs.existsSync('build/')) {
         fs.mkdirSync('build/');
     }
-    fs.writeFile('build/fastlegefront.html', html, 'utf-8', (writeError) => {
+    fs.writeFile('build/finnfastlege.html', html, 'utf-8', (writeError) => {
         if (writeError) throw writeError;
     });
 });
