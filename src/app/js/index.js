@@ -13,7 +13,7 @@ import tilgang from './reducers/tilgang';
 import egenansatt from './reducers/egenansatt';
 import diskresjonskode from './reducers/diskresjonskode';
 import veilederinfo from './reducers/veilederinfo';
-import { fullAppAdeoUrl } from './utils/miljoUtil';
+import { fullNaisUrlDefault } from './utils/miljoUtil';
 import {
     pushModiaContext,
     hentAktivEnhet,
@@ -50,7 +50,9 @@ const handleChangeEnhet = (data) => {
 };
 
 const handlePersonsokSubmit = (nyttFnr) => {
-    window.location = fullAppAdeoUrl(`/sykefravaer/${nyttFnr}`);
+    const host = 'syfomodiaperson';
+    const path = `/sykefravaer/${nyttFnr}`;
+    window.location = fullNaisUrlDefault(host, path);
 };
 
 setEventHandlersOnConfig(handlePersonsokSubmit, handleChangeEnhet);
