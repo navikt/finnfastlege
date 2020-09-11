@@ -42,6 +42,8 @@ export function get(url) {
                 window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl(window.location.href)}/fastlege`;
             } else if (res.status === 403) {
                 window.location.href = `/na`;
+            } else if (res.status === 404) {
+                throw new Error('404');
             } else if (res.status > 400) {
                 log(res);
                 throw new Error('Forespørsel feilet');
