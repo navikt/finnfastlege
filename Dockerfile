@@ -1,6 +1,11 @@
-FROM navikt/node-express:12.2.0
+FROM node:14-alpine
+WORKDIR /finnfastlege
 
-WORKDIR /var/app
-ADD . /var/app/
+COPY .env server.js package.json ./
 
-CMD ["npm", "start"]
+COPY node_modules ./node_modules
+COPY img ./img
+COPY dist ./dist
+
+EXPOSE 8080
+CMD ["node", "server.js"]
