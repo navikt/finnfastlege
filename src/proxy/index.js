@@ -39,9 +39,9 @@ router.use('/modiacontextholder/api', proxy(modiacontextholderUrl,  {
     https: false,
 }));
 
-router.use('/modiasyforest', proxy('modiasyforest.default', {
+router.use('/syfoperson/api', proxy('syfoperson.default', {
     proxyReqPathResolver: (req) => {
-        return `/modiasyforest${req.path}${getQueryStringFromReq(req)}`;
+        return `/syfoperson/api${req.path}${getQueryStringFromReq(req)}`
     },
 }));
 

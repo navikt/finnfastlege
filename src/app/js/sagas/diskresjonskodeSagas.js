@@ -4,12 +4,12 @@ import { get } from '../api/index';
 import * as actions from '../actions/diskresjonskode_actions';
 import * as actiontyper from '../actions/actiontyper';
 
-const MODIASYFOREST_ROOT = '/modiasyforest/api/internad';
+const SYFOPERSON_ROOT = '/syfoperson/api';
 
 export function* hentDiskresjonskodeSaga(action) {
     yield put(actions.henterDiskresjonskode());
     try {
-        const data = yield call(get, `${MODIASYFOREST_ROOT}/diskresjonskode/${action.fnr}`);
+        const data = yield call(get, `${SYFOPERSON_ROOT}/person/diskresjonskode/${action.fnr}`);
         yield put(actions.diskresjonskodeHentet(data));
     } catch (e) {
         yield put(actions.hentDiskresjonskodeFeilet());
