@@ -4,7 +4,7 @@ import * as actions from "./diskresjonskode_actions";
 
 const SYFOPERSON_ROOT = "/syfoperson/api";
 
-export function* hentDiskresjonskodeSaga(action) {
+export function* hentDiskresjonskodeSaga(action: any) {
   yield put(actions.henterDiskresjonskode());
   try {
     const data = yield call(

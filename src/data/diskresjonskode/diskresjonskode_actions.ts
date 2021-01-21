@@ -3,7 +3,7 @@ export const HENTER_DISKRESJONSKODE = "HENTER_DISKRESJONSKODE";
 export const HENT_DISKRESJONSKODE_FEILET = "HENT_DISKRESJONSKODE_FEILET";
 export const DISKRESJONSKODE_HENTET = "DISKRESJONSKODE_HENTET";
 
-export function hentDiskresjonskode(fnr) {
+export function hentDiskresjonskode(fnr: string) {
   return {
     type: HENT_DISKRESJONSKODE_FORESPURT,
     fnr,
@@ -22,7 +22,7 @@ export function henterDiskresjonskode() {
   };
 }
 
-export function diskresjonskodeHentet(data) {
+export function diskresjonskodeHentet(data: string) {
   return {
     type: DISKRESJONSKODE_HENTET,
     data,
