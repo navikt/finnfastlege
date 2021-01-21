@@ -3,7 +3,7 @@ export const HENTER_EGENANSATT = "HENTER_EGENANSATT";
 export const HENT_EGENANSATT_FEILET = "HENT_EGENANSATT_FEILET";
 export const EGENANSATT_HENTET = "EGENANSATT_HENTET";
 
-export function hentEgenansatt(fnr) {
+export function hentEgenansatt(fnr: string) {
   return {
     type: HENT_EGENANSATT_FORESPURT,
     fnr,
@@ -22,7 +22,7 @@ export function henterEgenansatt() {
   };
 }
 
-export function egenansattHentet(data) {
+export function egenansattHentet(data: boolean) {
   return {
     type: EGENANSATT_HENTET,
     data,

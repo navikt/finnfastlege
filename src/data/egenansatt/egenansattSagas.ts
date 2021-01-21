@@ -4,7 +4,7 @@ import * as actions from "./egenansatt_actions";
 
 const SYFOPERSON_ROOT = "/syfoperson/api";
 
-export function* hentEgenansattSaga(action) {
+export function* hentEgenansattSaga(action: any) {
   yield put(actions.henterEgenansatt());
   try {
     const url = `${SYFOPERSON_ROOT}/person/egenansatt/${action.fnr}`;
