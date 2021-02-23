@@ -4,9 +4,10 @@ import React from "react";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
+import { connectRouter, routerMiddleware } from "connected-react-router";
+import { createBrowserHistory } from "history";
 import "./styles/styles.less";
 import AppRouter from "./routers/AppRouter";
-import history from "./history";
 import rootSaga from "./sagas/index";
 import modiacontext from "./data/modiacontext/modiacontext";
 import fastlege from "./data/fastlege/fastlege";
@@ -22,9 +23,11 @@ import {
 import { CONTEXT_EVENT_TYPE } from "./konstanter";
 import { setEventHandlersOnConfig, config } from "./global";
 
+const history = createBrowserHistory();
+
 const rootReducer = combineReducers({
+  router: connectRouter(history),
   modiacontext,
-  history,
   fastlege,
   tilgang,
   diskresjonskode,
@@ -34,7 +37,10 @@ const rootReducer = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+const store = createStore(
+  rootReducer,
+  applyMiddleware(routerMiddleware(history), sagaMiddleware)
+);
 
 sagaMiddleware.run(rootSaga);
 
