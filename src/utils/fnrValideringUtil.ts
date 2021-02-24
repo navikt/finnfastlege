@@ -3,19 +3,19 @@ const kontrollRekke2 = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2];
 
 const decimalRadix = 10;
 
-function erGyldigPnummer(dag, maaned) {
+function erGyldigPnummer(dag: number, maaned: number) {
   return dag > 0 && dag <= 32 && maaned > 0 && maaned <= 12;
 }
 
-function erGyldigDNummer(dag, maaned) {
+function erGyldigDNummer(dag: number, maaned: number) {
   return dag > 40 && dag <= 72 && maaned > 0 && maaned <= 12;
 }
 
-function erGyldigHNummer(dag, maaned) {
+function erGyldigHNummer(dag: number, maaned: number) {
   return dag > 0 && dag <= 32 && maaned > 40 && maaned <= 52;
 }
 
-function erGyldigFodselsdato(fodselsnummer) {
+function erGyldigFodselsdato(fodselsnummer: string) {
   const dag = parseInt(fodselsnummer.substring(0, 2), decimalRadix);
   const maaned = parseInt(fodselsnummer.substring(2, 4), decimalRadix);
   return (
@@ -25,7 +25,7 @@ function erGyldigFodselsdato(fodselsnummer) {
   );
 }
 
-function hentKontrollSiffer(fodselsnummer, kontrollrekke) {
+function hentKontrollSiffer(fodselsnummer: number[], kontrollrekke: number[]) {
   let sum = 0;
   for (
     let sifferNummer = 0;
@@ -38,14 +38,14 @@ function hentKontrollSiffer(fodselsnummer, kontrollrekke) {
   return kontrollSiffer !== 0 ? 11 - kontrollSiffer : 0;
 }
 
-export function erGyldigFodselsnummer(fodselsnummer) {
+export function erGyldigFodselsnummer(fodselsnummer: string) {
   if (!fodselsnummer.match(new RegExp("[0-9]{11}"))) {
     return false;
   }
   if (!erGyldigFodselsdato(fodselsnummer.substring(0, 6))) {
     return false;
   }
-  const fodselsnummerListe = fodselsnummer.split("").map((x) => {
+  const fodselsnummerListe = fodselsnummer.split("").map((x: string) => {
     return parseInt(x, decimalRadix);
   });
   const kontrollSiffer1 = hentKontrollSiffer(
