@@ -1,5 +1,7 @@
 class Error403 extends Error {
-  constructor(message, status, tilgang = {}) {
+  status = 0;
+  tilgang = {};
+  constructor(message: string, status: number, tilgang = {}) {
     super(message);
     this.status = status;
     this.tilgang = tilgang;

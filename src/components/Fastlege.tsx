@@ -1,12 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Row } from "nav-frontend-grid";
 import { Sidetittel, Undertekst } from "nav-frontend-typografi";
 import NavFrontendSpinner from "nav-frontend-spinner";
 import Feilmelding from "./Feilmelding";
 import FastlegeInfo from "./FastlegeInfo";
 import Sokeboks from "./Sokeboks";
-import { FastlegeInternal } from "../data/fastlege/FastlegeInternal";
 import { FastlegeState } from "../data/fastlege/fastlege";
 
 const ikkeTilgangFeilmelding = (ikkeTilgangGrunn: string) => {
@@ -26,10 +24,9 @@ const ikkeTilgangFeilmelding = (ikkeTilgangGrunn: string) => {
 
 interface FastlegeProps {
   fastlege: FastlegeState;
-  hentFastlege: any;
 }
 
-const Fastlege = ({ fastlege, hentFastlege }: FastlegeProps) => {
+const Fastlege = ({ fastlege }: FastlegeProps) => {
   return (
     <div className="fastlege">
       <Sidetittel>Finn fastlegen</Sidetittel>
@@ -37,7 +34,7 @@ const Fastlege = ({ fastlege, hentFastlege }: FastlegeProps) => {
         <Undertekst>
           Søk opp fastlegen ved å skrive brukerens fødselsnummer
         </Undertekst>
-        <Sokeboks hentFastlege={hentFastlege} />
+        <Sokeboks />
       </div>
       {(() => {
         if (fastlege.hentingFeilet) {
@@ -76,11 +73,6 @@ const Fastlege = ({ fastlege, hentFastlege }: FastlegeProps) => {
       })()}
     </div>
   );
-};
-
-Fastlege.propTypes = {
-  fastlege: PropTypes.object,
-  hentFastlege: PropTypes.func,
 };
 
 export default Fastlege;

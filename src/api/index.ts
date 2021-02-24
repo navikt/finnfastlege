@@ -1,6 +1,18 @@
-const log = () => {};
+const createLogger = () => {
+  if (
+    window.location.search.indexOf("log=true") > -1 ||
+    process.env.NODE_ENV === "development"
+  ) {
+    // tslint:disable-next-line
+    return console.log;
+  }
+  // tslint:disable-next-line
+  return () => {};
+};
 
-export const getCookie = (name) => {
+const log = createLogger();
+
+export const getCookie = (name: string) => {
   const re = new RegExp(`${name}=([^;]+)`);
   const match = re.exec(document.cookie);
   return match !== null ? match[1] : "";
@@ -29,19 +41,17 @@ export const hentRedirectBaseUrl = () => {
   return "https://finnfastlege.nais.preprod.local";
 };
 
-export const lagreRedirectUrlILocalStorage = (href) => {
+export const lagreRedirectUrlILocalStorage = (href: string) => {
   localStorage.setItem("redirecturl", href);
 };
 
-export function get(url) {
+export function get(url: string) {
   return fetch(url, { credentials: "include" })
     .then((res) => {
       if (res.status === 401) {
         log(res, "Redirect til login");
         lagreRedirectUrlILocalStorage(window.location.href);
-        window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl(
-          window.location.href
-        )}/fastlege/`;
+        window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl()}/fastlege/`;
       } else if (res.status === 403) {
         window.location.href = `/na`;
       } else if (res.status === 404) {
@@ -60,7 +70,7 @@ export function get(url) {
     });
 }
 
-export function post(url, body) {
+export function post(url: string, body: object) {
   return fetch(url, {
     credentials: "include",
     method: "POST",
@@ -73,13 +83,8 @@ export function post(url, body) {
       if (res.status === 401) {
         log(res, "Redirect til login");
         lagreRedirectUrlILocalStorage(window.location.href);
-        window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl(
-          window.location.href
-        )}/fastlege/`;
+        window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl()}/fastlege/`;
         return null;
-      }
-      if (res.status === 403) {
-        window.location.href = `/na`;
       } else if (res.status > 400) {
         log(res);
         throw new Error("Forespørsel feilet");
@@ -90,19 +95,6 @@ export function post(url, body) {
         }
         return res;
       }
-    })
-    .catch((err) => {
-      log(err);
-      throw err;
-    });
-}
-
-export function getWithoutThrows(url) {
-  return fetch(url, {
-    credentials: "include",
-  })
-    .then((res) => {
-      return res.json();
     })
     .catch((err) => {
       log(err);
