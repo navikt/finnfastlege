@@ -1,11 +1,11 @@
-import "./utils/globals";
-import { render } from "react-dom";
 import React from "react";
+import ReactDOM from "react-dom";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
+import "./utils/globals";
 import "./styles/styles.less";
 import AppRouter from "./routers/AppRouter";
 import rootSaga from "./sagas/index";
@@ -44,7 +44,7 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 
-const handleChangeEnhet = (data) => {
+const handleChangeEnhet = (data: string) => {
   if (config.config.initiellEnhet !== data) {
     store.dispatch(
       pushModiaContext({
@@ -56,29 +56,30 @@ const handleChangeEnhet = (data) => {
   }
 };
 
-const handlePersonsokSubmit = (nyttFnr) => {
+const handlePersonsokSubmit = (nyttFnr: string) => {
   const host = "syfomodiaperson";
   const path = `/sykefravaer/${nyttFnr}`;
-  window.location = fullNaisUrlDefault(host, path);
+  (window as any).location = fullNaisUrlDefault(host, path);
 };
 
 setEventHandlersOnConfig(handlePersonsokSubmit, handleChangeEnhet);
 
-render(
+ReactDOM.render(
   <Provider store={store}>
-    <AppRouter history={history} />
+    <AppRouter />
   </Provider>,
   document.getElementById("maincontent")
 );
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.renderDecoratorHead) window.renderDecoratorHead(config);
+  if ((window as any).renderDecoratorHead)
+    (window as any).renderDecoratorHead(config);
   store.dispatch(
     hentAktivEnhet({
-      callback: (aktivEnhet) => {
+      callback: (aktivEnhet: string) => {
         if (aktivEnhet && config.config.initiellEnhet !== aktivEnhet) {
           config.config.initiellEnhet = aktivEnhet;
-          window.renderDecoratorHead(config);
+          (window as any).renderDecoratorHead(config);
         }
       },
     })

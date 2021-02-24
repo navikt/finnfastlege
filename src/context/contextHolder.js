@@ -1,4 +1,4 @@
-import { finnMiljoStreng } from "../utils/index";
+import { finnMiljoStreng } from "../utils";
 
 const ContextholderConnection = (ident) => {
   return new WebSocket(

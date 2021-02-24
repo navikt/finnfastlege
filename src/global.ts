@@ -16,7 +16,7 @@ export const finnNaisUrl = () => {
   return erPreProd() ? ".nais.preprod.local" : ".nais.adeo.no";
 };
 
-export const fullNaisUrl = (host, path) => {
+export const fullNaisUrl = (host: string, path: string) => {
   if (erLokal() || erHerokuApp()) {
     return path;
   }
@@ -49,9 +49,9 @@ export const config = {
 };
 
 export const setEventHandlersOnConfig = (
-  handlePersonsokSubmit,
-  handleChangeEnhet
+  handlePersonsokSubmit: (fnr: string) => any,
+  handleChangeEnhet: (data: string) => any
 ) => {
-  config.config.handlePersonsokSubmit = handlePersonsokSubmit;
-  config.config.handleChangeEnhet = handleChangeEnhet;
+  (config.config as any).handlePersonsokSubmit = handlePersonsokSubmit;
+  (config.config as any).handleChangeEnhet = handleChangeEnhet;
 };

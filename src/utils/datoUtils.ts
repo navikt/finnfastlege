@@ -13,7 +13,7 @@ const kortManeder = [
   "desember",
 ];
 
-export const tilLangtDatoFormat = (dato) => {
+export const tilLangtDatoFormat = (dato: Date) => {
   const newDato = new Date(dato);
   const maned = kortManeder[newDato.getMonth()];
   return `${newDato.getDate()}. ${maned} ${newDato.getFullYear()}`;

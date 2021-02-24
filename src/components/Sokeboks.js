@@ -42,10 +42,7 @@ class Sokeboks extends Component {
           <Input
             feil={
               valideringsfeil
-                ? {
-                    feilmelding:
-                      "Du må skrive inn et gyldig fødselsnummer (11 siffer)",
-                  }
+                ? "Du må skrive inn et gyldig fødselsnummer (11 siffer)"
                 : undefined
             }
             type="search"
