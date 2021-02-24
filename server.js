@@ -85,9 +85,13 @@ server.use("/fastlege", express.static(path.join(__dirname, "..", "build")));
 
 server.use("/fastlege/img", express.static(path.resolve(__dirname, "img")));
 
-server.get("/fastlege/*", nocache, (req, res) => {
-  res.sendFile(HTML_FILE);
-});
+server.get(
+  ["/", "/fastlege", "/fastlege/*", /^\/fastlege\/(?!(resources|img)).*$/],
+  nocache,
+  (req, res) => {
+    res.sendFile(HTML_FILE);
+  }
+);
 
 server.use("/static", express.static(DIST_DIR));
 
