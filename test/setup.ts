@@ -15,7 +15,7 @@ const { JSDOM } = require("jsdom");
 const jsdom = new JSDOM("<!doctype html><html><body></body></html>");
 const { window } = jsdom;
 
-function copyProps(src, target) {
+const copyProps = (src: any, target: any) => {
   const props = Object.getOwnPropertyNames(src)
     .filter((prop) => {
       return typeof target[prop] === "undefined";
@@ -23,26 +23,29 @@ function copyProps(src, target) {
     .map((prop) => {
       return Object.getOwnPropertyDescriptor(src, prop);
     });
-  Object.defineProperties(target, props);
-}
 
-let temp = null;
+  const propsAsUnknown = props as unknown;
+  const propsAsPropertyDescriptorMap = propsAsUnknown as PropertyDescriptorMap;
+  Object.defineProperties(target, propsAsPropertyDescriptorMap);
+};
+
+let temp: any = null;
 const localS = {
   getItem() {
     return temp;
   },
-  setItem(key, value) {
+  setItem(key: any, value: any) {
     temp = value;
   },
 };
 
-global.HTMLElement = window.HTMLElement;
-global.localStorage = localS;
-global.XMLHttpRequest = window.XMLHttpRequest;
+(global as any).HTMLElement = window.HTMLElement;
+(global as any).localStorage = localS;
+(global as any).XMLHttpRequest = window.XMLHttpRequest;
 
-global.window = window;
-global.document = window.document;
-global.navigator = {
+(global as any).window = window;
+(global as any).document = window.document;
+(global as any).navigator = {
   userAgent: "node.js",
 };
 copyProps(window, global);
