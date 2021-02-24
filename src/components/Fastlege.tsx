@@ -6,8 +6,10 @@ import NavFrontendSpinner from "nav-frontend-spinner";
 import Feilmelding from "./Feilmelding";
 import FastlegeInfo from "./FastlegeInfo";
 import Sokeboks from "./Sokeboks";
+import { FastlegeInternal } from "../data/fastlege/FastlegeInternal";
+import { FastlegeState } from "../data/fastlege/fastlege";
 
-const ikkeTilgangFeilmelding = (ikkeTilgangGrunn) => {
+const ikkeTilgangFeilmelding = (ikkeTilgangGrunn: string) => {
   if (ikkeTilgangGrunn === "KODE6") {
     return "Bruker har diskresjonskode 6, du har ikke tilgang til å se informasjon om bruker";
   } else if (ikkeTilgangGrunn === "KODE7") {
@@ -22,7 +24,12 @@ const ikkeTilgangFeilmelding = (ikkeTilgangGrunn) => {
   return "Du har ikke tilgang";
 };
 
-const Fastlege = ({ fastlege, hentFastlege }) => {
+interface FastlegeProps {
+  fastlege: FastlegeState;
+  hentFastlege: any;
+}
+
+const Fastlege = ({ fastlege, hentFastlege }: FastlegeProps) => {
   return (
     <div className="fastlege">
       <Sidetittel>Finn fastlegen</Sidetittel>

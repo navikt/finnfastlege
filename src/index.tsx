@@ -8,7 +8,7 @@ import { createBrowserHistory } from "history";
 import "./utils/globals";
 import "./styles/styles.less";
 import AppRouter from "./routers/AppRouter";
-import rootSaga from "./sagas/index";
+import rootSaga from "./sagas";
 import modiacontext from "./data/modiacontext/modiacontext";
 import fastlege from "./data/fastlege/fastlege";
 import tilgang from "./data/tilgang/tilgang";

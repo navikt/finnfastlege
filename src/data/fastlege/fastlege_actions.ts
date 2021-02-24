@@ -1,3 +1,5 @@
+import { FastlegeDTO } from "./FastlegeDTO";
+
 export const HENT_FASTLEGE_FORESPURT = "HENT_FASTLEGE_FORESPURT";
 export const HENTER_FASTLEGE = "HENTER_FASTLEGE";
 export const HENT_FASTLEGE_FEILET = "HENT_FASTLEGE_FEILET";
@@ -29,21 +31,21 @@ export function fastlegeIkkeFunnet() {
   };
 }
 
-export function fastlegeIkkeTilgang(ikkeTilgangGrunn) {
+export function fastlegeIkkeTilgang(ikkeTilgangGrunn: string) {
   return {
     type: FASTLEGE_IKKE_TILGANG,
     ikkeTilgangGrunn,
   };
 }
 
-export function fastlegeHentet(data) {
+export function fastlegeHentet(data: FastlegeDTO) {
   return {
     type: FASTLEGE_HENTET,
     data,
   };
 }
 
-export function hentFastlege(fnr) {
+export function hentFastlege(fnr: string) {
   return {
     type: HENT_FASTLEGE_FORESPURT,
     fnr,
@@ -62,7 +64,7 @@ export function sjekkFastlegeTilgangFeilet() {
   };
 }
 
-export function fastlegeTilgangHentet(data) {
+export function fastlegeTilgangHentet(data: boolean) {
   return {
     type: FASTLEGE_TILGANG_HENTET,
     data,

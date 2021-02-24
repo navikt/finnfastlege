@@ -1,3 +1,4 @@
+import { Reducer } from "redux";
 /* eslint-disable prefer-object-spread */
 import {
   PUSHER_MODIACONTEXT,
@@ -7,7 +8,16 @@ import {
   HENT_AKTIVENHET_FEILET,
 } from "./modiacontext_actions";
 
-const initiellState = {
+export interface ModiaContextState {
+  pushet: boolean;
+  pusher: boolean;
+  pushingFeilet: boolean;
+  henterEnhet: boolean;
+  hentingEnhetFeilet: boolean;
+  data: any;
+}
+
+export const initialState: ModiaContextState = {
   pushet: false,
   pusher: false,
   pushingFeilet: false,
@@ -16,43 +26,53 @@ const initiellState = {
   data: {},
 };
 
-export default function modiacontext(state = initiellState, action = {}) {
+const modiacontext: Reducer<ModiaContextState> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
     case PUSH_MODIACONTEXT_FEILET: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         pushet: false,
         pusher: false,
         pushingFeilet: true,
-      });
+      };
     }
     case PUSHER_MODIACONTEXT: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         pushet: false,
         pusher: true,
         pushingFeilet: false,
-      });
+      };
     }
     case MODIACONTEXT_PUSHET: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         pushet: true,
         pusher: false,
         pushingFeilet: false,
-      });
+      };
     }
     case HENT_AKTIVENHET_FEILET: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         henterEnhet: false,
         hentingEnhetFeilet: true,
-      });
+      };
     }
     case HENTER_AKTIVENHET: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         henterEnhet: true,
         hentingEnhetFeilet: false,
-      });
+      };
     }
     default: {
       return state;
     }
   }
-}
+};
+
+export default modiacontext;

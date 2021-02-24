@@ -8,53 +8,58 @@ export const HENTER_AKTIVENHET = "HENTER_AKTIVENHET";
 export const HENT_AKTIVENHET_FEILET = "HENT_AKTIVENHET_FEILET";
 export const AKTIVENHET_HENTET = "AKTIVENHET_HENTET";
 
-export function hentAktivEnhet(data) {
+export interface ModiacontextPayload {
+  verdi: string;
+  eventType: string;
+}
+
+export const hentAktivEnhet = (data: any) => {
   return {
     type: HENT_AKTIVENHET_FORESPURT,
     data,
   };
-}
+};
 
-export function hentAktivEnhetFeilet() {
+export const hentAktivEnhetFeilet = () => {
   return {
     type: HENT_AKTIVENHET_FEILET,
   };
-}
+};
 
-export function henterAktivEnhet() {
+export const henterAktivEnhet = () => {
   return {
     type: HENTER_AKTIVENHET,
   };
-}
+};
 
-export function aktivEnhetHentet(data) {
+export const aktivEnhetHentet = (data: any) => {
   return {
     type: AKTIVENHET_HENTET,
     data,
   };
-}
+};
 
-export function pushModiaContextFeilet() {
+export const pushModiaContextFeilet = () => {
   return {
     type: PUSH_MODIACONTEXT_FEILET,
   };
-}
+};
 
-export function pusherModiaContext() {
+export const pusherModiaContext = () => {
   return {
     type: PUSHER_MODIACONTEXT,
   };
-}
+};
 
-export function pushModiaContext(data) {
+export const pushModiaContext = (data: ModiacontextPayload) => {
   return {
     type: PUSH_MODIACONTEXT_FORESPURT,
     data,
   };
-}
+};
 
-export function modiaContextPushet() {
+export const modiaContextPushet = () => {
   return {
     type: MODIACONTEXT_PUSHET,
   };
-}
+};

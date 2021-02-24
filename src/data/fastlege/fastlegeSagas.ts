@@ -3,16 +3,15 @@ import { get } from "../../api";
 import * as actions from "./fastlege_actions";
 import * as egenansattActions from "../egenansatt/egenansatt_actions";
 import * as diskresjonskodeActions from "../diskresjonskode/diskresjonskode_actions";
-import * as tilgangActions from "../tilgang/tilgang";
 
 const FASTLEGEREST_ROOT = "/fastlegerest/api/internad";
 const TILGANGSKONTROLL_AD_PATH = "/syfo-tilgangskontroll/api/tilgang/syfo";
 
-const fastlegeRestUrl = (path) => {
+const fastlegeRestUrl = (path: string) => {
   return path;
 };
 
-export function* hentFastlege(action) {
+export function* hentFastlege(action: any) {
   yield put(actions.henterFastlege());
   try {
     const data = yield call(

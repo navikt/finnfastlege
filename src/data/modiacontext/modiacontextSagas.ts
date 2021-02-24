@@ -4,7 +4,7 @@ import * as actions from "./modiacontext_actions";
 
 const modiacontextholderRoot = "/modiacontextholder/api";
 
-export function* pushModiacontextSaga(action) {
+export function* pushModiacontextSaga(action: any) {
   yield put(actions.pusherModiaContext());
   try {
     const path = `${modiacontextholderRoot}/context`;
@@ -18,7 +18,7 @@ export function* pushModiacontextSaga(action) {
   }
 }
 
-export function* aktivEnhetSaga(action) {
+export function* aktivEnhetSaga(action: any) {
   yield put(actions.henterAktivEnhet());
   try {
     const path = `${modiacontextholderRoot}/context/aktivenhet`;

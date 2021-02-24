@@ -7,34 +7,45 @@ import { Systemtittel, Undertekst, EtikettLiten } from "nav-frontend-typografi";
 import PersonIkon from "../svg/PersonIkon";
 import LegeIkon from "../svg/LegeIkon";
 import { tilLangtDatoFormat } from "../utils/datoUtils";
+import {
+  AdresseDTO,
+  FastlegeDTO,
+  PasientDTO,
+} from "../data/fastlege/FastlegeDTO";
+import { FastlegeInternal } from "../data/fastlege/FastlegeInternal";
 
 const VERDI_IKKE_FUNNET = "Ikke funnet";
 
-export const hentTekstPasientNavn = (pasient) => {
+export const hentTekstPasientNavn = (pasient: PasientDTO) => {
   return pasient
     ? `${pasient.fornavn} ${pasient.etternavn}`
     : VERDI_IKKE_FUNNET;
 };
 
-export const hentTekstFastlegeNavn = (fastlege) => {
+export const hentTekstFastlegeNavn = (fastlege: FastlegeDTO) => {
   return fastlege
     ? `${fastlege.fornavn} ${fastlege.etternavn}`
     : VERDI_IKKE_FUNNET;
 };
 
-export const hentTekstFastlegeBesoeksadresse = (besoeksadresse) => {
+export const hentTekstFastlegeBesoeksadresse = (besoeksadresse: AdresseDTO) => {
   return besoeksadresse
     ? `${besoeksadresse.adresse}, ${besoeksadresse.postnummer} ${besoeksadresse.poststed}`
     : VERDI_IKKE_FUNNET;
 };
 
-export const hentTekstFastlegePostadresse = (postadresse) => {
+export const hentTekstFastlegePostadresse = (postadresse: AdresseDTO) => {
   return postadresse
     ? `Postboks ${postadresse.adresse}, ${postadresse.postnummer} ${postadresse.poststed}`
     : VERDI_IKKE_FUNNET;
 };
 
-const FastlegeInfo = ({ fastlege }) => {
+interface FastlegeInfoProps {
+  fastlege: FastlegeInternal;
+}
+
+const FastlegeInfo = (fastlegeInfoProps: FastlegeInfoProps) => {
+  const { fastlege } = fastlegeInfoProps;
   return (
     <div className="fastlegeInfo">
       <Panel>
@@ -45,25 +56,25 @@ const FastlegeInfo = ({ fastlege }) => {
           <Row className="no-gutter">
             <Column>
               <Systemtittel>
-                {hentTekstPasientNavn(fastlege.pasient)}
+                {fastlege.pasient && hentTekstPasientNavn(fastlege.pasient)}
               </Systemtittel>
-              <Undertekst>{fastlege.pasient.fnr}</Undertekst>
+              <Undertekst>{fastlege.pasient?.fnr}</Undertekst>
             </Column>
           </Row>
           <Row className="no-gutter fastlegeInfo__etiketter">
-            {fastlege.pasient.egenansatt && (
+            {fastlege.pasient?.egenansatt && (
               <div>
                 <EtikettFokus>Egen ansatt</EtikettFokus>
               </div>
             )}
-            {fastlege.pasient.diskresjonskode &&
-              fastlege.pasient.diskresjonskode === "6" && (
+            {fastlege.pasient?.diskresjonskode &&
+              fastlege.pasient?.diskresjonskode === "6" && (
                 <div>
                   <EtikettFokus>Kode 6</EtikettFokus>
                 </div>
               )}
-            {fastlege.pasient.diskresjonskode &&
-              fastlege.pasient.diskresjonskode === "7" && (
+            {fastlege.pasient?.diskresjonskode &&
+              fastlege.pasient?.diskresjonskode === "7" && (
                 <div>
                   <EtikettFokus>Kode 7</EtikettFokus>
                 </div>
@@ -96,9 +107,10 @@ const FastlegeInfo = ({ fastlege }) => {
               <Column className="col-xs-12 col-sm-6">
                 <EtikettLiten>Besøksadresse</EtikettLiten>
                 <Undertekst>
-                  {hentTekstFastlegeBesoeksadresse(
-                    fastlege.fastlegekontor.besoeksadresse
-                  )}
+                  {fastlege.fastlegekontor.besoeksadresse &&
+                    hentTekstFastlegeBesoeksadresse(
+                      fastlege.fastlegekontor.besoeksadresse
+                    )}
                 </Undertekst>
               </Column>
             </Row>,
@@ -110,9 +122,10 @@ const FastlegeInfo = ({ fastlege }) => {
               <Column className="col-xs-12 col-sm-6">
                 <EtikettLiten>Postadresse</EtikettLiten>
                 <Undertekst>
-                  {hentTekstFastlegePostadresse(
-                    fastlege.fastlegekontor.postadresse
-                  )}
+                  {fastlege.fastlegekontor.postadresse &&
+                    hentTekstFastlegePostadresse(
+                      fastlege.fastlegekontor.postadresse
+                    )}
                 </Undertekst>
               </Column>
             </Row>,

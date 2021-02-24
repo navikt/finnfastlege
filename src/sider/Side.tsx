@@ -1,10 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Container, Row, Column } from "nav-frontend-grid";
 const DocumentTitle = require("react-document-title");
 import ContextContainer from "../context/ContextContainer";
 
-const Side = ({ children }) => {
+export interface SideProps {
+  children: any;
+}
+
+const Side = ({ children }: SideProps) => {
   return (
     <DocumentTitle title="Fastlege">
       <Container>
@@ -21,10 +24,6 @@ const Side = ({ children }) => {
       </Container>
     </DocumentTitle>
   );
-};
-
-Side.propTypes = {
-  children: PropTypes.object,
 };
 
 export default Side;

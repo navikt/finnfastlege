@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Undertittel } from "nav-frontend-typografi";
 
 interface FeilmeldingProps {
-  tittel: string;
+  tittel?: string;
   melding: any;
 }
 
