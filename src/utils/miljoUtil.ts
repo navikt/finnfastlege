@@ -27,7 +27,7 @@ export const fullAppAdeoUrl = (path: string) => {
 
 export const fullNaisUrlDefault = (host: string, path: string) => {
   if (erLokal()) {
-    return path;
+    return `http://localhost:8081${path}`;
   }
   return `https://${host}${finnNaisUrlDefault()}${path}`;
 };
