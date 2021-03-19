@@ -13,7 +13,7 @@ server.use(express.json());
 
 const modiacontextholderUrl =
   process.env.ENV === "preprod"
-    ? "modiacontextholder.q1"
+    ? "modiacontextholder.q0"
     : "modiacontextholder.default";
 
 const getQueryStringFromReq = (req) => {

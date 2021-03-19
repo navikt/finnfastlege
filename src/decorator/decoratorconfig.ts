@@ -9,6 +9,7 @@ const decoratorconfig = (setFnr: (fnr: string) => void): DecoratorProps => {
       initialValue: RESET_VALUE,
       display: FnrDisplay.SOKEFELT,
       ignoreWsEvents: true,
+      skipModal: true,
       onChange: (value) => {
         if (value) {
           setFnr(value);
@@ -19,6 +20,7 @@ const decoratorconfig = (setFnr: (fnr: string) => void): DecoratorProps => {
       initialValue: null,
       display: EnhetDisplay.ENHET_VALG,
       onChange(): void {},
+      skipModal: true,
     },
     toggles: {
       visVeileder: true,
