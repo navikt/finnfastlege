@@ -8,7 +8,7 @@ const decideLogLevel = () => {
   return "info";
 };
 
-const fullHost = process.env.HOST;
+const fullHost: any = process.env.HOST;
 const appName = "finnfastlege";
 
 const getCookieHostFromFullHostName = () => {

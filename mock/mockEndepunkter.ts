@@ -1,10 +1,12 @@
+export {};
+
 const express = require("express");
 const mockFastlegerest = require("./mockFastlegerest");
 const mockModiacontextholder = require("./mockModiacontextholder");
 const mockSyfoperson = require("./mockSyfoperson");
 const mockSyfotilgangskontroll = require("./mockSyfotilgangskontroll");
 
-function mockEndepunkter(server, erLokal) {
+const mockEndepunkter = (server: any, erLokal: boolean) => {
   server.use(express.json());
   server.use(express.urlencoded());
 
@@ -16,6 +18,6 @@ function mockEndepunkter(server, erLokal) {
   ].forEach((func) => {
     func(server, erLokal);
   });
-}
+};
 
 module.exports = mockEndepunkter;

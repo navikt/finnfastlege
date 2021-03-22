@@ -1,5 +1,5 @@
 const merge = require("webpack-merge");
-const common = require("./webpack.common.js");
+const common = require("./webpack.common.ts");
 const path = require("path");
 const mockEndepunkter = require("./mock/mockEndepunkter");
 const express = require("express");
@@ -17,12 +17,12 @@ module.exports = merge(common, {
     staticOptions: {
       redirect: false,
     },
-    after: (app, server, compiler) => {
+    after: (app: any, server: any, compiler: any) => {
       mockEndepunkter(app, true);
       app.use("/fastlege/img", express.static(path.resolve(__dirname, "img")));
       app.use("/static", express.static(path.resolve(__dirname, "dist")));
 
-      app.use("*", (req, res) => {
+      app.use("*", (req: any, res: any) => {
         const filename = path.join(compiler.outputPath, "index.html");
         compiler.outputFileSystem.readFile(filename, (err, result) => {
           if (err) {

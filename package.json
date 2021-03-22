@@ -2,12 +2,12 @@
   "name": "finnfastlege",
   "version": "0.0.1",
   "description": "Digitalisering av sykefraværsoppfølging",
-  "main": "index.js",
+  "main": "index.tsx",
   "test": "npm run test",
   "scripts": {
     "test": "mocha -r ./test/babel-register.js -r @babel/polyfill -r jsdom-global/register -r ignore-styles --recursive",
-    "start": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
+    "start": "webpack-dev-server --config webpack.dev.ts",
+    "build": "webpack --config webpack.prod.ts",
     "sec-audit": "npm audit --audit-level=moderate"
   },
   "author": "Team DigiSyfo <digisyfo@nav.no>",

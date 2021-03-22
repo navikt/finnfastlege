@@ -1,3 +1,5 @@
+export {};
+
 const fastlege = {
   fornavn: "Lege",
   mellomnavn: null,
@@ -33,15 +35,15 @@ const fastlege = {
   },
 };
 
-function mockForLokal(server) {
-  server.get("/fastlegerest/api/internad/fastlege/v1", (req, res) => {
+const mockForLokal = (server: any) => {
+  server.get("/fastlegerest/api/internad/fastlege/v1", (req: any, res: any) => {
     res.setHeader("Content-Type", "application/json");
     res.send(JSON.stringify(fastlege));
   });
-}
+};
 
-function mockFastlegerest(server) {
+const mockFastlegerest = (server: any) => {
   mockForLokal(server);
-}
+};
 
 module.exports = mockFastlegerest;
