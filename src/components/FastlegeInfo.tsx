@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Row, Column } from "nav-frontend-grid";
 import Panel from "nav-frontend-paneler";
 import { EtikettFokus } from "nav-frontend-etiketter";
@@ -134,10 +133,6 @@ const FastlegeInfo = (fastlegeInfoProps: FastlegeInfoProps) => {
       </Panel>
     </div>
   );
-};
-
-FastlegeInfo.propTypes = {
-  fastlege: PropTypes.object,
 };
 
 export default FastlegeInfo;
