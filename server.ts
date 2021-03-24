@@ -1,3 +1,5 @@
+export {};
+
 const express = require("express");
 const path = require("path");
 const prometheus = require("prom-client");
@@ -16,7 +18,7 @@ const modiacontextholderUrl =
     ? "modiacontextholder.q0"
     : "modiacontextholder.default";
 
-const getQueryStringFromReq = (req) => {
+const getQueryStringFromReq = (req: any) => {
   const queryString = req.url.split("?")[1];
   return queryString ? `?${queryString}` : "";
 };
@@ -24,7 +26,7 @@ const getQueryStringFromReq = (req) => {
 server.use(
   "/syfo-tilgangskontroll",
   proxy("syfo-tilgangskontroll.default", {
-    proxyReqPathResolver: (req) => {
+    proxyReqPathResolver: (req: any) => {
       return `/syfo-tilgangskontroll${req.path}${getQueryStringFromReq(req)}`;
     },
     https: false,
@@ -34,7 +36,7 @@ server.use(
 server.use(
   "/fastlegerest",
   proxy("fastlegerest.default", {
-    proxyReqPathResolver: (req) => {
+    proxyReqPathResolver: (req: any) => {
       return `/fastlegerest${req.path}${getQueryStringFromReq(req)}`;
     },
     https: false,
@@ -44,10 +46,10 @@ server.use(
 server.use(
   "/modiacontextholder/api",
   proxy(modiacontextholderUrl, {
-    proxyReqPathResolver: function (req) {
+    proxyReqPathResolver: function (req: any) {
       return `/modiacontextholder/api${req.url}`;
     },
-    proxyErrorHandler: function (err, res, next) {
+    proxyErrorHandler: function (err: any, res: any, next: any) {
       console.error("Error in proxy for modiacontextholder", err);
       next(err);
     },
@@ -58,13 +60,13 @@ server.use(
 server.use(
   "/syfoperson/api",
   proxy("syfoperson.default", {
-    proxyReqPathResolver: (req) => {
+    proxyReqPathResolver: (req: any) => {
       return `/syfoperson/api${req.path}${getQueryStringFromReq(req)}`;
     },
   })
 );
 
-function nocache(req, res, next) {
+function nocache(req: any, res: any, next: any) {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.header("Expires", "-1");
   res.header("Pragma", "no-cache");
@@ -74,10 +76,10 @@ function nocache(req, res, next) {
 const DIST_DIR = path.join(__dirname, "dist");
 const HTML_FILE = path.join(DIST_DIR, "index.html");
 
-server.get("/health/isReady", (req, res) => {
+server.get("/health/isReady", (req: any, res: any) => {
   res.status(200).send("Im ready!");
 });
-server.get("/health/isAlive", (req, res) => {
+server.get("/health/isAlive", (req: any, res: any) => {
   res.status(200).send("Im alive!");
 });
 
@@ -88,7 +90,7 @@ server.use("/fastlege/img", express.static(path.resolve(__dirname, "img")));
 server.get(
   ["/", "/fastlege", "/fastlege/*", /^\/fastlege\/(?!(resources|img)).*$/],
   nocache,
-  (req, res) => {
+  (req: any, res: any) => {
     res.sendFile(HTML_FILE);
   }
 );
