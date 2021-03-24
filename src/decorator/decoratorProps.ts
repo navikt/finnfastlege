@@ -7,15 +7,15 @@ interface Markup {
 }
 
 export interface ControlledContextvalue<T> extends BaseContextvalue<T> {
-  value: string | null;
+  value?: string;
 }
 interface UncontrolledContextvalue<T> extends BaseContextvalue<T> {
-  initialValue: string | null;
+  initialValue?: string;
 }
 
 interface BaseContextvalue<T> {
   display: T;
-  onChange(value: string | null): void;
+  onChange(value?: string): void;
   skipModal?: boolean;
   ignoreWsEvents?: boolean;
 }

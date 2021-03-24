@@ -10,14 +10,14 @@ export interface EgenansattState {
   henter: boolean;
   hentet: boolean;
   hentingFeilet: boolean;
-  data: boolean | null;
+  data?: boolean;
 }
 
 export const initialState: EgenansattState = {
   henter: false,
   hentet: false,
   hentingFeilet: false,
-  data: null,
+  data: undefined,
 };
 
 const egenansatt: Reducer<EgenansattState> = (state = initialState, action) => {
@@ -28,7 +28,7 @@ const egenansatt: Reducer<EgenansattState> = (state = initialState, action) => {
         henter: true,
         hentet: false,
         hentingFeilet: false,
-        data: null,
+        data: undefined,
       };
     }
     case EGENANSATT_HENTET: {
@@ -52,7 +52,7 @@ const egenansatt: Reducer<EgenansattState> = (state = initialState, action) => {
         henter: false,
         hentet: false,
         hentingFeilet: false,
-        data: null,
+        data: undefined,
       };
     }
     default: {
