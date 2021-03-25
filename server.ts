@@ -16,7 +16,7 @@ const modiacontextholderUrl =
     ? "modiacontextholder.q0"
     : "modiacontextholder.default";
 
-const getQueryStringFromReq = (req: any) => {
+const getQueryStringFromReq = (req) => {
   const queryString = req.url.split("?")[1];
   return queryString ? `?${queryString}` : "";
 };
@@ -24,7 +24,7 @@ const getQueryStringFromReq = (req: any) => {
 server.use(
   "/syfo-tilgangskontroll",
   proxy("syfo-tilgangskontroll.default", {
-    proxyReqPathResolver: (req: any) => {
+    proxyReqPathResolver: (req) => {
       return `/syfo-tilgangskontroll${req.path}${getQueryStringFromReq(req)}`;
     },
     https: false,
@@ -34,7 +34,7 @@ server.use(
 server.use(
   "/fastlegerest",
   proxy("fastlegerest.default", {
-    proxyReqPathResolver: (req: any) => {
+    proxyReqPathResolver: (req) => {
       return `/fastlegerest${req.path}${getQueryStringFromReq(req)}`;
     },
     https: false,
@@ -44,10 +44,10 @@ server.use(
 server.use(
   "/modiacontextholder/api",
   proxy(modiacontextholderUrl, {
-    proxyReqPathResolver: function (req: any) {
+    proxyReqPathResolver: function (req) {
       return `/modiacontextholder/api${req.url}`;
     },
-    proxyErrorHandler: function (err: any, res: any, next: any) {
+    proxyErrorHandler: function (err, res, next) {
       console.error("Error in proxy for modiacontextholder", err);
       next(err);
     },
@@ -58,13 +58,13 @@ server.use(
 server.use(
   "/syfoperson/api",
   proxy("syfoperson.default", {
-    proxyReqPathResolver: (req: any) => {
+    proxyReqPathResolver: (req) => {
       return `/syfoperson/api${req.path}${getQueryStringFromReq(req)}`;
     },
   })
 );
 
-function nocache(req: any, res: any, next: any) {
+function nocache(req, res, next) {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.header("Expires", "-1");
   res.header("Pragma", "no-cache");
@@ -74,10 +74,10 @@ function nocache(req: any, res: any, next: any) {
 const DIST_DIR = path.join(__dirname, "dist");
 const HTML_FILE = path.join(DIST_DIR, "index.html");
 
-server.get("/health/isReady", (req: any, res: any) => {
+server.get("/health/isReady", (req, res) => {
   res.status(200).send("Im ready!");
 });
-server.get("/health/isAlive", (req: any, res: any) => {
+server.get("/health/isAlive", (req, res) => {
   res.status(200).send("Im alive!");
 });
 
@@ -88,7 +88,7 @@ server.use("/fastlege/img", express.static(path.resolve(__dirname, "img")));
 server.get(
   ["/", "/fastlege", "/fastlege/*", /^\/fastlege\/(?!(resources|img)).*$/],
   nocache,
-  (req: any, res: any) => {
+  (req, res) => {
     res.sendFile(HTML_FILE);
   }
 );
