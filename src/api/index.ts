@@ -1,3 +1,7 @@
+export const NAV_CONSUMER_ID_HEADER = "nav-consumer-id";
+export const NAV_CONSUMER_ID = "finnfastlege";
+export const NAV_PERSONIDENT_HEADER = "nav-personident";
+
 const createLogger = () => {
   if (
     window.location.search.indexOf("log=true") > -1 ||
@@ -45,9 +49,21 @@ export const lagreRedirectUrlILocalStorage = (href: string) => {
   localStorage.setItem("redirecturl", href);
 };
 
-export function get(url: string) {
-  return fetch(url, { credentials: "include" })
-    .then((res) => {
+export function get(url: string, personIdent?: string) {
+  let headers: {} = {
+    [NAV_CONSUMER_ID_HEADER]: NAV_CONSUMER_ID,
+  };
+  if (personIdent) {
+    headers = {
+      ...headers,
+      [NAV_PERSONIDENT_HEADER]: personIdent,
+    };
+  }
+  return fetch(url, {
+    credentials: "include",
+    headers,
+  })
+    .then((res: any) => {
       if (res.status === 401) {
         log(res, "Redirect til login");
         lagreRedirectUrlILocalStorage(window.location.href);
@@ -64,7 +80,7 @@ export function get(url: string) {
       }
       return res.json();
     })
-    .catch((err) => {
+    .catch((err: any) => {
       log(err);
       throw err;
     });
@@ -77,6 +93,7 @@ export function post(url: string, body: object) {
     body: JSON.stringify(body),
     headers: new Headers({
       "Content-Type": "application/json",
+      [NAV_CONSUMER_ID_HEADER]: NAV_CONSUMER_ID,
     }),
   })
     .then((res) => {

@@ -7,8 +7,8 @@ const SYFOPERSON_ROOT = "/syfoperson/api";
 export function* hentEgenansattSaga(action: any) {
   yield put(actions.henterEgenansatt());
   try {
-    const url = `${SYFOPERSON_ROOT}/person/egenansatt/${action.fnr}`;
-    const data = yield call(get, url);
+    const url = `${SYFOPERSON_ROOT}/person/egenansatt`;
+    const data = yield call(get, url, action.fnr);
     yield put(actions.egenansattHentet(data));
   } catch (e) {
     yield put(actions.hentEgenansattFeilet());

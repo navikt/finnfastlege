@@ -9,7 +9,8 @@ export function* hentDiskresjonskodeSaga(action: any) {
   try {
     const data = yield call(
       get,
-      `${SYFOPERSON_ROOT}/person/diskresjonskode/${action.fnr}`
+      `${SYFOPERSON_ROOT}/person/diskresjonskode`,
+      action.fnr
     );
     yield put(actions.diskresjonskodeHentet(data));
   } catch (e) {
