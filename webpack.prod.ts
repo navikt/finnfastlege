@@ -1,9 +1,10 @@
-const merge = require("webpack-merge");
-const common = require("./webpack.common.ts");
+const { merge } = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require("autoprefixer");
 
-module.exports = merge.smart(common, {
+import common from "./webpack.common.ts";
+
+module.exports = merge(common, {
   mode: "production",
   module: {
     rules: [
@@ -15,12 +16,16 @@ module.exports = merge.smart(common, {
           },
           {
             loader: "css-loader",
+            options: {
+              modules: false,
+              url: false,
+            },
           },
           {
             loader: "postcss-loader",
             options: {
-              plugins: () => {
-                return [autoprefixer];
+              postcssOptions: {
+                plugins: [autoprefixer],
               },
             },
           },
@@ -34,7 +39,6 @@ module.exports = merge.smart(common, {
   plugins: [
     new MiniCssExtractPlugin({
       filename: "styles.css",
-      disable: false,
     }),
   ],
 });
