@@ -27,7 +27,7 @@ const aktivEnhet = {
   aktivEnhet: "0315",
 };
 
-const mockForLokal = (server: any) => {
+const mockModiacontextholder = (server: any) => {
   server.get("/modiacontextholder/api/decorator", (req: any, res: any) => {
     res.setHeader("Content-Type", "application/json");
     res.send(JSON.stringify(saksbehandler));
@@ -54,8 +54,4 @@ const mockForLokal = (server: any) => {
   });
 };
 
-const mockModiacontextholder = (server: any) => {
-  mockForLokal(server);
-};
-
-module.exports = mockModiacontextholder;
+export default mockModiacontextholder;

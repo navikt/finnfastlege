@@ -1,8 +1,9 @@
-const merge = require("webpack-merge");
-const common = require("./webpack.common.ts");
-const path = require("path");
-const mockEndepunkter = require("./mock/mockEndepunkter");
-const express = require("express");
+import express from "express";
+import path from "path";
+import merge from "webpack-merge";
+
+import common from "./webpack.common.ts";
+import mockEndepunkter from "./mock/mockEndepunkter";
 
 module.exports = merge(common, {
   mode: "development",
@@ -18,7 +19,7 @@ module.exports = merge(common, {
       redirect: false,
     },
     after: (app: any, server: any, compiler: any) => {
-      mockEndepunkter(app, true);
+      mockEndepunkter(app);
       app.use("/fastlege/img", express.static(path.resolve(__dirname, "img")));
       app.use("/static", express.static(path.resolve(__dirname, "dist")));
 

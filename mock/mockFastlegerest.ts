@@ -35,15 +35,11 @@ const fastlege = {
   },
 };
 
-const mockForLokal = (server: any) => {
+const mockFastlegerest = (server: any) => {
   server.get("/fastlegerest/api/internad/fastlege/v1", (req: any, res: any) => {
     res.setHeader("Content-Type", "application/json");
     res.send(JSON.stringify(fastlege));
   });
 };
 
-const mockFastlegerest = (server: any) => {
-  mockForLokal(server);
-};
-
-module.exports = mockFastlegerest;
+export default mockFastlegerest;

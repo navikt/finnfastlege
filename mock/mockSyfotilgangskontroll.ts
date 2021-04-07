@@ -5,7 +5,7 @@ const tilgang = {
   begrunnelse: null,
 };
 
-const mockForLokal = (server: any) => {
+const mockSyfotilgangskontroll = (server: any) => {
   server.get(
     "/syfo-tilgangskontroll/api/tilgang/syfo",
     (req: any, res: any) => {
@@ -15,8 +15,4 @@ const mockForLokal = (server: any) => {
   );
 };
 
-const mockSyfotilgangskontroll = (server: any) => {
-  mockForLokal(server);
-};
-
-module.exports = mockSyfotilgangskontroll;
+export default mockSyfotilgangskontroll;

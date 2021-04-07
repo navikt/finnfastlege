@@ -1,12 +1,13 @@
 export {};
 
-const express = require("express");
-const mockFastlegerest = require("./mockFastlegerest");
-const mockModiacontextholder = require("./mockModiacontextholder");
-const mockSyfoperson = require("./mockSyfoperson");
-const mockSyfotilgangskontroll = require("./mockSyfotilgangskontroll");
+import express from "express";
 
-const mockEndepunkter = (server: any, erLokal: boolean) => {
+import mockFastlegerest from "./mockFastlegerest";
+import mockModiacontextholder from "./mockModiacontextholder";
+import mockSyfoperson from "./mockSyfoperson";
+import mockSyfotilgangskontroll from "./mockSyfotilgangskontroll";
+
+const mockEndepunkter = (server: any) => {
   server.use(express.json());
   server.use(express.urlencoded());
 
@@ -16,8 +17,8 @@ const mockEndepunkter = (server: any, erLokal: boolean) => {
     mockSyfoperson,
     mockSyfotilgangskontroll,
   ].forEach((func) => {
-    func(server, erLokal);
+    func(server);
   });
 };
 
-module.exports = mockEndepunkter;
+export default mockEndepunkter;
