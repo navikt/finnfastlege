@@ -7,7 +7,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const autoprefixer = require("autoprefixer");
 
-module.exports = {
+export default {
   entry: {
     main: ["./src/index.tsx"],
   },

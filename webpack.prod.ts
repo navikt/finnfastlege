@@ -2,7 +2,7 @@ const { merge } = require("webpack-merge");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require("autoprefixer");
 
-import common from "./webpack.common.ts";
+import common from "./webpack.common";
 
 module.exports = merge(common, {
   mode: "production",

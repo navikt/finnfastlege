@@ -1,8 +1,8 @@
-import express from "express";
-import path from "path";
-import merge from "webpack-merge";
+import * as express from "express";
+import * as path from "path";
+import { merge } from "webpack-merge";
 
-import common from "./webpack.common.ts";
+import common from "./webpack.common";
 import mockEndepunkter from "./mock/mockEndepunkter";
 
 module.exports = merge(common, {
@@ -25,16 +25,19 @@ module.exports = merge(common, {
 
       app.use("*", (req: any, res: any) => {
         const filename = path.join(compiler.outputPath, "index.html");
-        compiler.outputFileSystem.readFile(filename, (err, result) => {
-          if (err) {
-            res.sendFile(path.resolve(__dirname, "public/error.html"));
-            return;
-          }
+        compiler.outputFileSystem.readFile(
+          filename,
+          (err: any, result: any) => {
+            if (err) {
+              res.sendFile(path.resolve(__dirname, "public/error.html"));
+              return;
+            }
 
-          res.set("Content-Type", "text/html");
-          res.send(result);
-          res.end();
-        });
+            res.set("Content-Type", "text/html");
+            res.send(result);
+            res.end();
+          }
+        );
       });
     },
   },
