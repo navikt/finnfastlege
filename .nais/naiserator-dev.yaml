@@ -2,7 +2,7 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: finnfastlege
-  namespace: default
+  namespace: teamsykefravr
   labels:
     team: teamsykefravr
 spec:
@@ -32,7 +32,21 @@ spec:
     - name: ENV
       value: preprod
     - name: HOST
-      value: finnfastlege.nais.preprod.local
+      value: finnfastlege.dev.intern.nav.no
+    - name: NODE_ENV
+      value: production
+    - name: REDIS_HOST
+      value: finnfastlege-redis
+    - name: FINNFASTLEGE_URL
+      value: http://finnfastlege
+    - name: AUTH_REDIRECT_URI
+      value: "https://finnfastlege.dev.intern.nav.no/oauth2/callback"
+    - name: FASTLEGEREST_AAD_APP_CLIENT_ID
+      value: "f5510c3d-2510-444d-91a2-5790c1ec39a4"
+    - name: SYFOPERSON_AAD_APP_CLIENT_ID
+      value: "10ce50ea-d922-48d7-888d-3f8b683d8aab"
+    - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
+      value: "32e36aa5-1d12-452a-9b1e-9f3f557cbb4d"
   resources:
     limits:
       cpu: 500m
@@ -40,6 +54,15 @@ spec:
     requests:
       cpu: 100m
       memory: 128Mi
+  azure:
+    application:
+      enabled: true
+      tenant: trygdeetaten.no
+      replyURLs:
+        - "https://finnfastlege.dev.intern.nav.no/oauth2/callback"
+      claims:
+        extra:
+          - "NAVident"
   webproxy: true
   ingresses:
-    - "https://finnfastlege.nais.preprod.local"
+    - "https://finnfastlege.dev.intern.nav.no"

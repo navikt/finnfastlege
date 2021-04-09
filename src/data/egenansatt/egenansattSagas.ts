@@ -2,7 +2,7 @@ import { call, put, fork, takeEvery } from "redux-saga/effects";
 import { get } from "../../api";
 import * as actions from "./egenansatt_actions";
 
-const SYFOPERSON_ROOT = "/syfoperson/api";
+const SYFOPERSON_ROOT = "/syfoperson/api/v2";
 
 export function* hentEgenansattSaga(action: any) {
   yield put(actions.henterEgenansatt());

@@ -1,5 +1,5 @@
 export const erPreProd = () => {
-  return window.location.href.indexOf("nais.preprod.local") > -1;
+  return window.location.href.indexOf("dev.intern.nav.no") > -1;
 };
 
 export const erLokal = () => {

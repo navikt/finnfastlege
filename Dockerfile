@@ -1,7 +1,8 @@
-FROM node:14-alpine
+FROM navikt/node-express:12.2.0-alpine
 WORKDIR /finnfastlege
 
-COPY .env server.ts package.json ./
+COPY server.ts package.json ./
+COPY server ./server
 
 COPY node_modules ./node_modules
 COPY img ./img

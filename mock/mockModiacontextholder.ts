@@ -1,4 +1,4 @@
-export {};
+import { ensureAuthenticated } from "../server/auth";
 
 const saksbehandler = {
   ident: "Z999999",
@@ -35,6 +35,7 @@ const mockModiacontextholder = (server: any) => {
 
   server.get(
     "/modiacontextholder/api/context/aktivbruker",
+    ensureAuthenticated(),
     (req: any, res: any) => {
       res.setHeader("Content-Type", "application/json");
       res.send(JSON.stringify(aktivBruker));
@@ -43,15 +44,20 @@ const mockModiacontextholder = (server: any) => {
 
   server.get(
     "/modiacontextholder/api/context/aktivenhet",
+    ensureAuthenticated(),
     (req: any, res: any) => {
       res.setHeader("Content-Type", "application/json");
       res.send(JSON.stringify(aktivEnhet));
     }
   );
 
-  server.post("/modiacontextholder/api/context", (req: any, res: any) => {
-    res.send().status(204);
-  });
+  server.post(
+    "/modiacontextholder/api/context",
+    ensureAuthenticated(),
+    (req: any, res: any) => {
+      res.send().status(204);
+    }
+  );
 };
 
 export default mockModiacontextholder;

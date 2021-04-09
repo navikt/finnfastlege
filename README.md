@@ -21,3 +21,8 @@ Du må ha Node installert.
 - Lint JS-kode med `npm run lint` eller `npm run lint:fix`
 
 Appen nås på [http://localhost:8080/fastlege/](http://localhost:8080/fastlege/)
+
+## Redis Cache
+
+Finnfastlege bruker redis for caching av sessions.
+Redis pod kan startes manuelt ved å kjøre følgdende kommando: `kubectl apply -f .nais/redis.yaml`.

@@ -3,7 +3,8 @@ const Adapter = require("enzyme-adapter-react-16");
 
 Enzyme.configure({ adapter: new Adapter() });
 
-require("dotenv").config();
+const dotenv = require("dotenv");
+dotenv.config();
 
 const { JSDOM } = require("jsdom");
 
