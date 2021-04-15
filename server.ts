@@ -16,6 +16,11 @@ const modiacontextholderUrl =
     ? "modiacontextholder.q0"
     : "modiacontextholder.default";
 
+const syfopersonHost =
+  process.env.ENV === "preprod"
+    ? "https://syfoperson.dev.intern.nav.no"
+    : "https://syfoperson.intern.nav.no";
+
 const getQueryStringFromReq = (req) => {
   const queryString = req.url.split("?")[1];
   return queryString ? `?${queryString}` : "";
@@ -57,7 +62,7 @@ server.use(
 
 server.use(
   "/syfoperson/api",
-  proxy("syfoperson.default", {
+  proxy(syfopersonHost, {
     proxyReqPathResolver: (req) => {
       return `/syfoperson/api${req.path}${getQueryStringFromReq(req)}`;
     },
