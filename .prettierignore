@@ -10,3 +10,4 @@ settings.json
 .flooignore
 .vscode/
 *.yaml
+*.yml

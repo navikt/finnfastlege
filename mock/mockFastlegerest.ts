@@ -1,4 +1,4 @@
-export {};
+import { ensureAuthenticated } from "../server/auth";
 
 const fastlege = {
   fornavn: "Lege",
@@ -36,10 +36,14 @@ const fastlege = {
 };
 
 const mockFastlegerest = (server: any) => {
-  server.get("/fastlegerest/api/internad/fastlege/v1", (req: any, res: any) => {
-    res.setHeader("Content-Type", "application/json");
-    res.send(JSON.stringify(fastlege));
-  });
+  server.get(
+    "/fastlegerest/api/v2/fastlege",
+    ensureAuthenticated(),
+    (req: any, res: any) => {
+      res.setHeader("Content-Type", "application/json");
+      res.send(JSON.stringify(fastlege));
+    }
+  );
 };
 
 export default mockFastlegerest;

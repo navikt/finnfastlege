@@ -16,35 +16,6 @@ const createLogger = () => {
 
 const log = createLogger();
 
-export const getCookie = (name: string) => {
-  const re = new RegExp(`${name}=([^;]+)`);
-  const match = re.exec(document.cookie);
-  return match !== null ? match[1] : "";
-};
-
-export const erProd = () => {
-  return window.location.href.indexOf("nais.adeo.no") > -1;
-};
-
-export const erPreProd = () => {
-  return window.location.href.indexOf("nais.preprod.local") > -1;
-};
-
-export const hentLoginUrl = () => {
-  if (erProd()) {
-    return "https://loginservice.nais.adeo.no/login";
-  }
-  // Preprod
-  return "https://loginservice.nais.preprod.local/login";
-};
-
-export const hentRedirectBaseUrl = () => {
-  if (erProd()) {
-    return "https://finnfastlege.nais.adeo.no";
-  }
-  return "https://finnfastlege.nais.preprod.local";
-};
-
 export const lagreRedirectUrlILocalStorage = (href: string) => {
   localStorage.setItem("redirecturl", href);
 };
@@ -67,7 +38,7 @@ export function get(url: string, personIdent?: string) {
       if (res.status === 401) {
         log(res, "Redirect til login");
         lagreRedirectUrlILocalStorage(window.location.href);
-        window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl()}/fastlege/`;
+        window.location.href = `/login?redirectTo=${window.location.pathname}`;
       } else if (res.status === 403) {
         window.location.href = `/na`;
       } else if (res.status === 404) {
@@ -100,7 +71,7 @@ export function post(url: string, body: object) {
       if (res.status === 401) {
         log(res, "Redirect til login");
         lagreRedirectUrlILocalStorage(window.location.href);
-        window.location.href = `${hentLoginUrl()}?redirect=${hentRedirectBaseUrl()}/fastlege/`;
+        window.location.href = `/login?redirectTo=${window.location.pathname}`;
         return null;
       } else if (res.status > 400) {
         log(res);
