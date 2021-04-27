@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Column } from "nav-frontend-grid";
 import Panel from "nav-frontend-paneler";
 import { EtikettFokus } from "nav-frontend-etiketter";
-import { Systemtittel, Undertekst, EtikettLiten } from "nav-frontend-typografi";
+import { Systemtittel, Undertekst, Element } from "nav-frontend-typografi";
 import PersonIkon from "../svg/PersonIkon";
 import LegeIkon from "../svg/LegeIkon";
 import { tilLangtDatoFormat } from "../utils/datoUtils";
@@ -100,11 +100,11 @@ const FastlegeInfo = (fastlegeInfoProps: FastlegeInfoProps) => {
           {fastlege.fastlegekontor && [
             <Row key={1} className="no-gutter">
               <Column className="col-xs-12 col-sm-6">
-                <EtikettLiten>Legekontor</EtikettLiten>
+                <Element>Legekontor</Element>
                 <Undertekst>{fastlege.fastlegekontor.navn}</Undertekst>
               </Column>
               <Column className="col-xs-12 col-sm-6">
-                <EtikettLiten>Besøksadresse</EtikettLiten>
+                <Element>Besøksadresse</Element>
                 <Undertekst>
                   {fastlege.fastlegekontor.besoeksadresse &&
                     hentTekstFastlegeBesoeksadresse(
@@ -115,11 +115,11 @@ const FastlegeInfo = (fastlegeInfoProps: FastlegeInfoProps) => {
             </Row>,
             <Row key={2} className="no-gutter">
               <Column className="col-xs-12 col-sm-6">
-                <EtikettLiten>Telefon</EtikettLiten>
+                <Element>Telefon</Element>
                 <Undertekst>{fastlege.fastlegekontor.telefon}</Undertekst>
               </Column>
               <Column className="col-xs-12 col-sm-6">
-                <EtikettLiten>Postadresse</EtikettLiten>
+                <Element>Postadresse</Element>
                 <Undertekst>
                   {fastlege.fastlegekontor.postadresse &&
                     hentTekstFastlegePostadresse(

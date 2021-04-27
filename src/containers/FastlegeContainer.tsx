@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row } from "nav-frontend-grid";
-import NavFrontendSpinner from "nav-frontend-spinner";
+import AppSpinner from "../components/AppSpinner";
 import Fastlege from "../components/Fastlege";
 import Side from "../sider/Side";
 import Feilmelding from "../components/Feilmelding";
@@ -19,36 +18,32 @@ const FastlegeSide = () => {
 
   return (
     <Side>
-      {(() => {
-        if (tilgang.henter) {
-          return (
-            <Row className="row-centered">
-              <NavFrontendSpinner type="XL" />
-            </Row>
-          );
-        } else if (tilgang.hentingFeilet) {
-          return (
-            <Feilmelding
-              tittel="Det skjedde en feil!"
-              melding={{
-                __html:
-                  "<p>Vi fikk ikke sjekket om du har tilgang til tjenesten. Vennligst prøv igjen senere!</p>",
-              }}
-            />
-          );
-        } else if (!tilgang.harTilgang) {
-          return (
-            <Feilmelding
-              tittel="Ops! Du har visst ikke tilgang til sykefravær i Modia"
-              melding={{
-                __html:
-                  "<p>For å få tilgang må du ta kontakt med din lokale identansvarlige.</p>",
-              }}
-            />
-          );
-        }
-        return <Fastlege fastlege={fastlege} />;
-      })()}
+      <AppSpinner laster={tilgang.henter}>
+        {(() => {
+          if (tilgang.hentingFeilet) {
+            return (
+              <Feilmelding
+                tittel="Det skjedde en feil!"
+                melding={{
+                  __html:
+                    "<p>Vi fikk ikke sjekket om du har tilgang til tjenesten. Vennligst prøv igjen senere!</p>",
+                }}
+              />
+            );
+          } else if (!tilgang.harTilgang) {
+            return (
+              <Feilmelding
+                tittel="Ops! Du har visst ikke tilgang til sykefravær i Modia"
+                melding={{
+                  __html:
+                    "<p>For å få tilgang må du ta kontakt med din lokale identansvarlige.</p>",
+                }}
+              />
+            );
+          }
+          return <Fastlege fastlege={fastlege} />;
+        })()}
+      </AppSpinner>
     </Side>
   );
 };
