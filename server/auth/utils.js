@@ -49,9 +49,14 @@ const getOrRefreshOnBehalfOfToken = async (
     console.log(
       "getOrRefreshOnBehalfOfToken: on-behalf-of token has expired, requesting new using refresh_token."
     );
+    const token = await getOrRefreshSelfTokenIfExpired(
+      authClient,
+      selfToken,
+      tokenSets
+    );
     const refreshedOnBehalfOfToken = await requestOnBehalfOfToken(
       authClient,
-      onBehalfOfToken,
+      token,
       tokenSetId,
       clientId
     );
