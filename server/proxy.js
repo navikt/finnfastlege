@@ -5,9 +5,6 @@ const url = require("url");
 const AuthUtils = require("./auth/utils.js");
 const Config = require("./config.js");
 
-const stripTrailingSlash = (str) =>
-  str.endsWith("/") ? str.slice(0, -1) : str;
-
 const proxyExternalHost = (host, accessToken) =>
   expressHttpProxy(host, {
     https: false,
