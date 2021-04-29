@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Undertittel } from "nav-frontend-typografi";
 
 interface FeilmeldingProps {
@@ -18,11 +17,6 @@ const Feilmelding = (feilmeldingProps: FeilmeldingProps) => {
       <div dangerouslySetInnerHTML={melding} />
     </div>
   );
-};
-
-Feilmelding.propTypes = {
-  tittel: PropTypes.string,
-  melding: PropTypes.object,
 };
 
 export default Feilmelding;
