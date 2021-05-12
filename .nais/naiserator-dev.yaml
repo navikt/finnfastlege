@@ -47,6 +47,14 @@ spec:
       value: "10ce50ea-d922-48d7-888d-3f8b683d8aab"
     - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
       value: "32e36aa5-1d12-452a-9b1e-9f3f557cbb4d"
+    - name: MODIACONTEXTHOLDER_HOST
+      value: "https://modiacontextholder-q0.dev.adeo.no"
+    - name: FASTLEGEREST_HOST
+      value: "https://fastlegerest.dev.intern.nav.no"
+    - name: SYFOPERSON_HOST
+      value: "https://syfoperson.dev.intern.nav.no"
+    - name: SYFOTILGANGKONTROLL_HOST
+      value: "https://syfo-tilgangskontroll.dev.intern.nav.no"
   resources:
     limits:
       cpu: 500m

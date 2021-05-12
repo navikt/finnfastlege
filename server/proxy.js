@@ -16,7 +16,7 @@ const proxyExternalHost = (host, accessToken) =>
       if (!options.headers) {
         options.headers = {};
       }
-      if (host === Config.auth.modiacontextholderHost) {
+      if (host === Config.auth.modiacontextholder.host) {
         const reqUser = srcReq.user;
         if (!reqUser) {
           return options;

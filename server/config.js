@@ -30,25 +30,7 @@ const isProd = envVar({ name: "NODE_ENV" }) === "production";
 
 const graphapiClientId = "https://graph.microsoft.com";
 
-const modiacontextholderHost =
-  process.env.ENV === "preprod"
-    ? "https://modiacontextholder-q0.dev.adeo.no"
-    : "https://modiacontextholder.nais.adeo.no";
-
-const fastlegerestHost =
-  process.env.ENV === "preprod"
-    ? "https://fastlegerest.dev.intern.nav.no"
-    : "https://fastlegerest.intern.nav.no";
-
-const syfopersonHost =
-  process.env.ENV === "preprod"
-    ? "https://syfoperson.dev.intern.nav.no"
-    : "https://syfoperson.intern.nav.no";
-
-const syfotilgangskontrollHost =
-  process.env.ENV === "preprod"
-    ? "https://syfo-tilgangskontroll.dev.intern.nav.no"
-    : "https://syfo-tilgangskontroll.intern.nav.no";
+const localhost = "localhost:8080";
 
 const tokenSetSelfId = "self";
 const tokenSetGraphId = "graph";
@@ -138,10 +120,11 @@ const auth = {
   responseMode: "query",
   tokenEndpointAuthSigningAlg: "RS256",
 
-  modiacontextholderHost: modiacontextholderHost,
   modiacontextholder: {
     clientId: graphapiClientId,
-    host: modiacontextholderHost,
+    host: envVar({
+      name: "MODIACONTEXTHOLDER_HOST",
+    }),
     tokenSetId: tokenSetIdType.graph,
   },
 
@@ -149,21 +132,27 @@ const auth = {
     clientId: envVar({
       name: "FASTLEGEREST_AAD_APP_CLIENT_ID",
     }),
-    host: fastlegerestHost,
+    host: envVar({
+      name: "FASTLEGEREST_HOST",
+    }),
     tokenSetId: tokenSetIdType.self,
   },
   syfoperson: {
     clientId: envVar({
       name: "SYFOPERSON_AAD_APP_CLIENT_ID",
     }),
-    host: syfopersonHost,
+    host: envVar({
+      name: "SYFOPERSON_HOST",
+    }),
     tokenSetId: tokenSetIdType.self,
   },
   syfotilgangskontroll: {
     clientId: envVar({
       name: "SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID",
     }),
-    host: syfotilgangskontrollHost,
+    host: envVar({
+      name: "SYFOTILGANGKONTROLL_HOST",
+    }),
     tokenSetId: tokenSetIdType.self,
   },
 };
