@@ -25,7 +25,7 @@ const proxyExternalHost = (host, accessToken) =>
         options.headers["Authorization"] = `Bearer ${selfAccessToken}`;
         options.headers["Cookie"] = `isso-accesstoken=${accessToken}`;
       } else {
-        console.log(`proxying with accesstoken=${accessToken}`)
+        console.log(`proxying with accesstoken=${accessToken}`);
         options.headers["Authorization"] = `Bearer ${accessToken}`;
       }
       return options;
@@ -44,7 +44,7 @@ const proxyExternalHost = (host, accessToken) =>
         (pathFromRequest ? pathFromRequest : "") +
         (queryString ? "?" + queryString : "");
 
-      console.log(`proxying with newPath=${newPath}`)
+      console.log(`proxying with newPath=${newPath}`);
 
       return newPath;
     },
