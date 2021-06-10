@@ -25,6 +25,7 @@ const proxyExternalHost = (host, accessToken) =>
         options.headers["Authorization"] = `Bearer ${selfAccessToken}`;
         options.headers["Cookie"] = `isso-accesstoken=${accessToken}`;
       } else {
+        console.log(`proxying with accesstoken=${accessToken}`)
         options.headers["Authorization"] = `Bearer ${accessToken}`;
       }
       return options;
