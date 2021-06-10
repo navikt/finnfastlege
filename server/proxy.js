@@ -44,6 +44,8 @@ const proxyExternalHost = (host, accessToken) =>
         (pathFromRequest ? pathFromRequest : "") +
         (queryString ? "?" + queryString : "");
 
+      console.log(`proxying with newPath=${newPath}`)
+
       return newPath;
     },
     proxyErrorHandler: (err, res, next) => {
