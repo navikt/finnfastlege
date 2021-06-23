@@ -42,7 +42,7 @@ spec:
     - name: AUTH_REDIRECT_URI
       value: "https://finnfastlege.dev.intern.nav.no/oauth2/callback"
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
-      value: "f5510c3d-2510-444d-91a2-5790c1ec39a4"
+      value: "c5e5194c-5513-40d0-ba26-d38e70a65427"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
       value: "10ce50ea-d922-48d7-888d-3f8b683d8aab"
     - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
