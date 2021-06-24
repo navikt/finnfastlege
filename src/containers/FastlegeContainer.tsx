@@ -4,11 +4,22 @@ import AppSpinner from "../components/AppSpinner";
 import Fastlege from "../components/Fastlege";
 import Side from "../sider/Side";
 import Feilmelding from "../components/Feilmelding";
-import { sjekkFastlegeTilgang } from "../data/fastlege/fastlege_actions";
+import { RootState } from "../data/rootReducer";
+import { sjekkFastlegeTilgang } from "../data/tilgang/tilgangActions";
+
+export const texts = {
+  generalErrorTitle: "Det skjedde en feil!",
+  generalErrorMessage:
+    "Vi fikk ikke sjekket om du har tilgang til tjenesten. Vennligst prøv igjen senere!",
+  noAccessTitle: "Ops! Du har visst ikke tilgang til sykefravær i Modia",
+  noAccessMessage:
+    "For å få tilgang må du ta kontakt med din lokale identansvarlige.",
+};
 
 const FastlegeSide = () => {
-  const fastlege = useSelector((state: any) => state.fastlege);
-  const tilgang = useSelector((state: any) => state.tilgang);
+  const { henter, harTilgang, hentingFeilet } = useSelector(
+    (state: RootState) => state.tilgang
+  );
 
   const dispatch = useDispatch();
 
@@ -18,30 +29,24 @@ const FastlegeSide = () => {
 
   return (
     <Side>
-      <AppSpinner laster={tilgang.henter}>
+      <AppSpinner laster={henter}>
         {(() => {
-          if (tilgang.hentingFeilet) {
+          if (hentingFeilet) {
             return (
               <Feilmelding
-                tittel="Det skjedde en feil!"
-                melding={{
-                  __html:
-                    "<p>Vi fikk ikke sjekket om du har tilgang til tjenesten. Vennligst prøv igjen senere!</p>",
-                }}
+                tittel={texts.generalErrorTitle}
+                melding={texts.generalErrorMessage}
               />
             );
-          } else if (!tilgang.harTilgang) {
+          } else if (!harTilgang) {
             return (
               <Feilmelding
-                tittel="Ops! Du har visst ikke tilgang til sykefravær i Modia"
-                melding={{
-                  __html:
-                    "<p>For å få tilgang må du ta kontakt med din lokale identansvarlige.</p>",
-                }}
+                tittel={texts.noAccessTitle}
+                melding={texts.noAccessMessage}
               />
             );
           }
-          return <Fastlege fastlege={fastlege} />;
+          return <Fastlege />;
         })()}
       </AppSpinner>
     </Side>

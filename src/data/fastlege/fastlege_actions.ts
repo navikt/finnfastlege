@@ -7,12 +7,6 @@ export const FASTLEGE_HENTET = "FASTLEGE_HENTET";
 export const FASTLEGE_IKKE_FUNNET = "FASTLEGE_IKKE_FUNNET";
 export const FASTLEGE_IKKE_TILGANG = "FASTLEGE_IKKE_TILGANG";
 
-export const SJEKK_FASTLEGE_TILGANG_FORESPURT =
-  "SJEKK_FASTLEGE_TILGANG_FORESPURT";
-export const SJEKKER_FASTLEGE_TILGANG = "SJEKKER_FASTLEGE_TILGANG";
-export const SJEKK_FASTLEGE_TILGANG_FEILET = "SJEKK_FASTLEGE_TILGANG_FEILET";
-export const FASTLEGE_TILGANG_HENTET = "FASTLEGE_TILGANG_HENTET";
-
 export function hentFastlegeFeilet() {
   return {
     type: HENT_FASTLEGE_FEILET,
@@ -49,30 +43,5 @@ export function hentFastlege(fnr: string) {
   return {
     type: HENT_FASTLEGE_FORESPURT,
     fnr,
-  };
-}
-
-export function sjekkerFastlegeTilgang() {
-  return {
-    type: SJEKKER_FASTLEGE_TILGANG,
-  };
-}
-
-export function sjekkFastlegeTilgangFeilet() {
-  return {
-    type: SJEKK_FASTLEGE_TILGANG_FEILET,
-  };
-}
-
-export function fastlegeTilgangHentet(data: boolean) {
-  return {
-    type: FASTLEGE_TILGANG_HENTET,
-    data,
-  };
-}
-
-export function sjekkFastlegeTilgang() {
-  return {
-    type: SJEKK_FASTLEGE_TILGANG_FORESPURT,
   };
 }
