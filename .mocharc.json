@@ -1,0 +1,5 @@
+{
+  "spec": "./test/**/*.tsx",
+  "recursive": true,
+  "file": "./test/setup"
+}

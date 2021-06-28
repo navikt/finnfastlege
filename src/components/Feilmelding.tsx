@@ -1,20 +1,16 @@
 import React from "react";
-import { Undertittel } from "nav-frontend-typografi";
+import { Normaltekst, Undertittel } from "nav-frontend-typografi";
 
 interface FeilmeldingProps {
-  tittel?: string;
-  melding: any;
+  tittel: string;
+  melding: string;
 }
 
-const Feilmelding = (feilmeldingProps: FeilmeldingProps) => {
-  const {
-    tittel = "Beklager, det oppstod en feil",
-    melding = { __html: "<p>Vennligst prøv igjen litt senere.</p>" },
-  } = feilmeldingProps;
+const Feilmelding = ({ tittel, melding }: FeilmeldingProps) => {
   return (
     <div className="feilmelding panel">
       <Undertittel className="hode hode--feil">{tittel}</Undertittel>
-      <div dangerouslySetInnerHTML={melding} />
+      <Normaltekst>{melding}</Normaltekst>
     </div>
   );
 };

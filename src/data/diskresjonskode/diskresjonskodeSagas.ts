@@ -1,5 +1,5 @@
-import { call, put, fork, takeEvery } from "redux-saga/effects";
-import { get } from "../../api";
+import { call, put, takeEvery } from "redux-saga/effects";
+import { get } from "../../api/fetch";
 import * as actions from "./diskresjonskode_actions";
 
 const SYFOPERSON_ROOT = "/syfoperson/api/v2";
@@ -17,13 +17,10 @@ export function* hentDiskresjonskodeSaga(action: any) {
     yield put(actions.hentDiskresjonskodeFeilet());
   }
 }
-function* watchHentDiskresjonskode() {
+
+export default function* diskresjonskodeSagas() {
   yield takeEvery(
     actions.HENT_DISKRESJONSKODE_FORESPURT,
     hentDiskresjonskodeSaga
   );
-}
-
-export default function* diskresjonskodeSagas() {
-  yield fork(watchHentDiskresjonskode);
 }
