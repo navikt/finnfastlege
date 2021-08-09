@@ -5,10 +5,10 @@ const url = require("url");
 const AuthUtils = require("./auth/utils.js");
 const Config = require("./config.js");
 
-const proxyExternalHost = (host, accessToken) =>
+const proxyExternalHost = (host, accessToken, parseReqBody) =>
   expressHttpProxy(host, {
     https: false,
-    parseReqBody: false,
+    parseReqBody: parseReqBody,
     proxyReqOptDecorator: async (options, srcReq) => {
       if (!accessToken) {
         return options;
@@ -85,7 +85,8 @@ const proxyOnBehalfOf = (req, res, next, authClient, externalAppConfig) => {
       }
       return proxyExternalHost(
         externalAppConfig.host,
-        onBehalfOfToken.access_token
+        onBehalfOfToken.access_token,
+        req.method === "POST"
       )(req, res, next);
     })
     .catch((error) => {
