@@ -29,10 +29,6 @@ spec:
   vault:
     enabled: true
   env:
-    - name: ENV
-      value: preprod
-    - name: HOST
-      value: finnfastlege.dev.intern.nav.no
     - name: NODE_ENV
       value: production
     - name: REDIS_HOST
@@ -41,6 +37,8 @@ spec:
       value: http://finnfastlege
     - name: AUTH_REDIRECT_URI
       value: "https://finnfastlege.dev.intern.nav.no/oauth2/callback"
+    - name: INTERNARBEIDSFLATEDECORATOR_HOST
+      value: "internarbeidsflatedecorator-q0.dev.intern.nav.no"
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
       value: "c5e5194c-5513-40d0-ba26-d38e70a65427"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
