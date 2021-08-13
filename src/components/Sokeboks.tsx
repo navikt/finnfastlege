@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Hovedknapp } from "nav-frontend-knapper";
 import { Input } from "nav-frontend-skjema";
-import { erGyldigFodselsnummer } from "../utils/fnrValideringUtil";
-import { hentFastlege } from "../data/fastlege/fastlege_actions";
+import { erGyldigFodselsnummer } from "@/utils/fnrValideringUtil";
+import { hentFastlege } from "@/data/fastlege/fastlege_actions";
 
 const Sokeboks = () => {
   const [value, setValue] = useState("");

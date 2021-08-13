@@ -5,13 +5,13 @@ import { EtikettFokus } from "nav-frontend-etiketter";
 import { Systemtittel, Undertekst, Element } from "nav-frontend-typografi";
 import PersonIkon from "../svg/PersonIkon";
 import LegeIkon from "../svg/LegeIkon";
-import { tilLangtDatoFormat } from "../utils/datoUtils";
+import { tilLangtDatoFormat } from "@/utils/datoUtils";
 import {
   AdresseDTO,
   FastlegeDTO,
   PasientDTO,
-} from "../data/fastlege/FastlegeDTO";
-import { FastlegeInternal } from "../data/fastlege/FastlegeInternal";
+} from "@/data/fastlege/FastlegeDTO";
+import { FastlegeInternal } from "@/data/fastlege/FastlegeInternal";
 
 const VERDI_IKKE_FUNNET = "Ikke funnet";
 

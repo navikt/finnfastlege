@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import fetchMock from "fetch-mock";
-import { get } from "../../src/api/fetch";
-import { Error403 } from "../../src/api/error403";
+import { get } from "@/api/fetch";
+import { Error403 } from "@/api/error403";
 
 describe("api", () => {
   describe("get", () => {

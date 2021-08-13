@@ -7,7 +7,7 @@ import configureStore from "redux-mock-store";
 import { expect } from "chai";
 import rootReducer from "../../src/data/rootReducer";
 import { Normaltekst, Undertittel } from "nav-frontend-typografi";
-import { FastlegeState } from "../../src/data/fastlege/fastlege";
+import { FastlegeState } from "@/data/fastlege/fastlege";
 import Fastlege, { texts } from "../../src/components/Fastlege";
 
 const realState = createStore(rootReducer).getState();

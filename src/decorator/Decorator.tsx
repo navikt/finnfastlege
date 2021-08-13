@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import NAVSPA from "@navikt/navspa";
 import { DecoratorProps } from "./decoratorProps";
 import decoratorConfig from "./decoratorconfig";
-import { fullNaisUrlDefault } from "../utils/miljoUtil";
+import { fullNaisUrlDefault } from "@/utils/miljoUtil";
 
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>(
   "internarbeidsflatefs"

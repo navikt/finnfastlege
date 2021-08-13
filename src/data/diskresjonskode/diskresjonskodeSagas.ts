@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { get } from "../../api/fetch";
+import { get } from "@/api/fetch";
 import * as actions from "./diskresjonskode_actions";
 
 const SYFOPERSON_ROOT = "/syfoperson/api/v2";
