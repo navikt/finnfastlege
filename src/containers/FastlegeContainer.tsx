@@ -4,8 +4,8 @@ import AppSpinner from "../components/AppSpinner";
 import Fastlege from "../components/Fastlege";
 import Side from "../sider/Side";
 import Feilmelding from "../components/Feilmelding";
-import { RootState } from "../data/rootReducer";
-import { sjekkFastlegeTilgang } from "../data/tilgang/tilgangActions";
+import { RootState } from "@/data/rootReducer";
+import { sjekkFastlegeTilgang } from "@/data/tilgang/tilgangActions";
 
 export const texts = {
   generalErrorTitle: "Det skjedde en feil!",

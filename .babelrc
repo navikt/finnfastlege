@@ -4,5 +4,15 @@
     "@babel/preset-react",
     "@babel/preset-typescript"
   ],
-  "plugins": ["@babel/plugin-transform-regenerator"]
+  "plugins": [
+    "@babel/plugin-transform-regenerator",
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@": "./src"
+        }
+      }
+    ]
+  ]
 }

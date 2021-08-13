@@ -1,10 +1,10 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { get } from "../../api/fetch";
+import { get } from "@/api/fetch";
 import * as actions from "./fastlege_actions";
 import * as egenansattActions from "../egenansatt/egenansatt_actions";
 import * as diskresjonskodeActions from "../diskresjonskode/diskresjonskode_actions";
 import { FastlegeInternal } from "./FastlegeInternal";
-import { Error403 } from "../../api/error403";
+import { Error403 } from "@/api/error403";
 
 const FASTLEGEREST_ROOT = "/fastlegerest/api/v2";
 

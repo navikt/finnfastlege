@@ -5,7 +5,7 @@ import Feilmelding from "./Feilmelding";
 import FastlegeInfo from "./FastlegeInfo";
 import Sokeboks from "./Sokeboks";
 import { useSelector } from "react-redux";
-import { RootState } from "../data/rootReducer";
+import { RootState } from "@/data/rootReducer";
 
 export const texts = {
   title: "Finn fastlegen",

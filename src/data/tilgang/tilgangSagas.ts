@@ -1,12 +1,12 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { get } from "../../api/fetch";
+import { get } from "@/api/fetch";
 import {
   fastlegeTilgangHentet,
   sjekkFastlegeTilgangFeilet,
   TilgangActionTypes,
 } from "./tilgangActions";
 import { Tilgang } from "./tilgangTypes";
-import { Error403 } from "../../api/error403";
+import { Error403 } from "@/api/error403";
 
 const TILGANGSKONTROLL_AD_PATH =
   "/syfo-tilgangskontroll/api/tilgang/navident/syfo";

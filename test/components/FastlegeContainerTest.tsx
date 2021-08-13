@@ -9,7 +9,7 @@ import FastlegeContainer, {
 } from "../../src/containers/FastlegeContainer";
 import rootReducer from "../../src/data/rootReducer";
 import { Normaltekst, Undertittel } from "nav-frontend-typografi";
-import { FastlegeTilgangState } from "../../src/data/tilgang/tilgang";
+import { FastlegeTilgangState } from "@/data/tilgang/tilgang";
 
 const realState = createStore(rootReducer).getState();
 const store = configureStore([]);
