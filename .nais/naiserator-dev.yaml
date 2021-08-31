@@ -44,7 +44,7 @@ spec:
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
       value: "10ce50ea-d922-48d7-888d-3f8b683d8aab"
     - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
-      value: "32e36aa5-1d12-452a-9b1e-9f3f557cbb4d"
+      value: "edd82db3-6e00-476c-8b9a-cf4ad8e2ab46"
     - name: MODIACONTEXTHOLDER_HOST
       value: "https://modiacontextholder-q0.dev.adeo.no"
     - name: FASTLEGEREST_HOST
