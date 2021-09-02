@@ -40,13 +40,13 @@ spec:
     - name: INTERNARBEIDSFLATEDECORATOR_HOST
       value: "internarbeidsflatedecorator-q0.dev.intern.nav.no"
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
-      value: "c5e5194c-5513-40d0-ba26-d38e70a65427"
+      value: "dev-fss.teamsykefravr.fastlegerest"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
-      value: "10ce50ea-d922-48d7-888d-3f8b683d8aab"
+      value: "dev-fss.teamsykefravr.syfoperson"
     - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
-      value: "edd82db3-6e00-476c-8b9a-cf4ad8e2ab46"
+      value: "dev-fss.teamsykefravr.syfo-tilgangskontroll"
     - name: MODIACONTEXTHOLDER_HOST
-      value: "https://modiacontextholder-q0.dev.adeo.no"
+      value: "https://modiacontextholder-q0.dev.intern.nav.no"
     - name: FASTLEGEREST_HOST
       value: "https://fastlegerest.dev.intern.nav.no"
     - name: SYFOPERSON_HOST
