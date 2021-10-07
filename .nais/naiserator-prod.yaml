@@ -42,7 +42,7 @@ spec:
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
       value: "prod-fss.teamsykefravr.fastlegerest"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
-      value: "prod-fss.teamsykefravr.syfoperson"
+      value: "prod-gcp.teamsykefravr.syfoperson"
     - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
       value: "prod-fss.teamsykefravr.syfo-tilgangskontroll"
     - name: MODIACONTEXTHOLDER_HOST
