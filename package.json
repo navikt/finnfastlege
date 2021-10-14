@@ -7,8 +7,7 @@
   "scripts": {
     "test": "mocha -r ./test/babel-register.ts -r ignore-styles",
     "start": "webpack serve --config webpack.dev.ts",
-    "build": "webpack --config webpack.prod.ts",
-    "sec-audit": "npm audit --audit-level=moderate"
+    "build": "webpack --config webpack.prod.ts"
   },
   "author": "Team DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
