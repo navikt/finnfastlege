@@ -40,7 +40,7 @@ spec:
     - name: INTERNARBEIDSFLATEDECORATOR_HOST
       value: "internarbeidsflatedecorator.intern.nav.no"
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
-      value: "prod-fss.teamsykefravr.fastlegerest"
+      value: "prod-gcp.teamsykefravr.fastlegerest"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
       value: "prod-gcp.teamsykefravr.syfoperson"
     - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
