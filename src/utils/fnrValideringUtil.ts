@@ -39,7 +39,7 @@ function hentKontrollSiffer(fodselsnummer: number[], kontrollrekke: number[]) {
 }
 
 export function erGyldigFodselsnummer(fodselsnummer: string) {
-  if (!fodselsnummer.match(new RegExp("[0-9]{11}"))) {
+  if (!fodselsnummer.match(new RegExp(/^[0-9]{11}$/))) {
     return false;
   }
   if (!erGyldigFodselsdato(fodselsnummer.substring(0, 6))) {
