@@ -33,7 +33,7 @@ export interface FastlegeInternal {
   etternavn?: string;
   fnr?: string;
   herId?: number;
-  helsepersonellregisterId?: string;
+  helsepersonellregisterId?: number;
   pasient?: Pasient;
   fastlegekontor?: Fastlegekontor;
   pasientforhold: Pasientforhold;
