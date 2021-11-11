@@ -6,7 +6,7 @@ const fastlege = {
   etternavn: "Legesen",
   fnr: "12035507971",
   herId: 711,
-  helsepersonellregisterId: "2127598",
+  helsepersonellregisterId: 2127598,
   pasient: {
     fornavn: "Pasient",
     mellomnavn: null,

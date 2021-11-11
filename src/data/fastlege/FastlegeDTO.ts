@@ -31,7 +31,7 @@ export interface FastlegeDTO {
   etternavn?: string;
   fnr?: string;
   herId?: number;
-  helsepersonellregisterId?: string;
+  helsepersonellregisterId?: number;
   pasient?: PasientDTO;
   fastlegekontor?: FastlegekontorDTO;
   pasientforhold: PasientforholdDTO;
