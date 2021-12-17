@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import AppSpinner from "../components/AppSpinner";
 import Fastlege from "../components/Fastlege";
 import Side from "../sider/Side";
 import Feilmelding from "../components/Feilmelding";
-import { RootState } from "@/data/rootReducer";
-import { sjekkFastlegeTilgang } from "@/data/tilgang/tilgangActions";
+import { useTilgangQuery } from "@/data/tilgang/tilgangQueryHooks";
+import { ApiErrorException } from "@/api/errors";
 
 export const texts = {
   generalErrorTitle: "Det skjedde en feil!",
@@ -17,32 +16,27 @@ export const texts = {
 };
 
 const FastlegeSide = () => {
-  const { henter, harTilgang, hentingFeilet } = useSelector(
-    (state: RootState) => state.tilgang
-  );
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(sjekkFastlegeTilgang());
-  }, []);
+  const tilgang = useTilgangQuery();
 
   return (
     <Side>
-      <AppSpinner laster={henter}>
+      <AppSpinner laster={tilgang.isLoading}>
         {(() => {
-          if (hentingFeilet) {
-            return (
-              <Feilmelding
-                tittel={texts.generalErrorTitle}
-                melding={texts.generalErrorMessage}
-              />
-            );
-          } else if (!harTilgang) {
+          if (
+            tilgang.error instanceof ApiErrorException &&
+            tilgang.error.code === 403
+          ) {
             return (
               <Feilmelding
                 tittel={texts.noAccessTitle}
                 melding={texts.noAccessMessage}
+              />
+            );
+          } else if (tilgang.isError) {
+            return (
+              <Feilmelding
+                tittel={texts.generalErrorTitle}
+                melding={texts.generalErrorMessage}
               />
             );
           }
