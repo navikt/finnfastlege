@@ -5,7 +5,7 @@
   "main": "index.tsx",
   "test": "npm run test",
   "scripts": {
-    "test": "mocha -r ./test/babel-register.ts -r ignore-styles",
+    "test": "mocha -r ./test/babel-register.ts -r ignore-styles --exit",
     "start": "webpack serve --config webpack.dev.ts",
     "build": "webpack --config webpack.prod.ts"
   },
@@ -87,10 +87,13 @@
     "@babel/cli": "7.13.14",
     "@babel/core": "7.13.14",
     "@babel/plugin-transform-regenerator": "7.12.13",
+    "@babel/plugin-transform-runtime": "7.16.5",
     "@babel/preset-env": "7.13.12",
     "@babel/preset-react": "7.13.13",
     "@babel/preset-typescript": "7.13.0",
     "@babel/register": "7.13.14",
+    "@sheerun/mutationobserver-shim": "0.3.3",
+    "@testing-library/react": "12.1.2",
     "@types/chai": "4.1.7",
     "@types/chai-enzyme": "0.6.5",
     "@types/dotenv": "6.1.0",
