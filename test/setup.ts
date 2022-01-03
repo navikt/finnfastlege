@@ -1,5 +1,7 @@
 const Enzyme = require("enzyme");
 const Adapter = require("enzyme-adapter-react-16");
+import MutationObserver from "@sheerun/mutationobserver-shim";
+import { setLogger } from "react-query";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -10,6 +12,13 @@ const { JSDOM } = require("jsdom");
 
 const jsdom = new JSDOM("<!doctype html><html><body></body></html>");
 const { window } = jsdom;
+setLogger({
+  log: console.log,
+  warn: console.warn,
+  error: () => {
+    /*empty*/
+  },
+});
 
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)
@@ -41,4 +50,6 @@ global.document = window.document;
 global.navigator = {
   userAgent: "node.js",
 };
+
+window.MutationObserver = MutationObserver;
 copyProps(window, global);
