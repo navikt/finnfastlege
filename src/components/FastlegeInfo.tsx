@@ -12,6 +12,8 @@ import {
   PasientDTO,
 } from "@/data/fastlege/FastlegeDTO";
 import { FastlegeInternal } from "@/data/fastlege/FastlegeInternal";
+import { useDiskresjonskodeQuery } from "@/data/diskresjonskode/diskresjonskodeQueryHooks";
+import { useEgenansattQuery } from "@/data/egenansatt/egenansattQueryHooks";
 
 const VERDI_IKKE_FUNNET = "Ikke funnet";
 
@@ -43,8 +45,11 @@ interface FastlegeInfoProps {
   fastlege: FastlegeInternal;
 }
 
-const FastlegeInfo = (fastlegeInfoProps: FastlegeInfoProps) => {
-  const { fastlege } = fastlegeInfoProps;
+const FastlegeInfo = ({ fastlege }: FastlegeInfoProps) => {
+  const { data: diskresjonskode } = useDiskresjonskodeQuery(
+    fastlege?.pasient?.fnr
+  );
+  const { data: isEgenansatt } = useEgenansattQuery(fastlege?.pasient?.fnr);
   return (
     <div className="fastlegeInfo">
       <Panel>
@@ -61,23 +66,21 @@ const FastlegeInfo = (fastlegeInfoProps: FastlegeInfoProps) => {
             </Column>
           </Row>
           <Row className="no-gutter fastlegeInfo__etiketter">
-            {fastlege.pasient?.egenansatt && (
+            {isEgenansatt && (
               <div>
                 <EtikettFokus>Egen ansatt</EtikettFokus>
               </div>
             )}
-            {fastlege.pasient?.diskresjonskode &&
-              fastlege.pasient?.diskresjonskode === "6" && (
-                <div>
-                  <EtikettFokus>Kode 6</EtikettFokus>
-                </div>
-              )}
-            {fastlege.pasient?.diskresjonskode &&
-              fastlege.pasient?.diskresjonskode === "7" && (
-                <div>
-                  <EtikettFokus>Kode 7</EtikettFokus>
-                </div>
-              )}
+            {diskresjonskode === "6" && (
+              <div>
+                <EtikettFokus>Kode 6</EtikettFokus>
+              </div>
+            )}
+            {diskresjonskode === "7" && (
+              <div>
+                <EtikettFokus>Kode 7</EtikettFokus>
+              </div>
+            )}
           </Row>
         </Column>
       </Panel>

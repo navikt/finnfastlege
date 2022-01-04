@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { Hovedknapp } from "nav-frontend-knapper";
 import { Input } from "nav-frontend-skjema";
 import { erGyldigFodselsnummer } from "@/utils/fnrValideringUtil";
-import { hentFastlege } from "@/data/fastlege/fastlege_actions";
 
-const Sokeboks = () => {
+interface SokeboksProps {
+  handleSubmitGyldigFnr(fnr: string): void;
+}
+
+const Sokeboks = ({ handleSubmitGyldigFnr }: SokeboksProps) => {
   const [value, setValue] = useState("");
   const [valideringsfeil, setValideringsfeil] = useState(false);
-  const dispatch = useDispatch();
 
   const onSubmit = (event: any) => {
     event.preventDefault();
     const input = value.replace(/\s/g, "");
     if (erGyldigFodselsnummer(input)) {
-      dispatch(hentFastlege(input));
+      handleSubmitGyldigFnr(input);
     } else {
       setValideringsfeil(true);
     }

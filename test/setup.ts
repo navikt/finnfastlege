@@ -1,9 +1,5 @@
-const Enzyme = require("enzyme");
-const Adapter = require("enzyme-adapter-react-16");
 import MutationObserver from "@sheerun/mutationobserver-shim";
 import { setLogger } from "react-query";
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const dotenv = require("dotenv");
 dotenv.config();
