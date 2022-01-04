@@ -1,11 +1,7 @@
-import { Provider } from "react-redux";
 import React from "react";
-import { createStore } from "redux";
-import configureStore from "redux-mock-store";
 import FastlegeContainer, {
   texts,
 } from "../../src/containers/FastlegeContainer";
-import rootReducer from "../../src/data/rootReducer";
 import { apiMock } from "../stubs/stubApi";
 import nock from "nock";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -14,8 +10,6 @@ import { expect } from "chai";
 
 let queryClient: QueryClient;
 let apiMockScope: nock.Scope;
-const realState = createStore(rootReducer).getState();
-const store = configureStore([]);
 
 const generalError = {
   harTilgang: false,
@@ -44,9 +38,7 @@ describe("FastlegeContainerTests", () => {
       .reply(403, () => noAccess);
     const wrapper = render(
       <QueryClientProvider client={queryClient}>
-        <Provider store={store({ ...realState })}>
-          <FastlegeContainer />
-        </Provider>
+        <FastlegeContainer />
       </QueryClientProvider>
     );
 
@@ -64,9 +56,7 @@ describe("FastlegeContainerTests", () => {
       .reply(500, () => generalError);
     const wrapper = render(
       <QueryClientProvider client={queryClient}>
-        <Provider store={store({ ...realState })}>
-          <FastlegeContainer />
-        </Provider>
+        <FastlegeContainer />
       </QueryClientProvider>
     );
 

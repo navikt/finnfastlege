@@ -23,8 +23,6 @@ export interface Pasient {
   mellomnavn?: string;
   etternavn?: string;
   fnr?: string;
-  egenansatt?: string;
-  diskresjonskode?: string;
 }
 
 export interface FastlegeInternal {
