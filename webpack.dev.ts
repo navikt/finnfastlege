@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import * as express from "express";
 import * as path from "path";
 import { merge } from "webpack-merge";

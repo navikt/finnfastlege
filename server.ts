@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 const express = require("express");
 const path = require("path");
 const prometheus = require("prom-client");

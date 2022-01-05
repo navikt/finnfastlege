@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import MutationObserver from "@sheerun/mutationobserver-shim";
 import { setLogger } from "react-query";
 

@@ -11,7 +11,7 @@ const Sokeboks = ({ handleSubmitGyldigFnr }: SokeboksProps) => {
   const [value, setValue] = useState("");
   const [valideringsfeil, setValideringsfeil] = useState(false);
 
-  const onSubmit = (event: any) => {
+  const onSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     const input = value.replace(/\s/g, "");
     if (erGyldigFodselsnummer(input)) {
@@ -21,7 +21,7 @@ const Sokeboks = ({ handleSubmitGyldigFnr }: SokeboksProps) => {
     }
   };
 
-  const sokefeltEndret = (event: any) => {
+  const sokefeltEndret = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     setValideringsfeil(false);
   };
