@@ -5,7 +5,7 @@ import FastlegeContainer, {
 import { apiMock } from "../stubs/stubApi";
 import nock from "nock";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 
 let queryClient: QueryClient;
@@ -36,16 +36,16 @@ describe("FastlegeContainerTests", () => {
     apiMockScope
       .get(`/syfo-tilgangskontroll/api/tilgang/navident/syfo`)
       .reply(403, () => noAccess);
-    const wrapper = render(
+    render(
       <QueryClientProvider client={queryClient}>
         <FastlegeContainer />
       </QueryClientProvider>
     );
 
-    const title = await wrapper.findByRole("heading", {
+    const title = await screen.findByRole("heading", {
       name: texts.noAccessTitle,
     });
-    const message = await wrapper.findByText(texts.noAccessMessage);
+    const message = await screen.findByText(texts.noAccessMessage);
     expect(title).to.exist;
     expect(message).to.exist;
   });
@@ -54,16 +54,16 @@ describe("FastlegeContainerTests", () => {
     apiMockScope
       .get(`/syfo-tilgangskontroll/api/tilgang/navident/syfo`)
       .reply(500, () => generalError);
-    const wrapper = render(
+    render(
       <QueryClientProvider client={queryClient}>
         <FastlegeContainer />
       </QueryClientProvider>
     );
 
-    const title = await wrapper.findByRole("heading", {
+    const title = await screen.findByRole("heading", {
       name: texts.generalErrorTitle,
     });
-    const message = await wrapper.findByText(texts.generalErrorMessage);
+    const message = await screen.findByText(texts.generalErrorMessage);
     expect(title).to.exist;
     expect(message).to.exist;
   });
