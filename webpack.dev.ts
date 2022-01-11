@@ -15,19 +15,22 @@ module.exports = merge(common, {
     publicPath: "/static",
   },
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
     port: 8080,
-    inline: true,
-    staticOptions: {
-      redirect: false,
+    static: {
+      directory: path.join(__dirname, "dist"),
+      staticOptions: {
+        redirect: false,
+      },
     },
-    after: (app: any, server: any, compiler: any) => {
-      setupDev(app, compiler);
+    onAfterSetupMiddleware: (devServer) => {
+      setupDev(devServer);
     },
   },
 });
 
-const setupDev = async (app: any, compiler: any) => {
+const setupDev = async (devServer: DevServer) => {
+  const { app, compiler } = devServer;
+
   await Auth.setupAuth(app);
 
   mockEndepunkter(app);
