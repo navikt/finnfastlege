@@ -1,4 +1,6 @@
 import { ensureAuthenticated } from "../server/auth";
+import { RelasjonKodeVerdi } from "@/data/fastlege/FastlegeInternal";
+import { leggTilDagerPaDato } from "./util/dateUtil";
 
 const fastlege = {
   fornavn: "Lege",
@@ -33,15 +35,61 @@ const fastlege = {
     fom: "1993-03-01",
     tom: "9999-12-31",
   },
+  gyldighet: {
+    fom: "1993-03-01",
+    tom: "9999-12-31",
+  },
+  relasjon: {
+    kodeVerdi: RelasjonKodeVerdi.FASTLEGE,
+    kodeTekst: "Fastlege",
+  },
 };
+
+const fastlegeList = [
+  fastlege,
+  {
+    ...fastlege,
+    fornavn: "Vikarlege",
+    mellomnavn: null,
+    etternavn: "Vikarsen",
+    fnr: "12045507971",
+    herId: 711,
+    helsepersonellregisterId: fastlege.helsepersonellregisterId + 1,
+    gyldighet: {
+      fom: leggTilDagerPaDato(new Date(), -300),
+      tom: leggTilDagerPaDato(new Date(), 300),
+    },
+    relasjon: {
+      kodeVerdi: RelasjonKodeVerdi.VIKAR,
+      kodeTekst: "Vikar",
+    },
+  },
+  {
+    ...fastlege,
+    fornavn: "Legensvikar",
+    mellomnavn: null,
+    etternavn: "Vikarheim",
+    fnr: "12055507971",
+    herId: 711,
+    helsepersonellregisterId: fastlege.helsepersonellregisterId + 2,
+    gyldighet: {
+      fom: leggTilDagerPaDato(new Date(), -100),
+      tom: leggTilDagerPaDato(new Date(), 400),
+    },
+    relasjon: {
+      kodeVerdi: RelasjonKodeVerdi.VIKAR,
+      kodeTekst: "Vikar",
+    },
+  },
+];
 
 const mockFastlegerest = (server: any) => {
   server.get(
-    "/fastlegerest/api/v2/fastlege",
+    "/fastlegerest/api/v2/fastlege/fastleger",
     ensureAuthenticated(),
     (req: any, res: any) => {
       res.setHeader("Content-Type", "application/json");
-      res.send(JSON.stringify(fastlege));
+      res.send(JSON.stringify(fastlegeList));
     }
   );
 };
