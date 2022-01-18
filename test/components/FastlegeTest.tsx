@@ -25,7 +25,7 @@ describe("FastlegeTests", () => {
   });
 
   it("Feil i kall mot fastlegerest gir generell feilmelding", async () => {
-    apiMockScope.get(`${FASTLEGEREST_ROOT}/fastlege?fnr=${fnr}`).reply(500);
+    apiMockScope.get(`${FASTLEGEREST_ROOT}/fastlege/fastleger`).reply(500);
     render(
       <QueryClientProvider client={queryClient}>
         <Fastlege fnr={fnr} />
@@ -41,7 +41,7 @@ describe("FastlegeTests", () => {
   });
 
   it("Manglende tilgang gir ingen tilgang-feilmelding", async () => {
-    apiMockScope.get(`${FASTLEGEREST_ROOT}/fastlege?fnr=${fnr}`).reply(403);
+    apiMockScope.get(`${FASTLEGEREST_ROOT}/fastlege/fastleger`).reply(403);
     render(
       <QueryClientProvider client={queryClient}>
         <Fastlege fnr={fnr} />
@@ -57,7 +57,7 @@ describe("FastlegeTests", () => {
   });
 
   it("Fant ikke fastlege gir ikke funnet-feilmelding", async () => {
-    apiMockScope.get(`${FASTLEGEREST_ROOT}/fastlege?fnr=${fnr}`).reply(404);
+    apiMockScope.get(`${FASTLEGEREST_ROOT}/fastlege/fastleger`).reply(404);
     render(
       <QueryClientProvider client={queryClient}>
         <Fastlege fnr={fnr} />

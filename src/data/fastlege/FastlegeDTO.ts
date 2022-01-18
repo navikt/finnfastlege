@@ -1,6 +1,11 @@
-export interface PasientforholdDTO {
+export interface PeriodeDTO {
   fom: Date;
   tom: Date;
+}
+
+export interface RelasjonDTO {
+  kodeVerdi: string;
+  kodeTekst: string;
 }
 
 export interface AdresseDTO {
@@ -34,5 +39,7 @@ export interface FastlegeDTO {
   helsepersonellregisterId?: number;
   pasient?: PasientDTO;
   fastlegekontor?: FastlegekontorDTO;
-  pasientforhold: PasientforholdDTO;
+  pasientforhold: PeriodeDTO;
+  gyldighet: PeriodeDTO;
+  relasjon: RelasjonDTO;
 }
