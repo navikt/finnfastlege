@@ -1,9 +1,7 @@
 import { useQuery } from "react-query";
 import { get } from "@/api/axios";
 import { Tilgang } from "@/data/tilgang/tilgangTypes";
-
-const TILGANGSKONTROLL_AD_PATH =
-  "/syfo-tilgangskontroll/api/tilgang/navident/syfo";
+import { TILGANGSKONTROLL_AD_PATH } from "@/api/constants";
 
 export const tilgangQueryKeys = {
   tilgang: ["tilgang"],

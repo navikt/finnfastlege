@@ -3,7 +3,7 @@ import { Container, Row, Column } from "nav-frontend-grid";
 import Decorator from "../decorator/Decorator";
 
 export interface SideProps {
-  children: any;
+  children: React.ReactNode;
 }
 
 const Side = ({ children }: SideProps) => {

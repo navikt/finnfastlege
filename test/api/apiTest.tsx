@@ -1,61 +1,90 @@
+import axios from "axios";
 import { expect } from "chai";
-import fetchMock from "fetch-mock";
-import { get } from "@/api/fetch";
-import { Error403 } from "@/api/error403";
+import { get } from "@/api/axios";
+import MockAdapter from "axios-mock-adapter";
+import { Tilgang } from "@/data/tilgang/tilgangTypes";
+import { ApiErrorException, ErrorType } from "@/api/errors";
 
-describe("api", () => {
-  describe("get", () => {
-    afterEach(() => {
-      fetchMock.restore();
+let stub: MockAdapter;
+
+const tilgangDenied: Tilgang = { harTilgang: false, begrunnelse: "SYFO" };
+const tilgangDeniedMessage = { message: "Denied!" };
+const happyCaseMessage = "Woop woop";
+
+const pathAccessDenied = "/403tilgang";
+const pathAccessDeniedMessage = "/403message";
+const pathNotFound = "/404";
+const pathInternalServerError = "/500";
+const pathHappyCase = "/200";
+
+describe("Axios API tests", () => {
+  before(() => {
+    stub = new MockAdapter(axios);
+    stub.onGet(pathAccessDenied).replyOnce(403, tilgangDenied);
+    stub.onGet(pathAccessDeniedMessage).replyOnce(403, tilgangDeniedMessage);
+    stub.onGet(pathNotFound).replyOnce(404);
+    stub.onGet(pathInternalServerError).replyOnce(500);
+    stub.onGet(pathHappyCase).replyOnce(200, happyCaseMessage);
+  });
+
+  describe("Happy case", () => {
+    it("returns expected data from http 200", async function () {
+      const result = await get(pathHappyCase);
+      expect(result).to.equal(happyCaseMessage);
+    });
+  });
+
+  describe("Access denied tests", () => {
+    it("Throws access denied for http 403, and handles Tilgang-object", async function () {
+      try {
+        await get(pathAccessDenied);
+      } catch (e) {
+        expect(e instanceof ApiErrorException).to.equal(true);
+
+        const { error, code } = e as ApiErrorException;
+        expect(code).to.equal(403);
+        expect(error.type).to.equal(ErrorType.ACCESS_DENIED);
+        expect(error.message).to.equal(tilgangDenied.begrunnelse);
+      }
     });
 
-    it("kaster Error403 hvis det returneres 403", (done) => {
-      const tilgang = {
-        harTilgang: false,
-        begrunnelse: "begrunnelse",
-      };
-      fetchMock.get("*", {
-        body: tilgang,
-        status: 403,
-      });
+    it("Throws access denied for http 403, and handles message", async function () {
+      try {
+        await get(pathAccessDeniedMessage);
+      } catch (e) {
+        expect(e instanceof ApiErrorException).to.equal(true);
 
-      get("/ingen-url").catch((e: Error403) => {
-        expect(e.code).to.equal(403);
-        expect(e.message).to.equal(tilgang.begrunnelse);
-        done();
-      });
+        const { error, code } = e as ApiErrorException;
+        expect(code).to.equal(403);
+        expect(error.type).to.equal(ErrorType.ACCESS_DENIED);
+        expect(error.message).to.equal(tilgangDeniedMessage.message);
+      }
+    });
+  });
+
+  describe("General error tests", () => {
+    it("Throws general error for http 404", async function () {
+      try {
+        await get(pathNotFound);
+      } catch (e) {
+        expect(e instanceof ApiErrorException).to.equal(true);
+
+        const { error, code } = e as ApiErrorException;
+        expect(code).to.equal(404);
+        expect(error.type).to.equal(ErrorType.GENERAL_ERROR);
+      }
     });
 
-    it("legger ved begrunnelse i 403 dersom årsak kommer som message", (done) => {
-      const body = {
-        message: "begrunnelse",
-      };
-      fetchMock.get("*", {
-        body: body,
-        status: 403,
-      });
+    it("Throws general error for http 500", async function () {
+      try {
+        await get(pathInternalServerError);
+      } catch (e) {
+        expect(e instanceof ApiErrorException).to.equal(true);
 
-      get("/ingen-url").catch((e: Error403) => {
-        expect(e.code).to.equal(403);
-        expect(e.message).to.equal(body.message);
-        done();
-      });
-    });
-
-    it("kaster 404-exception hvis det returneres 404", (done) => {
-      fetchMock.get("*", 404);
-      get("/ingen-url").catch((e) => {
-        expect(e.message).to.equal("404");
-        done();
-      });
-    });
-
-    it("kaster exception med vedlagt http kode hvis det returneres > 400", (done) => {
-      fetchMock.get("*", 500);
-      get("/ingen-url").catch((e) => {
-        expect(e.message).to.equal("500");
-        done();
-      });
+        const { error, code } = e as ApiErrorException;
+        expect(code).to.equal(500);
+        expect(error.type).to.equal(ErrorType.GENERAL_ERROR);
+      }
     });
   });
 });

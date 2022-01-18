@@ -19,7 +19,9 @@ const decoratorconfig = (setFnr: (fnr: string) => void): DecoratorProps => {
     enhet: {
       initialValue: undefined,
       display: EnhetDisplay.ENHET_VALG,
-      onChange(): void {},
+      onChange(): void {
+        /* Do nothing */
+      },
       skipModal: true,
     },
     toggles: {
