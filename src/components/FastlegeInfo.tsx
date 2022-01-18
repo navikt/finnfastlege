@@ -1,8 +1,8 @@
 import React from "react";
-import { Row, Column } from "nav-frontend-grid";
+import { Column, Row } from "nav-frontend-grid";
 import Panel from "nav-frontend-paneler";
 import { EtikettFokus } from "nav-frontend-etiketter";
-import { Systemtittel, Undertekst, Element } from "nav-frontend-typografi";
+import { Element, Systemtittel, Undertekst } from "nav-frontend-typografi";
 import PersonIkon from "../svg/PersonIkon";
 import LegeIkon from "../svg/LegeIkon";
 import { tilLangtDatoFormat } from "@/utils/datoUtils";
@@ -11,7 +11,14 @@ import {
   FastlegeDTO,
   PasientDTO,
 } from "@/data/fastlege/FastlegeDTO";
-import { FastlegeInternal } from "@/data/fastlege/FastlegeInternal";
+import {
+  FastlegeInternal,
+  Fastlegekontor,
+  Pasient,
+  RelasjonKodeVerdi,
+} from "@/data/fastlege/FastlegeInternal";
+import { useDiskresjonskodeQuery } from "@/data/diskresjonskode/diskresjonskodeQueryHooks";
+import { useEgenansattQuery } from "@/data/egenansatt/egenansattQueryHooks";
 
 const VERDI_IKKE_FUNNET = "Ikke funnet";
 
@@ -40,47 +47,64 @@ export const hentTekstFastlegePostadresse = (postadresse: AdresseDTO) => {
 };
 
 interface FastlegeInfoProps {
-  fastlege: FastlegeInternal;
+  fastlegeList: FastlegeInternal[];
 }
 
-const FastlegeInfo = (fastlegeInfoProps: FastlegeInfoProps) => {
-  const { fastlege } = fastlegeInfoProps;
+const FastlegeInfo = ({ fastlegeList }: FastlegeInfoProps) => {
+  const fastlegekontor: Fastlegekontor | undefined = fastlegeList.find(
+    (lege) => {
+      return lege.fastlegekontor;
+    }
+  )?.fastlegekontor;
+  const pasient: Pasient | undefined = fastlegeList.find((lege) => {
+    return lege.pasient;
+  })?.pasient;
+
+  const fastlege: FastlegeInternal | undefined = fastlegeList.find((lege) => {
+    return lege.relasjon.kodeVerdi == RelasjonKodeVerdi.FASTLEGE;
+  });
+  const vikarList: FastlegeInternal[] = fastlegeList.filter((lege) => {
+    return lege.relasjon.kodeVerdi == RelasjonKodeVerdi.VIKAR;
+  });
+
+  const { data: diskresjonskode } = useDiskresjonskodeQuery(pasient?.fnr);
+  const { data: isEgenansatt } = useEgenansattQuery(pasient?.fnr);
   return (
     <div className="fastlegeInfo">
-      <Panel>
-        <Column className="fastlegeInfo__ikon">
-          <PersonIkon />
-        </Column>
-        <Column>
-          <Row className="no-gutter">
-            <Column>
-              <Systemtittel>
-                {fastlege.pasient && hentTekstPasientNavn(fastlege.pasient)}
-              </Systemtittel>
-              <Undertekst>{fastlege.pasient?.fnr}</Undertekst>
-            </Column>
-          </Row>
-          <Row className="no-gutter fastlegeInfo__etiketter">
-            {fastlege.pasient?.egenansatt && (
-              <div>
-                <EtikettFokus>Egen ansatt</EtikettFokus>
-              </div>
-            )}
-            {fastlege.pasient?.diskresjonskode &&
-              fastlege.pasient?.diskresjonskode === "6" && (
+      {pasient && (
+        <Panel>
+          <Column className="fastlegeInfo__ikon">
+            <PersonIkon />
+          </Column>
+          <Column>
+            <Row className="no-gutter">
+              <Column>
+                <Systemtittel>
+                  {pasient && hentTekstPasientNavn(pasient)}
+                </Systemtittel>
+                <Undertekst>{pasient?.fnr}</Undertekst>
+              </Column>
+            </Row>
+            <Row className="no-gutter fastlegeInfo__etiketter">
+              {isEgenansatt && (
+                <div>
+                  <EtikettFokus>Egen ansatt</EtikettFokus>
+                </div>
+              )}
+              {diskresjonskode === "6" && (
                 <div>
                   <EtikettFokus>Kode 6</EtikettFokus>
                 </div>
               )}
-            {fastlege.pasient?.diskresjonskode &&
-              fastlege.pasient?.diskresjonskode === "7" && (
+              {diskresjonskode === "7" && (
                 <div>
                   <EtikettFokus>Kode 7</EtikettFokus>
                 </div>
               )}
-          </Row>
-        </Column>
-      </Panel>
+            </Row>
+          </Column>
+        </Panel>
+      )}
 
       <Panel>
         <Column className="fastlegeInfo__ikon">
@@ -97,18 +121,18 @@ const FastlegeInfo = (fastlegeInfoProps: FastlegeInfoProps) => {
               </Column>
             </Row>
           )}
-          {fastlege.fastlegekontor && [
+          {fastlegekontor && [
             <Row key={1} className="no-gutter">
               <Column className="col-xs-12 col-sm-6">
                 <Element>Legekontor</Element>
-                <Undertekst>{fastlege.fastlegekontor.navn}</Undertekst>
+                <Undertekst>{fastlegekontor.navn}</Undertekst>
               </Column>
               <Column className="col-xs-12 col-sm-6">
                 <Element>Besøksadresse</Element>
                 <Undertekst>
-                  {fastlege.fastlegekontor.besoeksadresse &&
+                  {fastlegekontor.besoeksadresse &&
                     hentTekstFastlegeBesoeksadresse(
-                      fastlege.fastlegekontor.besoeksadresse
+                      fastlegekontor.besoeksadresse
                     )}
                 </Undertekst>
               </Column>
@@ -116,19 +140,33 @@ const FastlegeInfo = (fastlegeInfoProps: FastlegeInfoProps) => {
             <Row key={2} className="no-gutter">
               <Column className="col-xs-12 col-sm-6">
                 <Element>Telefon</Element>
-                <Undertekst>{fastlege.fastlegekontor.telefon}</Undertekst>
+                <Undertekst>{fastlegekontor.telefon}</Undertekst>
               </Column>
               <Column className="col-xs-12 col-sm-6">
                 <Element>Postadresse</Element>
                 <Undertekst>
-                  {fastlege.fastlegekontor.postadresse &&
-                    hentTekstFastlegePostadresse(
-                      fastlege.fastlegekontor.postadresse
-                    )}
+                  {fastlegekontor.postadresse &&
+                    hentTekstFastlegePostadresse(fastlegekontor.postadresse)}
                 </Undertekst>
               </Column>
             </Row>,
           ]}
+          {vikarList.map((legevikar, index) => {
+            return (
+              <Row key={index} className="no-gutter">
+                <Column>
+                  <Systemtittel>
+                    {hentTekstFastlegeNavn(legevikar)}
+                  </Systemtittel>
+                  <Undertekst>{`Vikarperiode: ${tilLangtDatoFormat(
+                    legevikar.gyldighet.fom
+                  )} - ${tilLangtDatoFormat(
+                    legevikar.gyldighet.tom
+                  )}`}</Undertekst>
+                </Column>
+              </Row>
+            );
+          })}
         </Column>
       </Panel>
     </div>

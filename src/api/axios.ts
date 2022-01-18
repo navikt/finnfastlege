@@ -11,13 +11,22 @@ import { generateUUID } from "@/utils/uuidUtils";
 export const NAV_CALL_ID_HEADER = "Nav-Call-Id";
 export const NAV_CONSUMER_ID_HEADER = "Nav-Consumer-Id";
 export const NAV_CONSUMER_ID = "finnfastlege";
+export const NAV_PERSONIDENT_HEADER = "nav-personident";
 
-export const defaultRequestHeaders = (): AxiosRequestHeaders => {
-  return {
+export const defaultRequestHeaders = (
+  personIdent?: string
+): AxiosRequestHeaders => {
+  const headers: AxiosRequestHeaders = {
     "Content-Type": "application/json",
     [NAV_CONSUMER_ID_HEADER]: NAV_CONSUMER_ID,
     [NAV_CALL_ID_HEADER]: `${NAV_CONSUMER_ID}-${generateUUID()}`,
   };
+
+  if (personIdent) {
+    headers[NAV_PERSONIDENT_HEADER] = personIdent;
+  }
+
+  return headers;
 };
 
 function handleAxiosError(error: AxiosError) {
@@ -32,7 +41,9 @@ function handleAxiosError(error: AxiosError) {
       }
       case 403: {
         const message =
-          error.response.data.begrunnelse || error.response.data.message;
+          error.response.data.begrunnelse ||
+          error.response.data.message ||
+          error.message;
         throw new ApiErrorException(
           accessDeniedError(message),
           error.response.status
@@ -51,10 +62,13 @@ function handleAxiosError(error: AxiosError) {
   }
 }
 
-export const get = <ResponseData>(url: string): Promise<ResponseData> => {
+export const get = <ResponseData>(
+  url: string,
+  personIdent?: string
+): Promise<ResponseData> => {
   return axios
     .get(url, {
-      headers: defaultRequestHeaders(),
+      headers: defaultRequestHeaders(personIdent),
     })
     .then((response) => response.data)
     .catch(function (error) {
