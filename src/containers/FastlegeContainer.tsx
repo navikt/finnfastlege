@@ -1,6 +1,6 @@
 import React from "react";
 import AppSpinner from "../components/AppSpinner";
-import Fastlege from "../components/Fastlege";
+import FastlegeSide from "../components/FastlegeSide";
 import Side from "../sider/Side";
 import Feilmelding from "../components/Feilmelding";
 import { useTilgangQuery } from "@/data/tilgang/tilgangQueryHooks";
@@ -15,7 +15,7 @@ export const texts = {
     "For å få tilgang må du ta kontakt med din lokale identansvarlige.",
 };
 
-const FastlegeSide = () => {
+const FastlegeContainer = () => {
   const tilgang = useTilgangQuery();
 
   return (
@@ -40,11 +40,11 @@ const FastlegeSide = () => {
               />
             );
           }
-          return <Fastlege />;
+          return <FastlegeSide />;
         })()}
       </AppSpinner>
     </Side>
   );
 };
 
-export default FastlegeSide;
+export default FastlegeContainer;

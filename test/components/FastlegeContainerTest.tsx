@@ -1,21 +1,15 @@
-import { Provider } from "react-redux";
 import React from "react";
-import { createStore } from "redux";
-import configureStore from "redux-mock-store";
 import FastlegeContainer, {
   texts,
 } from "../../src/containers/FastlegeContainer";
-import rootReducer from "../../src/data/rootReducer";
 import { apiMock } from "../stubs/stubApi";
 import nock from "nock";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
 
 let queryClient: QueryClient;
 let apiMockScope: nock.Scope;
-const realState = createStore(rootReducer).getState();
-const store = configureStore([]);
 
 const generalError = {
   harTilgang: false,
@@ -42,18 +36,16 @@ describe("FastlegeContainerTests", () => {
     apiMockScope
       .get(`/syfo-tilgangskontroll/api/tilgang/navident/syfo`)
       .reply(403, () => noAccess);
-    const wrapper = render(
+    render(
       <QueryClientProvider client={queryClient}>
-        <Provider store={store({ ...realState })}>
-          <FastlegeContainer />
-        </Provider>
+        <FastlegeContainer />
       </QueryClientProvider>
     );
 
-    const title = await wrapper.findByRole("heading", {
+    const title = await screen.findByRole("heading", {
       name: texts.noAccessTitle,
     });
-    const message = await wrapper.findByText(texts.noAccessMessage);
+    const message = await screen.findByText(texts.noAccessMessage);
     expect(title).to.exist;
     expect(message).to.exist;
   });
@@ -62,18 +54,16 @@ describe("FastlegeContainerTests", () => {
     apiMockScope
       .get(`/syfo-tilgangskontroll/api/tilgang/navident/syfo`)
       .reply(500, () => generalError);
-    const wrapper = render(
+    render(
       <QueryClientProvider client={queryClient}>
-        <Provider store={store({ ...realState })}>
-          <FastlegeContainer />
-        </Provider>
+        <FastlegeContainer />
       </QueryClientProvider>
     );
 
-    const title = await wrapper.findByRole("heading", {
+    const title = await screen.findByRole("heading", {
       name: texts.generalErrorTitle,
     });
-    const message = await wrapper.findByText(texts.generalErrorMessage);
+    const message = await screen.findByText(texts.generalErrorMessage);
     expect(title).to.exist;
     expect(message).to.exist;
   });
