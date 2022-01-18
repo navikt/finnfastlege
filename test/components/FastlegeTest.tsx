@@ -57,7 +57,9 @@ describe("FastlegeTests", () => {
   });
 
   it("Fant ikke fastlege gir ikke funnet-feilmelding", async () => {
-    apiMockScope.get(`${FASTLEGEREST_ROOT}/fastlege/fastleger`).reply(404);
+    apiMockScope
+      .get(`${FASTLEGEREST_ROOT}/fastlege/fastleger`)
+      .reply(200, () => []);
     render(
       <QueryClientProvider client={queryClient}>
         <Fastlege fnr={fnr} />
