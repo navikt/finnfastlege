@@ -42,7 +42,7 @@ export const hentTekstFastlegeBesoeksadresse = (besoeksadresse: AdresseDTO) => {
 
 export const hentTekstFastlegePostadresse = (postadresse: AdresseDTO) => {
   return postadresse
-    ? `Postboks ${postadresse.adresse}, ${postadresse.postnummer} ${postadresse.poststed}`
+    ? `${postadresse.adresse}, ${postadresse.postnummer} ${postadresse.poststed}`
     : VERDI_IKKE_FUNNET;
 };
 
