@@ -40,10 +40,7 @@ function handleAxiosError(error: AxiosError) {
         );
       }
       case 403: {
-        const message =
-          error.response.data.begrunnelse ||
-          error.response.data.message ||
-          error.message;
+        const message = error.response.data.message || error.message;
         throw new ApiErrorException(
           accessDeniedError(message),
           error.response.status
