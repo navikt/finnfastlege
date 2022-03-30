@@ -42,4 +42,5 @@ export interface FastlegeDTO {
   pasientforhold: PeriodeDTO;
   gyldighet: PeriodeDTO;
   relasjon: RelasjonDTO;
+  stillingsprosent?: number;
 }

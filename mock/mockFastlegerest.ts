@@ -63,6 +63,7 @@ const fastlegeList = [
       kodeVerdi: RelasjonKodeVerdi.VIKAR,
       kodeTekst: "Vikar",
     },
+    stillingsprosent: 60,
   },
   {
     ...fastlege,
@@ -80,6 +81,7 @@ const fastlegeList = [
       kodeVerdi: RelasjonKodeVerdi.VIKAR,
       kodeTekst: "Vikar",
     },
+    stillingsprosent: null,
   },
 ];
 
