@@ -163,6 +163,9 @@ const FastlegeInfo = ({ fastlegeList }: FastlegeInfoProps) => {
                   )} - ${tilLangtDatoFormat(
                     legevikar.gyldighet.tom
                   )}`}</Undertekst>
+                  {legevikar.stillingsprosent && (
+                    <Undertekst>{`Stillingsprosent: ${legevikar.stillingsprosent}%`}</Undertekst>
+                  )}
                 </Column>
               </Row>
             );
