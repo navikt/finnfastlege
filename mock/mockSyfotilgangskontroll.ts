@@ -2,12 +2,10 @@ const auth = require("../server/auth");
 
 const tilgang = {
   harTilgang: true,
-  begrunnelse: null,
 };
 
 const harIkkeTilgang = {
   harTilgang: false,
-  begrunnelse: "SYFO",
 };
 
 const mockSyfotilgangskontroll = (server: any) => {
