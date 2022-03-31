@@ -2,7 +2,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./styles/styles.less";
 import FastlegeContainer from "./containers/FastlegeContainer";
 import { minutesToMillis } from "@/utils/timeUtils";
@@ -27,10 +27,13 @@ const queryClient = new QueryClient({
   },
 });
 
-ReactDOM.render(
+const container =
+  document.getElementById("maincontent") || new DocumentFragment();
+const root = createRoot(container);
+
+root.render(
   <QueryClientProvider client={queryClient}>
     <FastlegeContainer />
     <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>,
-  document.getElementById("maincontent")
+  </QueryClientProvider>
 );
