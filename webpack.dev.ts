@@ -12,7 +12,7 @@ module.exports = merge(common, {
   mode: "development",
   devtool: "eval-source-map",
   output: {
-    publicPath: "/static",
+    publicPath: "",
   },
   devServer: {
     port: 8080,
