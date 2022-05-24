@@ -6,7 +6,7 @@ import { merge } from "webpack-merge";
 
 import common from "./webpack.common";
 import mockEndepunkter from "./mock/mockEndepunkter";
-const Auth = require("./server/auth/index.js");
+const Auth = require("./server/auth");
 
 module.exports = merge(common, {
   mode: "development",
