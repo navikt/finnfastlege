@@ -1,18 +1,14 @@
-// @ts-nocheck
+import express = require("express");
+import path = require("path");
+import prometheus = require("prom-client");
 
-const express = require("express");
-const path = require("path");
-const prometheus = require("prom-client");
-const proxy = require("express-http-proxy");
-const axios = require("axios");
+const Auth = require("./server/auth");
 
-const Auth = require("./server/auth/index");
-
-const setupProxy = require("./server/proxy.js");
+const setupProxy = require("./server/proxy");
 
 // Prometheus metrics
 const collectDefaultMetrics = prometheus.collectDefaultMetrics;
-collectDefaultMetrics({ timeout: 5000 });
+collectDefaultMetrics({});
 
 const server = express();
 server.use(express.json());
@@ -22,7 +18,11 @@ const setupServer = async () => {
 
   server.use(setupProxy(authClient));
 
-  const nocache = (req, res, next) => {
+  const nocache = (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
     res.header("Expires", "-1");
     res.header("Pragma", "no-cache");

@@ -1,15 +1,20 @@
-const OpenIdClient = require("openid-client");
-const passport = require("passport");
+import express = require("express");
+import OpenIdClient = require("openid-client");
+import passport = require("passport");
 
-const session = require("../session.js");
-const AuthUtils = require("./utils.js");
-const Config = require("../config.js");
+import session = require("../session");
+import AuthUtils = require("./utils");
+import Config = require("../config");
 
 const dotenv = require("dotenv");
 dotenv.config();
 
-const ensureAuthenticated = () => {
-  return async (req, res, next) => {
+export const ensureAuthenticated = () => {
+  return async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     if (req.isAuthenticated()) {
       return next();
     }
@@ -17,7 +22,7 @@ const ensureAuthenticated = () => {
   };
 };
 
-const getStrategy = async (authClient) => {
+const getStrategy = async (authClient: any) => {
   return new OpenIdClient.Strategy(
     {
       client: authClient,
@@ -29,7 +34,7 @@ const getStrategy = async (authClient) => {
       usePKCE: "S256",
       passReqToCallback: true,
     },
-    (req, tokenSet, done) => {
+    (req: any, tokenSet: any, done: any) => {
       if (!tokenSet.expired()) {
         console.log("OpenIdClient.Strategy: Mapping tokenSet to User.");
         return done(null, {
@@ -47,7 +52,7 @@ const getStrategy = async (authClient) => {
   );
 };
 
-const setupPassport = async (app, authClient) => {
+const setupPassport = async (app: express.Application, authClient: any) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -58,13 +63,13 @@ const setupPassport = async (app, authClient) => {
   passport.serializeUser((user, done) => {
     done(null, user);
   });
-  passport.deserializeUser((user, done) => {
+  passport.deserializeUser((user: any, done) => {
     done(null, user);
   });
 
   app.get(
     "/login",
-    (req, _res, next) => {
+    (req: any, _res: express.Response, next: express.NextFunction) => {
       if (typeof req.query.redirectTo === "string") {
         req.session.redirectTo = req.query.redirectTo;
       }
@@ -72,23 +77,23 @@ const setupPassport = async (app, authClient) => {
     },
     passport.authenticate(authName, { failureRedirect: "/login-failed" })
   );
-  app.get("/logout", (req, res) => {
+  app.get("/logout", (req: express.Request, res: express.Response) => {
     req.logout();
     res.redirect("/");
   });
   app.get(
     "/oauth2/callback",
     passport.authenticate(authName, { failureRedirect: "/login-failed" }),
-    (req, res) => {
+    (req: any, res: express.Response) => {
       res.redirect(req.session.redirectTo || "/fastlege");
     }
   );
-  app.get("/login-failed", (_req, res) => {
+  app.get("/login-failed", (_req: express.Request, res: express.Response) => {
     res.send("login failed");
   });
 };
 
-const setupAuth = async (app) => {
+const setupAuth = async (app: express.Application) => {
   session.setupSession(app);
 
   const authClient = await AuthUtils.getOpenIdClient(Config.auth.discoverUrl);

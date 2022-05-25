@@ -1,8 +1,9 @@
-const connectRedis = require("connect-redis");
-const session = require("express-session");
-const redis = require("redis");
+import express = require("express");
+import connectRedis = require("connect-redis");
+import session = require("express-session");
+import redis = require("redis");
 
-const Config = require("./config.js");
+import Config = require("./config");
 
 const SESSION_MAX_AGE_MILLIS = 12 * 60 * 60 * 1000;
 
@@ -25,7 +26,7 @@ const getRedisStore = () => {
   });
 };
 
-const setupSession = (app) => {
+export const setupSession = (app: express.Application) => {
   app.set("trust proxy", 1);
 
   app.use(

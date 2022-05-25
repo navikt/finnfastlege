@@ -1,15 +1,15 @@
-const express = require("express");
-const expressHttpProxy = require("express-http-proxy");
-const url = require("url");
+import express = require("express");
+import expressHttpProxy = require("express-http-proxy");
+import url = require("url");
 
-const AuthUtils = require("./auth/utils.js");
-const Config = require("./config.js");
+import AuthUtils = require("./auth/utils");
+import Config = require("./config");
 
-const proxyExternalHost = (host, accessToken, parseReqBody) =>
+const proxyExternalHost = (host: any, accessToken: any, parseReqBody: any) =>
   expressHttpProxy(host, {
     https: false,
     parseReqBody: parseReqBody,
-    proxyReqOptDecorator: async (options, srcReq) => {
+    proxyReqOptDecorator: async (options, srcReq: express.Request) => {
       if (!accessToken) {
         return options;
       }
@@ -17,7 +17,7 @@ const proxyExternalHost = (host, accessToken, parseReqBody) =>
         options.headers = {};
       }
       if (host === Config.auth.modiacontextholder.host) {
-        const reqUser = srcReq.user;
+        const reqUser = srcReq.user as any;
         if (!reqUser) {
           return options;
         }
@@ -55,8 +55,14 @@ const proxyExternalHost = (host, accessToken, parseReqBody) =>
     },
   });
 
-const proxyOnBehalfOf = (req, res, next, authClient, externalAppConfig) => {
-  const user = req.user;
+const proxyOnBehalfOf = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+  authClient: any,
+  externalAppConfig: Config.ExternalAppConfig
+) => {
+  const user = req.user as any;
   if (!user) {
     console.log("Missing user in route, waiting for middleware authentication");
     res
@@ -97,30 +103,64 @@ const proxyOnBehalfOf = (req, res, next, authClient, externalAppConfig) => {
     });
 };
 
-const setup = (authClient) => {
+const setup = (authClient: any) => {
   const router = express.Router();
 
-  router.use("/modiacontextholder/*", (req, res, next) => {
-    proxyOnBehalfOf(req, res, next, authClient, Config.auth.modiacontextholder);
-  });
+  router.use(
+    "/modiacontextholder/*",
+    (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      proxyOnBehalfOf(
+        req,
+        res,
+        next,
+        authClient,
+        Config.auth.modiacontextholder
+      );
+    }
+  );
 
-  router.use("/fastlegerest/*", (req, res, next) => {
-    proxyOnBehalfOf(req, res, next, authClient, Config.auth.fastlegerest);
-  });
+  router.use(
+    "/fastlegerest/*",
+    (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      proxyOnBehalfOf(req, res, next, authClient, Config.auth.fastlegerest);
+    }
+  );
 
-  router.use("/syfoperson/*", (req, res, next) => {
-    proxyOnBehalfOf(req, res, next, authClient, Config.auth.syfoperson);
-  });
+  router.use(
+    "/syfoperson/*",
+    (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      proxyOnBehalfOf(req, res, next, authClient, Config.auth.syfoperson);
+    }
+  );
 
-  router.use("/syfo-tilgangskontroll/*", (req, res, next) => {
-    proxyOnBehalfOf(
-      req,
-      res,
-      next,
-      authClient,
-      Config.auth.syfotilgangskontroll
-    );
-  });
+  router.use(
+    "/syfo-tilgangskontroll/*",
+    (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      proxyOnBehalfOf(
+        req,
+        res,
+        next,
+        authClient,
+        Config.auth.syfotilgangskontroll
+      );
+    }
+  );
 
   router.use(
     "/internarbeidsflatedecorator",
