@@ -5,7 +5,7 @@ import mockModiacontextholder from "./mockModiacontextholder";
 import mockSyfoperson from "./mockSyfoperson";
 import mockSyfotilgangskontroll from "./mockSyfotilgangskontroll";
 
-const mockEndepunkter = (server: any) => {
+const mockEndepunkter = (server: express.Application) => {
   server.use(express.json());
   server.use(express.urlencoded());
 

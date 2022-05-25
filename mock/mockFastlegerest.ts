@@ -1,3 +1,4 @@
+import express from "express";
 import { ensureAuthenticated } from "../server/auth";
 import { RelasjonKodeVerdi } from "../src/data/fastlege/FastlegeInternal";
 import { leggTilDagerPaDato } from "./util/dateUtil";
@@ -85,11 +86,11 @@ const fastlegeList = [
   },
 ];
 
-const mockFastlegerest = (server: any) => {
+const mockFastlegerest = (server: express.Application) => {
   server.get(
     "/fastlegerest/api/v2/fastlege/fastleger",
     ensureAuthenticated(),
-    (req: any, res: any) => {
+    (req: express.Request, res: express.Response) => {
       res.setHeader("Content-Type", "application/json");
       res.send(JSON.stringify(fastlegeList));
     }

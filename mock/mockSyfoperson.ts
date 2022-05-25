@@ -1,3 +1,4 @@
+import express from "express";
 import { ensureAuthenticated } from "../server/auth";
 
 const NAV_PERSONIDENT_HEADER = "nav-personident";
@@ -5,11 +6,11 @@ const NAV_PERSONIDENT_HEADER = "nav-personident";
 const diskresjonskode = "7";
 const isEgenAnsatt = true;
 
-const mockSyfoperson = (server: any) => {
+const mockSyfoperson = (server: express.Application) => {
   server.get(
     "/syfoperson/api/v2/person/diskresjonskode",
     ensureAuthenticated(),
-    (req: any, res: any) => {
+    (req: express.Request, res: express.Response) => {
       if (
         req.headers[NAV_PERSONIDENT_HEADER] &&
         req.headers[NAV_PERSONIDENT_HEADER].length === 11
@@ -25,7 +26,7 @@ const mockSyfoperson = (server: any) => {
   server.get(
     "/syfoperson/api/v2/person/egenansatt",
     ensureAuthenticated(),
-    (req: any, res: any) => {
+    (req: express.Request, res: express.Response) => {
       if (
         req.headers[NAV_PERSONIDENT_HEADER] &&
         req.headers[NAV_PERSONIDENT_HEADER].length === 11

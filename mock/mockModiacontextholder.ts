@@ -1,3 +1,4 @@
+import express from "express";
 import { ensureAuthenticated } from "../server/auth";
 
 const saksbehandler = {
@@ -27,7 +28,7 @@ const aktivEnhet = {
   aktivEnhet: "0315",
 };
 
-const mockModiacontextholder = (server: any) => {
+const mockModiacontextholder = (server: express.Application) => {
   server.get("/modiacontextholder/api/decorator", (req: any, res: any) => {
     res.setHeader("Content-Type", "application/json");
     res.send(JSON.stringify(saksbehandler));
@@ -36,7 +37,7 @@ const mockModiacontextholder = (server: any) => {
   server.get(
     "/modiacontextholder/api/context/aktivbruker",
     ensureAuthenticated(),
-    (req: any, res: any) => {
+    (req: express.Request, res: express.Response) => {
       res.setHeader("Content-Type", "application/json");
       res.send(JSON.stringify(aktivBruker));
     }
@@ -45,7 +46,7 @@ const mockModiacontextholder = (server: any) => {
   server.get(
     "/modiacontextholder/api/context/aktivenhet",
     ensureAuthenticated(),
-    (req: any, res: any) => {
+    (req: express.Request, res: express.Response) => {
       res.setHeader("Content-Type", "application/json");
       res.send(JSON.stringify(aktivEnhet));
     }
@@ -54,7 +55,7 @@ const mockModiacontextholder = (server: any) => {
   server.post(
     "/modiacontextholder/api/context",
     ensureAuthenticated(),
-    (req: any, res: any) => {
+    (req: express.Request, res: express.Response) => {
       res.send().status(204);
     }
   );
