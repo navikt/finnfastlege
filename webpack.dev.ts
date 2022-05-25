@@ -1,12 +1,10 @@
-// @ts-nocheck
-
 import * as express from "express";
 import * as path from "path";
-import { merge } from "webpack-merge";
+const { merge } = require("webpack-merge");
 
 import common from "./webpack.common";
 import mockEndepunkter from "./mock/mockEndepunkter";
-const Auth = require("./server/auth");
+import Auth = require("./server/auth");
 
 module.exports = merge(common, {
   mode: "development",
@@ -22,14 +20,14 @@ module.exports = merge(common, {
         redirect: false,
       },
     },
-    setupMiddlewares: (middlewares, devServer) => {
+    setupMiddlewares: (middlewares: any, devServer: any) => {
       setupDev(devServer);
       return middlewares;
     },
   },
 });
 
-const setupDev = async (devServer: DevServer) => {
+const setupDev = async (devServer: any) => {
   const { app, compiler } = devServer;
 
   await Auth.setupAuth(app);
@@ -38,7 +36,7 @@ const setupDev = async (devServer: DevServer) => {
   app.use("/fastlege/img", express.static(path.resolve(__dirname, "img")));
   app.use("/static", express.static(path.resolve(__dirname, "dist")));
 
-  app.use("*", (req: any, res: any) => {
+  app.use("*", (req: express.Request, res: express.Response) => {
     const filename = path.join(compiler.outputPath, "index.html");
     compiler.outputFileSystem.readFile(filename, (err: any, result: any) => {
       if (err) {

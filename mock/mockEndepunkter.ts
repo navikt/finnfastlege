@@ -1,4 +1,4 @@
-import express from "express";
+import express = require("express");
 
 import mockFastlegerest from "./mockFastlegerest";
 import mockModiacontextholder from "./mockModiacontextholder";

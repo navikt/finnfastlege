@@ -1,5 +1,5 @@
 import { ensureAuthenticated } from "../server/auth";
-import { RelasjonKodeVerdi } from "@/data/fastlege/FastlegeInternal";
+import { RelasjonKodeVerdi } from "../src/data/fastlege/FastlegeInternal";
 import { leggTilDagerPaDato } from "./util/dateUtil";
 
 const fastlege = {

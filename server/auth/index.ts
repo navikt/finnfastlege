@@ -93,7 +93,7 @@ const setupPassport = async (app: express.Application, authClient: any) => {
   });
 };
 
-const setupAuth = async (app: express.Application) => {
+export const setupAuth = async (app: express.Application) => {
   session.setupSession(app);
 
   const authClient = await AuthUtils.getOpenIdClient(Config.auth.discoverUrl);
