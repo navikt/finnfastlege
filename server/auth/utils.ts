@@ -21,10 +21,10 @@ const getTokenSetById = (tokenSets: any, id: any) => {
 };
 
 export const getOrRefreshOnBehalfOfToken = async (
-  authClient: any,
+  authClient: OpenIdClient.Client,
   tokenSets: any,
   tokenSetId: any,
-  clientId: any
+  clientId: string
 ) => {
   const selfToken = getTokenSetById(tokenSets, "self");
   if (!selfToken) {
@@ -75,7 +75,7 @@ export const getOrRefreshOnBehalfOfToken = async (
 };
 
 const getOrRefreshSelfTokenIfExpired = async (
-  authClient: any,
+  authClient: OpenIdClient.Client,
   selfToken: any,
   tokenSets: any
 ) => {
@@ -90,7 +90,7 @@ const getOrRefreshSelfTokenIfExpired = async (
   return selfToken;
 };
 
-const getScope = (tokenSetId: any, clientId: any) => {
+const getScope = (tokenSetId: any, clientId: string) => {
   if (tokenSetId === Config.tokenSetIdType.graph) {
     return `${clientId}/.default`;
   }
@@ -98,10 +98,10 @@ const getScope = (tokenSetId: any, clientId: any) => {
 };
 
 const requestOnBehalfOfToken = async (
-  authClient: any,
+  authClient: OpenIdClient.Client,
   tokenSet: any,
   tokenSetId: any,
-  clientId: any
+  clientId: string
 ) => {
   if (!tokenSet.access_token) {
     throw Error(
@@ -119,7 +119,9 @@ const requestOnBehalfOfToken = async (
   return await authClient.grant(grantBody);
 };
 
-export const getOpenIdClient = async (issuerUrl: string) => {
+export const getOpenIdClient = async (
+  issuerUrl: string
+): Promise<OpenIdClient.Client> => {
   try {
     if (Config.server.proxy) {
       const proxyAgent = HttpsProxyAgent(Config.server.proxy);

@@ -2,8 +2,9 @@ import express = require("express");
 import expressHttpProxy = require("express-http-proxy");
 import url = require("url");
 
-import AuthUtils = require("./auth/utils");
-import Config = require("./config");
+import * as AuthUtils from "./auth/utils";
+import * as Config from "./config";
+import OpenIdClient from "openid-client";
 
 const proxyExternalHost = (host: any, accessToken: any, parseReqBody: any) =>
   expressHttpProxy(host, {
@@ -59,7 +60,7 @@ const proxyOnBehalfOf = (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
-  authClient: any,
+  authClient: OpenIdClient.Client,
   externalAppConfig: Config.ExternalAppConfig
 ) => {
   const user = req.user as any;
@@ -103,7 +104,7 @@ const proxyOnBehalfOf = (
     });
 };
 
-const setup = (authClient: any) => {
+const setup = (authClient: OpenIdClient.Client) => {
   const router = express.Router();
 
   router.use(

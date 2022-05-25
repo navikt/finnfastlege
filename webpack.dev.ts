@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as path from "path";
 const { merge } = require("webpack-merge");
+import * as WebpackDevServer from "webpack-dev-server";
 
 import common from "./webpack.common";
 import mockEndepunkter from "./mock/mockEndepunkter";
@@ -20,7 +21,10 @@ module.exports = merge(common, {
         redirect: false,
       },
     },
-    setupMiddlewares: (middlewares: any, devServer: any) => {
+    setupMiddlewares: (
+      middlewares: WebpackDevServer.Middleware[],
+      devServer: WebpackDevServer
+    ) => {
       setupDev(devServer);
       return middlewares;
     },

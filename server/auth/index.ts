@@ -22,7 +22,7 @@ export const ensureAuthenticated = () => {
   };
 };
 
-const getStrategy = async (authClient: any) => {
+const getStrategy = async (authClient: OpenIdClient.Client) => {
   return new OpenIdClient.Strategy(
     {
       client: authClient,
@@ -52,7 +52,10 @@ const getStrategy = async (authClient: any) => {
   );
 };
 
-const setupPassport = async (app: express.Application, authClient: any) => {
+const setupPassport = async (
+  app: express.Application,
+  authClient: OpenIdClient.Client
+) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
