@@ -1,15 +1,16 @@
 import "regenerator-runtime/runtime";
 
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
-const autoprefixer = require("autoprefixer");
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+import path from "path";
+import { Configuration } from "webpack";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import Dotenv from "dotenv-webpack";
+import autoprefixer from "autoprefixer";
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 
 const extensions = [".tsx", ".jsx", ".js", ".ts", ".json"];
 
-export default {
+const commonConfig: Configuration = {
   entry: {
     main: ["./src/index.tsx"],
   },
@@ -81,3 +82,5 @@ export default {
     }),
   ],
 };
+
+export default commonConfig;
