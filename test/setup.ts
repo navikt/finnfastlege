@@ -3,10 +3,10 @@
 import MutationObserver from "@sheerun/mutationobserver-shim";
 import { setLogger } from "react-query";
 
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
 
-const { JSDOM } = require("jsdom");
+import { JSDOM } from "jsdom";
 
 const jsdom = new JSDOM("<!doctype html><html><body></body></html>");
 const { window } = jsdom;

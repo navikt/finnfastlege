@@ -1,9 +1,9 @@
-import express = require("express");
-import connectRedis = require("connect-redis");
-import session = require("express-session");
-import redis = require("redis");
+import express from "express";
+import connectRedis from "connect-redis";
+import session from "express-session";
+import redis from "redis";
 
-import Config = require("./config");
+import * as Config from "./config";
 
 const SESSION_MAX_AGE_MILLIS = 12 * 60 * 60 * 1000;
 
@@ -46,8 +46,4 @@ export const setupSession = (app: express.Application) => {
       rolling: true,
     })
   );
-};
-
-module.exports = {
-  setupSession: setupSession,
 };

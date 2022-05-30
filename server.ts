@@ -1,10 +1,9 @@
-import express = require("express");
-import path = require("path");
-import prometheus = require("prom-client");
+import express from "express";
+import path from "path";
+import prometheus from "prom-client";
 
-const Auth = require("./server/auth");
-
-const setupProxy = require("./server/proxy");
+import { setupAuth } from "./server/auth";
+import { setupProxy } from "./server/proxy";
 
 // Prometheus metrics
 const collectDefaultMetrics = prometheus.collectDefaultMetrics;
@@ -14,7 +13,7 @@ const server = express();
 server.use(express.json());
 
 const setupServer = async () => {
-  const authClient = await Auth.setupAuth(server);
+  const authClient = await setupAuth(server);
 
   server.use(setupProxy(authClient));
 

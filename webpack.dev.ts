@@ -1,13 +1,14 @@
 import * as express from "express";
 import * as path from "path";
-const { merge } = require("webpack-merge");
+import { merge } from "webpack-merge";
+import * as Webpack from "webpack";
 import * as WebpackDevServer from "webpack-dev-server";
 
 import common from "./webpack.common";
 import mockEndepunkter from "./mock/mockEndepunkter";
-import Auth = require("./server/auth");
+import * as Auth from "./server/auth";
 
-module.exports = merge(common, {
+const devConfig: Webpack.Configuration = {
   mode: "development",
   devtool: "eval-source-map",
   output: {
@@ -29,10 +30,11 @@ module.exports = merge(common, {
       return middlewares;
     },
   },
-});
+};
 
-const setupDev = async (devServer: any) => {
-  const { app, compiler } = devServer;
+const setupDev = async (devServer: WebpackDevServer) => {
+  const app = devServer.app!!;
+  const compiler = devServer.compiler;
 
   await Auth.setupAuth(app);
 
@@ -54,3 +56,5 @@ const setupDev = async (devServer: any) => {
     });
   });
 };
+
+export default merge(common, devConfig);

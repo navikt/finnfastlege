@@ -1,7 +1,7 @@
-import HttpsProxyAgent = require("https-proxy-agent");
-import OpenIdClient = require("openid-client");
+import HttpsProxyAgent from "https-proxy-agent";
+import OpenIdClient from "openid-client";
 
-import Config = require("../config");
+import * as Config from "../config";
 
 const OBO_TOKEN_EXPIRATION_MARGIN_SECONDS = 15;
 
@@ -147,9 +147,4 @@ export const getOpenIdClient = async (
     console.log("Could not discover issuer", issuerUrl);
     throw e;
   }
-};
-
-module.exports = {
-  getOpenIdClient: getOpenIdClient,
-  getOrRefreshOnBehalfOfToken: getOrRefreshOnBehalfOfToken,
 };

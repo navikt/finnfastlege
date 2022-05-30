@@ -1,5 +1,5 @@
 import express from "express";
-const auth = require("../server/auth");
+import * as auth from "../server/auth";
 
 const tilgang = {
   harTilgang: true,
