@@ -33,22 +33,11 @@ const envVar = ({ name, defaultValue }: EnvVarType) => {
 export const isDev = envVar({ name: "NODE_ENV" }) === "development";
 export const isProd = envVar({ name: "NODE_ENV" }) === "production";
 
-const graphapiClientId = "https://graph.microsoft.com";
-
-const localhost = "localhost:8080";
-
-const tokenSetSelfId = "self";
-const tokenSetGraphId = "graph";
-
-export const tokenSetIdType = {
-  self: tokenSetSelfId,
-  graph: tokenSetGraphId,
-};
+export const tokenSetSelfId = "self";
 
 export interface ExternalAppConfig {
   clientId: string;
   host: string;
-  tokenSetId?: any;
   removePathPrefix?: boolean;
 }
 
@@ -130,11 +119,12 @@ export const auth = {
   }),
 
   modiacontextholder: {
-    clientId: graphapiClientId,
+    clientId: envVar({
+      name: "MODIACONTEXTHOLDER_AAD_APP_CLIENT_ID",
+    }),
     host: envVar({
       name: "MODIACONTEXTHOLDER_HOST",
     }),
-    tokenSetId: tokenSetIdType.graph,
   },
 
   fastlegerest: {
@@ -144,7 +134,6 @@ export const auth = {
     host: envVar({
       name: "FASTLEGEREST_HOST",
     }),
-    tokenSetId: tokenSetIdType.self,
   },
   syfoperson: {
     clientId: envVar({
@@ -153,7 +142,6 @@ export const auth = {
     host: envVar({
       name: "SYFOPERSON_HOST",
     }),
-    tokenSetId: tokenSetIdType.self,
   },
   syfotilgangskontroll: {
     clientId: envVar({
@@ -162,7 +150,6 @@ export const auth = {
     host: envVar({
       name: "SYFOTILGANGKONTROLL_HOST",
     }),
-    tokenSetId: tokenSetIdType.self,
   },
 };
 

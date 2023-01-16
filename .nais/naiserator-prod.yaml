@@ -45,6 +45,8 @@ spec:
       value: "prod-gcp.teamsykefravr.syfoperson"
     - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
       value: "prod-fss.teamsykefravr.syfo-tilgangskontroll"
+    - name: MODIACONTEXTHOLDER_AAD_APP_CLIENT_ID
+      value: "prod-fss.personoversikt.modiacontextholder"
     - name: MODIACONTEXTHOLDER_HOST
       value: "https://modiacontextholder.intern.nav.no"
     - name: FASTLEGEREST_HOST
