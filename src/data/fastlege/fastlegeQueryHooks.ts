@@ -1,7 +1,7 @@
 import { FASTLEGEREST_ROOT } from "@/api/constants";
 import { FastlegeInternal } from "@/data/fastlege/FastlegeInternal";
 import { get } from "@/api/axios";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export const fastlegeQueryKeys = {
   fastlege: (fnr: string | undefined) => ["fastlege", fnr],

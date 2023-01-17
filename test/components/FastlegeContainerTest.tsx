@@ -4,9 +4,10 @@ import FastlegeContainer, {
 } from "../../src/containers/FastlegeContainer";
 import { apiMock } from "../stubs/stubApi";
 import nock from "nock";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import { expect } from "chai";
+import { testQueryClient } from "../testQueryClient";
 
 let queryClient: QueryClient;
 let apiMockScope: nock.Scope;
@@ -23,9 +24,7 @@ const noAccess = {
 
 describe("FastlegeContainerTests", () => {
   beforeEach(() => {
-    queryClient = new QueryClient({
-      defaultOptions: { queries: { retry: false } },
-    });
+    queryClient = testQueryClient();
     apiMockScope = apiMock();
   });
   afterEach(() => {

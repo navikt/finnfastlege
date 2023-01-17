@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { get } from "@/api/axios";
 import { Tilgang } from "@/data/tilgang/tilgangTypes";
 import { TILGANGSKONTROLL_AD_PATH } from "@/api/constants";
