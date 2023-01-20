@@ -10,7 +10,9 @@ export const fastlegeQueryKeys = {
 export const useFastlegeQuery = (fnr: string | undefined) => {
   const path = `${FASTLEGEREST_ROOT}/fastlege/fastleger`;
   const fetchFastlege = () => get<FastlegeInternal[]>(path, fnr);
-  return useQuery(fastlegeQueryKeys.fastlege(fnr), fetchFastlege, {
+  return useQuery({
+    queryKey: fastlegeQueryKeys.fastlege(fnr),
+    queryFn: fetchFastlege,
     enabled: !!fnr,
     retry: false,
   });

@@ -9,9 +9,9 @@ const diskresjonskodeQueryKeys = {
 export const useDiskresjonskodeQuery = (fnr: string | undefined) => {
   const path = `${SYFOPERSON_ROOT}/person/diskresjonskode`;
   const fetchDiskresjonskode = () => get<string>(path, fnr);
-  return useQuery(
-    diskresjonskodeQueryKeys.diskresjonskode(fnr),
-    fetchDiskresjonskode,
-    { enabled: !!fnr }
-  );
+  return useQuery({
+    queryKey: diskresjonskodeQueryKeys.diskresjonskode(fnr),
+    queryFn: fetchDiskresjonskode,
+    enabled: !!fnr,
+  });
 };

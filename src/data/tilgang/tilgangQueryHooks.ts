@@ -9,5 +9,8 @@ export const tilgangQueryKeys = {
 
 export const useTilgangQuery = () => {
   const fetchTilgang = () => get<Tilgang>(TILGANGSKONTROLL_AD_PATH);
-  return useQuery(tilgangQueryKeys.tilgang, fetchTilgang);
+  return useQuery({
+    queryKey: tilgangQueryKeys.tilgang,
+    queryFn: fetchTilgang,
+  });
 };
