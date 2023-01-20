@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Sidetittel, Undertekst } from "nav-frontend-typografi";
 import Sokeboks from "./Sokeboks";
 import { Fastlege } from "@/components/Fastlege";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { fastlegeQueryKeys } from "@/data/fastlege/fastlegeQueryHooks";
 
 export const texts = {

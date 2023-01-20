@@ -2,11 +2,12 @@ import React from "react";
 
 import { expect } from "chai";
 import { render, screen } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { apiMock } from "../stubs/stubApi";
 import { FASTLEGEREST_ROOT } from "@/api/constants";
 import { Fastlege, texts } from "@/components/Fastlege";
 import nock from "nock";
+import { testQueryClient } from "../testQueryClient";
 
 const fnr = "01117302624";
 
@@ -16,9 +17,7 @@ let apiMockScope: nock.Scope;
 describe("FastlegeTests", () => {
   beforeEach(() => {
     apiMockScope = apiMock();
-    queryClient = new QueryClient({
-      defaultOptions: { queries: { retry: false } },
-    });
+    queryClient = testQueryClient();
   });
   afterEach(() => {
     nock.cleanAll();

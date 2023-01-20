@@ -18,6 +18,7 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended", // Uses the recommended rules from the @typescript-eslint/eslint-plugin
     "plugin:testing-library/react",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
     "prettier", // Make sure this is always the last configuration in the extends array.
   ],
   plugins: ["unused-imports"],
