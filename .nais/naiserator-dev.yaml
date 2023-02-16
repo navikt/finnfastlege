@@ -64,6 +64,7 @@ spec:
       memory: 128Mi
   azure:
     application:
+      allowAllUsers: true
       enabled: true
       tenant: trygdeetaten.no
       replyURLs:
