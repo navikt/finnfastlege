@@ -1,5 +1,8 @@
 export const erPreProd = () => {
-  return window.location.href.indexOf("dev.intern.nav.no") > -1;
+  return (
+    window.location.href.indexOf("intern.dev.nav.no") > -1 ||
+    window.location.href.indexOf("dev.intern.nav.no") > -1
+  );
 };
 
 export const erLokal = () => {
@@ -7,7 +10,7 @@ export const erLokal = () => {
 };
 
 export const finnNaisUrlDefault = () => {
-  return erPreProd() ? ".dev.intern.nav.no" : ".intern.nav.no";
+  return erPreProd() ? ".intern.dev.nav.no" : ".intern.nav.no";
 };
 
 export const fullNaisUrlDefault = (host: string, path: string) => {
