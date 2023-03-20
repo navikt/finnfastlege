@@ -36,7 +36,7 @@ spec:
     - name: FINNFASTLEGE_URL
       value: http://finnfastlege
     - name: AUTH_REDIRECT_URI
-      value: "https://finnfastlege.dev.intern.nav.no/oauth2/callback"
+      value: "https://finnfastlege.intern.dev.nav.no/oauth2/callback"
     - name: INTERNARBEIDSFLATEDECORATOR_HOST
       value: "internarbeidsflatedecorator-q0.dev.intern.nav.no"
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
@@ -50,11 +50,11 @@ spec:
     - name: MODIACONTEXTHOLDER_HOST
       value: "https://modiacontextholder-q1.dev.intern.nav.no"
     - name: FASTLEGEREST_HOST
-      value: "https://fastlegerest.dev.intern.nav.no"
+      value: "https://fastlegerest.intern.dev.nav.no"
     - name: SYFOPERSON_HOST
-      value: "https://syfoperson.dev.intern.nav.no"
+      value: "https://syfoperson.intern.dev.nav.no"
     - name: SYFOTILGANGKONTROLL_HOST
-      value: "https://syfo-tilgangskontroll.dev.intern.nav.no"
+      value: "https://syfo-tilgangskontroll.intern.dev.nav.no"
   resources:
     limits:
       cpu: 500m
@@ -67,11 +67,9 @@ spec:
       allowAllUsers: true
       enabled: true
       tenant: trygdeetaten.no
-      replyURLs:
-        - "https://finnfastlege.dev.intern.nav.no/oauth2/callback"
       claims:
         extra:
           - "NAVident"
   webproxy: true
   ingresses:
-    - "https://finnfastlege.dev.intern.nav.no"
+    - "https://finnfastlege.intern.dev.nav.no"
