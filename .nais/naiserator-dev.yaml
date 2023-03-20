@@ -72,4 +72,5 @@ spec:
           - "NAVident"
   webproxy: true
   ingresses:
+    - "https://finnfastlege.dev.intern.nav.no"
     - "https://finnfastlege.intern.dev.nav.no"
