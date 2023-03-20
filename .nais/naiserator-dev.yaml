@@ -50,9 +50,9 @@ spec:
     - name: MODIACONTEXTHOLDER_HOST
       value: "https://modiacontextholder-q1.dev.intern.nav.no"
     - name: FASTLEGEREST_HOST
-      value: "https://fastlegerest.dev.intern.nav.no"
+      value: "https://fastlegerest.intern.dev.nav.no"
     - name: SYFOPERSON_HOST
-      value: "https://syfoperson.dev.intern.nav.no"
+      value: "https://syfoperson.intern.dev.nav.no"
     - name: SYFOTILGANGKONTROLL_HOST
       value: "https://syfo-tilgangskontroll.dev.intern.nav.no"
   resources:
@@ -67,8 +67,6 @@ spec:
       allowAllUsers: true
       enabled: true
       tenant: trygdeetaten.no
-      replyURLs:
-        - "https://finnfastlege.dev.intern.nav.no/oauth2/callback"
       claims:
         extra:
           - "NAVident"
