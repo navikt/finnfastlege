@@ -23,11 +23,8 @@ spec:
     initialDelay: 30
     periodSeconds: 5
     timeout: 5
-  # prometheus:
-  #   enabled: false
-  #   path: /actuator/metrics
-  vault:
-    enabled: true
+  envFrom:
+    - secret: finnfastlege-session-key
   env:
     - name: NODE_ENV
       value: production
@@ -36,9 +33,9 @@ spec:
     - name: FINNFASTLEGE_URL
       value: http://finnfastlege
     - name: AUTH_REDIRECT_URI
-      value: "https://finnfastlege.dev.intern.nav.no/oauth2/callback"
+      value: "https://finnfastlege.intern.dev.nav.no/oauth2/callback"
     - name: INTERNARBEIDSFLATEDECORATOR_HOST
-      value: "internarbeidsflatedecorator-q0.dev.intern.nav.no"
+      value: "internarbeidsflatedecorator-q1.dev-fss-pub.nais.io"
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
       value: "dev-gcp.teamsykefravr.fastlegerest"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
@@ -48,13 +45,13 @@ spec:
     - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
       value: "dev-fss.teamsykefravr.syfo-tilgangskontroll"
     - name: MODIACONTEXTHOLDER_HOST
-      value: "https://modiacontextholder-q1.dev.intern.nav.no"
+      value: "https://modiacontextholder-q1.dev-fss-pub.nais.io"
     - name: FASTLEGEREST_HOST
-      value: "https://fastlegerest.intern.dev.nav.no"
+      value: "http://fastlegerest"
     - name: SYFOPERSON_HOST
-      value: "https://syfoperson.intern.dev.nav.no"
+      value: "http://syfoperson"
     - name: SYFOTILGANGKONTROLL_HOST
-      value: "https://syfo-tilgangskontroll.dev.intern.nav.no"
+      value: "https://syfo-tilgangskontroll.dev-fss-pub.nais.io"
   resources:
     limits:
       cpu: 500m
@@ -62,6 +59,17 @@ spec:
     requests:
       cpu: 100m
       memory: 128Mi
+  accessPolicy:
+    outbound:
+      external:
+        - host: "login.microsoftonline.com"
+        - host: "internarbeidsflatedecorator-q1.dev-fss-pub.nais.io"
+        - host: "modiacontextholder-q1.dev-fss-pub.nais.io"
+        - host: "syfo-tilgangskontroll.dev-fss-pub.nais.io"
+      rules:
+        - application: fastlegerest
+        - application: syfoperson
+        - application: finnfastlege-redis
   azure:
     application:
       allowAllUsers: true
@@ -70,6 +78,5 @@ spec:
       claims:
         extra:
           - "NAVident"
-  webproxy: true
   ingresses:
-    - "https://finnfastlege.dev.intern.nav.no"
+    - "https://finnfastlege.intern.dev.nav.no"
