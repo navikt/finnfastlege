@@ -49,12 +49,6 @@ export const server = {
     name: "FINNFASTLEGE_URL",
     defaultValue: "http://localhost:8080",
   }),
-  proxy: envVar({
-    name: "HTTP_PROXY",
-    defaultValue: {
-      dev: "",
-    },
-  }),
 
   frontendDir: envVar({
     name: "FRONTEND_DIR",
