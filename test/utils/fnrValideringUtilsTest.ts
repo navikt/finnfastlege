@@ -1,5 +1,8 @@
 import { expect } from "chai";
 import { erGyldigFodselsnummer } from "@/utils/fnrValideringUtil";
+import sinon from "sinon";
+import * as miljoutil from "@/utils/miljoUtil";
+import { after } from "mocha";
 
 describe("fnrValideringsUtils", () => {
   describe("erGyldigFodselsnummer in prod", () => {
@@ -97,19 +100,13 @@ describe("fnrValideringsUtils", () => {
   });
 
   describe("erGyldigFodselsnummer in preprod", () => {
-    const preprodUrl = "https://finnfastlege.dev.intern.nav.no/fastlege";
+    const erPreProdStub = sinon.stub(miljoutil, "erPreProd");
 
-    const { location } = window;
-    beforeEach((): void => {
-      Object.defineProperty(window, "location", {
-        writable: true,
-        value: {
-          href: preprodUrl,
-        },
-      });
+    before((): void => {
+      erPreProdStub.returns(true);
     });
-    afterEach((): void => {
-      window.location = location;
+    after((): void => {
+      erPreProdStub.reset();
     });
 
     it("return true if valid NAV synthetic fnr (add 40 to month)", () => {
