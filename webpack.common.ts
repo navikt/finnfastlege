@@ -6,7 +6,6 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import Dotenv from "dotenv-webpack";
 import autoprefixer from "autoprefixer";
-import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 
 const extensions = [".tsx", ".jsx", ".js", ".ts", ".json"];
 
@@ -20,11 +19,6 @@ const commonConfig: Configuration = {
     publicPath: "/static",
   },
   resolve: {
-    plugins: [
-      new TsconfigPathsPlugin({
-        extensions,
-      }),
-    ],
     extensions,
   },
   module: {
