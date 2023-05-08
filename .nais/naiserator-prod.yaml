@@ -41,7 +41,7 @@ spec:
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
       value: "prod-gcp.teamsykefravr.syfoperson"
     - name: SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID
-      value: "prod-fss.teamsykefravr.syfo-tilgangskontroll"
+      value: "prod-gcp.teamsykefravr.syfo-tilgangskontroll"
     - name: MODIACONTEXTHOLDER_AAD_APP_CLIENT_ID
       value: "prod-fss.personoversikt.modiacontextholder"
     - name: MODIACONTEXTHOLDER_HOST
@@ -51,7 +51,7 @@ spec:
     - name: SYFOPERSON_HOST
       value: "http://syfoperson"
     - name: SYFOTILGANGKONTROLL_HOST
-      value: "https://syfo-tilgangskontroll.prod-fss-pub.nais.io"
+      value: "http://syfo-tilgangskontroll"
   resources:
     limits:
       cpu: 500m
@@ -65,9 +65,9 @@ spec:
         - host: "login.microsoftonline.com"
         - host: "internarbeidsflatedecorator.prod-fss-pub.nais.io"
         - host: "modiacontextholder.prod-fss-pub.nais.io"
-        - host: "syfo-tilgangskontroll.prod-fss-pub.nais.io"
       rules:
         - application: fastlegerest
+        - application: syfo-tilgangskontroll
         - application: syfoperson
         - application: finnfastlege-redis
   azure:
