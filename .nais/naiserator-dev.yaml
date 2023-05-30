@@ -72,6 +72,7 @@ spec:
         - application: finnfastlege-redis
   azure:
     sidecar:
+      enabled: true
       autoLogin: true
     application:
       allowAllUsers: true
