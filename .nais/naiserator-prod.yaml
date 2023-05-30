@@ -71,6 +71,8 @@ spec:
         - application: syfoperson
         - application: finnfastlege-redis
   azure:
+    sidecar:
+      autoLogin: true
     application:
       allowAllUsers: true
       enabled: true
