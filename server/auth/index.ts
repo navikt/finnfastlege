@@ -77,7 +77,7 @@ const setupPassport = async (
         req.session.redirectTo = req.query.redirectTo;
       }
       res.redirect(`/oauth2/login?redirect=${req.query.redirectTo}`);
-    },
+    }
   );
   app.get("/logout", (req: express.Request, res: express.Response) => {
     req.logout();
