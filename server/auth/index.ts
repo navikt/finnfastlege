@@ -70,17 +70,14 @@ const setupPassport = async (
     done(null, user);
   });
 
-  app.get(
-    "/oauth2/login",
-    (req: any, _res: express.Response, next: express.NextFunction) => {
+  app.get("/login", (req: any, res: express.Response) => {
       if (typeof req.query.redirectTo === "string") {
         req.session.redirectTo = req.query.redirectTo;
       }
-      next();
+      res.redirect(`/oauth2/login?redirect=${req.query.redirectTo}`);
     },
-    passport.authenticate(authName, { failureRedirect: "/login-failed" })
   );
-  app.get("/oauth2/logout", (req: express.Request, res: express.Response) => {
+  app.get("/logout", (req: express.Request, res: express.Response) => {
     req.logout();
     res.redirect("/");
   });
