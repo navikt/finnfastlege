@@ -70,15 +70,12 @@ const setupPassport = async (
     done(null, user);
   });
 
-  app.get(
-    "/login",
-    (req: any, res: express.Response) => {
-      if (typeof req.query.redirectTo === "string") {
-        req.session.redirectTo = req.query.redirectTo;
-      }
-      res.redirect(`/oauth2/login?redirect=${req.query.redirectTo}`);
+  app.get("/login", (req: any, res: express.Response) => {
+    if (typeof req.query.redirectTo === "string") {
+      req.session.redirectTo = req.query.redirectTo;
     }
-  );
+    res.redirect("/oauth2/login?redirect=${req.query.redirectTo}");
+  });
   app.get("/logout", (req: express.Request, res: express.Response) => {
     req.logout();
     res.redirect("/");
