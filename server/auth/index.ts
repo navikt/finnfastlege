@@ -70,7 +70,9 @@ const setupPassport = async (
     done(null, user);
   });
 
-  app.get("/login", (req: any, res: express.Response) => {
+  app.get(
+    "/login",
+    (req: any, res: express.Response) => {
       if (typeof req.query.redirectTo === "string") {
         req.session.redirectTo = req.query.redirectTo;
       }
