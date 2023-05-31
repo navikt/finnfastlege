@@ -1,4 +1,5 @@
 import express from "express";
+import { IncomingHttpHeaders } from 'http';
 import path from "path";
 import prometheus from "prom-client";
 
@@ -17,14 +18,22 @@ const setupServer = async () => {
 
   server.use(setupProxy());
 
-  const nocache = (req, res, next) => {
+  const nocache = (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
     res.header("Expires", "-1");
     res.header("Pragma", "no-cache");
     next();
   };
 
-  const redirectIfUnauthorized = async (req, res, next) => {
+  const redirectIfUnauthorized = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     if (await userIsLoggedIn(req)) {
       next();
     } else {

@@ -1,5 +1,5 @@
 import express from "express";
-import * as auth from "../server/auth";
+import * as auth from "../server/authUtils";
 
 const tilgang = {
   harTilgang: true,

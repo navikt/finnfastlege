@@ -83,7 +83,7 @@ export const auth = {
     defaultValue: { dev: "" },
   }),
 
-  issuer: enVar({ name: "AZURE_OPENID_CONFIG_ISSUER" }),
+  issuer: envVar({ name: "AZURE_OPENID_CONFIG_ISSUER" }),
   redirectUri: envVar({ name: "AUTH_REDIRECT_URI" }),
 
   tokenEndpointAuthMethod: "private_key_jwt",

@@ -1,5 +1,5 @@
 import express from "express";
-import { ensureAuthenticated } from "../server/auth";
+import { ensureAuthenticated } from "../server/authUtils";
 import { RelasjonKodeVerdi } from "../src/data/fastlege/FastlegeInternal";
 import { leggTilDagerPaDato } from "./util/dateUtil";
 

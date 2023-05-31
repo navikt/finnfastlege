@@ -46,11 +46,11 @@ const createOpenIdClient = async (issuerUrl: string): Promise<Client> => {
     return new issuer.Client(
       {
         client_id: Config.auth.clientId,
+        jwks_uri: Config.auth.jwksURI,
         redirect_uris: [Config.auth.redirectUri],
         token_endpoint_auth_method: "private_key_jwt",
         token_endpoint_auth_signing_alg: "RS256",
       },
-      Config.auth.jwks
     );
   } catch (e) {
     console.log("Could not discover issuer", issuerUrl);
@@ -76,13 +76,13 @@ export const requestOnBehalfOfToken = async (
 export const tokenIsValid = async (token: string) => {
   try {
     const verification = await jwtVerify(token, remoteJWKSet, {
-      audience: clientId,
+      audience: Config.auth.clientId,
       issuer: azureAdIssuer.metadata.issuer,
     });
 
     return !!verification.payload;
   } catch (e) {
-    logger.error("Noe galt skjedde under validering av token:", e);
+    console.error("Noe galt skjedde under validering av token:", e);
     return false;
   }
 };
