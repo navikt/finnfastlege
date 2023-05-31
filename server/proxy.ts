@@ -1,9 +1,8 @@
 import express from "express";
 import expressHttpProxy from "express-http-proxy";
 import url from "url";
-import OpenIdClient from "openid-client";
 
-import * as AuthUtils from "./auth/utils";
+import * as AuthUtils from "./authUtils";
 import * as Config from "./config";
 
 const proxyExternalHost = (host: any, accessToken: any, parseReqBody: any) =>
@@ -50,7 +49,6 @@ const proxyOnBehalfOf = (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
-  authClient: OpenIdClient.Client,
   externalAppConfig: Config.ExternalAppConfig
 ) => {
   const user = req.user as any;
@@ -66,7 +64,6 @@ const proxyOnBehalfOf = (
   }
 
   AuthUtils.getOrRefreshOnBehalfOfToken(
-    authClient,
     user.tokenSets,
     externalAppConfig.clientId
   )
@@ -92,7 +89,7 @@ const proxyOnBehalfOf = (
     });
 };
 
-export const setupProxy = (authClient: OpenIdClient.Client) => {
+export const setupProxy = () => {
   const router = express.Router();
 
   router.use(
@@ -106,7 +103,6 @@ export const setupProxy = (authClient: OpenIdClient.Client) => {
         req,
         res,
         next,
-        authClient,
         Config.auth.modiacontextholder
       );
     }
@@ -119,7 +115,7 @@ export const setupProxy = (authClient: OpenIdClient.Client) => {
       res: express.Response,
       next: express.NextFunction
     ) => {
-      proxyOnBehalfOf(req, res, next, authClient, Config.auth.fastlegerest);
+      proxyOnBehalfOf(req, res, next, Config.auth.fastlegerest);
     }
   );
 
@@ -130,7 +126,7 @@ export const setupProxy = (authClient: OpenIdClient.Client) => {
       res: express.Response,
       next: express.NextFunction
     ) => {
-      proxyOnBehalfOf(req, res, next, authClient, Config.auth.syfoperson);
+      proxyOnBehalfOf(req, res, next, Config.auth.syfoperson);
     }
   );
 
@@ -145,7 +141,6 @@ export const setupProxy = (authClient: OpenIdClient.Client) => {
         req,
         res,
         next,
-        authClient,
         Config.auth.syfotilgangskontroll
       );
     }

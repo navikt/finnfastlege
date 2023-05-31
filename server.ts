@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import prometheus from "prom-client";
 
-import { setupAuth } from "./server/auth";
+import { initializeAzureAd, tokenIsValid } from "./server/azureAd";
 import { setupProxy } from "./server/proxy";
 
 // Prometheus metrics
@@ -13,19 +13,23 @@ const server = express();
 server.use(express.json());
 
 const setupServer = async () => {
-  const authClient = await setupAuth(server);
+  await initializeAzureAd();
 
-  server.use(setupProxy(authClient));
+  server.use(setupProxy());
 
-  const nocache = (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
+  const nocache = (req, res, next) => {
     res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
     res.header("Expires", "-1");
     res.header("Pragma", "no-cache");
     next();
+  };
+
+  const redirectIfUnauthorized = async (req, res, next) => {
+    if (await userIsLoggedIn(req)) {
+      next();
+    } else {
+      res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
+    }
   };
 
   const DIST_DIR = path.join(__dirname, "dist");
@@ -44,7 +48,7 @@ const setupServer = async () => {
 
   server.get(
     ["/", "/fastlege", "/fastlege/*", /^\/fastlege\/(?!(resources|img)).*$/],
-    nocache,
+    [nocache, redirectIfUnauthorized],
     (req, res) => {
       res.sendFile(HTML_FILE);
     }
@@ -60,3 +64,13 @@ const setupServer = async () => {
 };
 
 setupServer();
+
+function retrieveToken(headers: IncomingHttpHeaders) {
+    return headers.authorization?.replace('Bearer ', '');
+}
+
+async function userIsLoggedIn(req: Request): Promise<boolean> {
+    const token = retrieveToken(req.headers);
+    return token && (await tokenIsValid(token));
+}
+
