@@ -3,7 +3,8 @@ import { IncomingHttpHeaders } from "http";
 import path from "path";
 import prometheus from "prom-client";
 
-import { initializeAzureAd, tokenIsValid } from "./server/azureAd";
+import { userIsLoggedIn } from "./server/authUtils";
+import { initializeAzureAd } from "./server/azureAd";
 import { setupProxy } from "./server/proxy";
 
 // Prometheus metrics
@@ -73,12 +74,3 @@ const setupServer = async () => {
 };
 
 setupServer();
-
-function retrieveToken(headers: IncomingHttpHeaders) {
-  return headers.authorization?.replace("Bearer ", "");
-}
-
-async function userIsLoggedIn(req: express.Request): Promise<boolean> {
-  const token = retrieveToken(req.headers);
-  return token && (await tokenIsValid(token));
-}

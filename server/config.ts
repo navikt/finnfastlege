@@ -68,7 +68,7 @@ export const server = {
 
 // For auth
 export const auth = {
-  discoverUrl: envVar({
+  discoveryUrl: envVar({
     name: "AZURE_APP_WELL_KNOWN_URL",
     defaultValue: {
       dev: `http://localhost:${server.mockOauthServerPort}/default`,

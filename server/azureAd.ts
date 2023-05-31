@@ -10,7 +10,7 @@ import * as Config from "./config";
 
 let azureAdIssuer: Issuer<Client>;
 let remoteJWKSet: GetKeyFunction<JWSHeaderParameters, FlattenedJWSInput>;
-let openIdClient: OpenIdClient.Client;
+let openIdClient: Client;
 
 export const initializeAzureAd = async () => {
   try {
@@ -35,11 +35,11 @@ export const opprettRemoteJWKSet = () => {
   remoteJWKSet = createRemoteJWKSet(jwksUrl);
 };
 
-export const opprettOpenIdClient = () => {
+export const opprettOpenIdClient = async () => {
   openIdClient = await createOpenIdClient(Config.auth.issuer);
 };
 
-const createOpenIdClient = async (issuerUrl: string): Promise<Client> => {
+export const createOpenIdClient = async (issuerUrl: string): Promise<Client> => {
   try {
     const issuer = await Issuer.discover(issuerUrl);
 

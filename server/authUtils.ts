@@ -1,9 +1,9 @@
 import HttpsProxyAgent from "https-proxy-agent";
 import express from "express";
+import { TokenSet } from "openid-client";
 
-import * as Config from "../config";
-import { tokenSetSelfId } from "../config";
-import { requestOnBehalfOfToken } from "../azureAd";
+import { tokenSetSelfId } from "./config";
+import { requestOnBehalfOfToken, tokenIsValid } from "./azureAd";
 
 const OBO_TOKEN_EXPIRATION_MARGIN_SECONDS = 30;
 
@@ -15,10 +15,10 @@ const getTokenSetById = (tokenSets: any, id: any) => {
   if (!(id in tokenSets)) {
     return null;
   }
-  if (tokenSets[id] instanceof OpenIdClient.TokenSet) {
+  if (tokenSets[id] instanceof TokenSet) {
     return tokenSets[id];
   }
-  return new OpenIdClient.TokenSet(tokenSets[id]);
+  return new TokenSet(tokenSets[id]);
 };
 
 export const getOrRefreshOnBehalfOfToken = async (
@@ -54,3 +54,9 @@ export const ensureAuthenticated = () => {
     res.status(401).send("Unauthorized");
   };
 };
+
+export const userIsLoggedIn = async (req: express.Request) => {
+  const token = req.headers.authorization?.replace("Bearer ", "");
+  return token && (await tokenIsValid(token));
+}
+
