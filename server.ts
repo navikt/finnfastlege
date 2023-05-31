@@ -66,11 +66,10 @@ const setupServer = async () => {
 setupServer();
 
 function retrieveToken(headers: IncomingHttpHeaders) {
-    return headers.authorization?.replace('Bearer ', '');
+  return headers.authorization?.replace("Bearer ", "");
 }
 
 async function userIsLoggedIn(req: Request): Promise<boolean> {
-    const token = retrieveToken(req.headers);
-    return token && (await tokenIsValid(token));
+  const token = retrieveToken(req.headers);
+  return token && (await tokenIsValid(token));
 }
-

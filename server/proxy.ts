@@ -99,12 +99,7 @@ export const setupProxy = () => {
       res: express.Response,
       next: express.NextFunction
     ) => {
-      proxyOnBehalfOf(
-        req,
-        res,
-        next,
-        Config.auth.modiacontextholder
-      );
+      proxyOnBehalfOf(req, res, next, Config.auth.modiacontextholder);
     }
   );
 
@@ -137,12 +132,7 @@ export const setupProxy = () => {
       res: express.Response,
       next: express.NextFunction
     ) => {
-      proxyOnBehalfOf(
-        req,
-        res,
-        next,
-        Config.auth.syfotilgangskontroll
-      );
+      proxyOnBehalfOf(req, res, next, Config.auth.syfotilgangskontroll);
     }
   );
 

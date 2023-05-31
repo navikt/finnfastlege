@@ -2,7 +2,7 @@ import HttpsProxyAgent from "https-proxy-agent";
 
 import * as Config from "../config";
 import { tokenSetSelfId } from "../config";
-import { requestOnBehalfOfToken } from "../azureAd"
+import { requestOnBehalfOfToken } from "../azureAd";
 
 const OBO_TOKEN_EXPIRATION_MARGIN_SECONDS = 30;
 
@@ -40,4 +40,3 @@ export const getOrRefreshOnBehalfOfToken = async (
   }
   return tokenSets[clientId];
 };
-
