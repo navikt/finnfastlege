@@ -39,7 +39,9 @@ export const opprettOpenIdClient = async () => {
   openIdClient = await createOpenIdClient(Config.auth.issuer);
 };
 
-export const createOpenIdClient = async (issuerUrl: string): Promise<Client> => {
+export const createOpenIdClient = async (
+  issuerUrl: string
+): Promise<Client> => {
   try {
     const issuer = await Issuer.discover(issuerUrl);
 

@@ -58,5 +58,4 @@ export const ensureAuthenticated = () => {
 export const userIsLoggedIn = async (req: express.Request) => {
   const token = req.headers.authorization?.replace("Bearer ", "");
   return token && (await tokenIsValid(token));
-}
-
+};
