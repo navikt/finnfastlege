@@ -43,15 +43,13 @@ const createOpenIdClient = async (issuerUrl: string): Promise<Client> => {
   try {
     const issuer = await Issuer.discover(issuerUrl);
 
-    return new issuer.Client(
-      {
-        client_id: Config.auth.clientId,
-        jwks_uri: Config.auth.jwksURI,
-        redirect_uris: [Config.auth.redirectUri],
-        token_endpoint_auth_method: "private_key_jwt",
-        token_endpoint_auth_signing_alg: "RS256",
-      },
-    );
+    return new issuer.Client({
+      client_id: Config.auth.clientId,
+      jwks_uri: Config.auth.jwksURI,
+      redirect_uris: [Config.auth.redirectUri],
+      token_endpoint_auth_method: "private_key_jwt",
+      token_endpoint_auth_signing_alg: "RS256",
+    });
   } catch (e) {
     console.log("Could not discover issuer", issuerUrl);
     throw e;
