@@ -1,4 +1,5 @@
 import HttpsProxyAgent from "https-proxy-agent";
+import express from "express";
 
 import * as Config from "../config";
 import { tokenSetSelfId } from "../config";

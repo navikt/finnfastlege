@@ -22,7 +22,7 @@ export const initializeAzureAd = async () => {
   }
 };
 
-const discoverAzureAdIssuer = async () => {
+export const discoverAzureAdIssuer = async () => {
   if (Config.auth.discoveryUrl) {
     azureAdIssuer = await Issuer.discover(Config.auth.discoveryUrl);
   } else {
@@ -30,12 +30,12 @@ const discoverAzureAdIssuer = async () => {
   }
 };
 
-const opprettRemoteJWKSet = () => {
+export const opprettRemoteJWKSet = () => {
   const jwksUrl = new URL(Config.auth.jwksURI);
   remoteJWKSet = createRemoteJWKSet(jwksUrl);
 };
 
-const opprettOpenIdClient = () => {
+export const opprettOpenIdClient = () => {
   openIdClient = await createOpenIdClient(Config.auth.issuer);
 };
 

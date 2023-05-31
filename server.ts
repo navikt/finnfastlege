@@ -58,7 +58,7 @@ const setupServer = async () => {
   server.get(
     ["/", "/fastlege", "/fastlege/*", /^\/fastlege\/(?!(resources|img)).*$/],
     [nocache, redirectIfUnauthorized],
-    (req, res) => {
+    (req: express.Request, res: express.Response) => {
       res.sendFile(HTML_FILE);
     }
   );
@@ -78,7 +78,7 @@ function retrieveToken(headers: IncomingHttpHeaders) {
   return headers.authorization?.replace("Bearer ", "");
 }
 
-async function userIsLoggedIn(req: Request): Promise<boolean> {
+async function userIsLoggedIn(req: express.Request): Promise<boolean> {
   const token = retrieveToken(req.headers);
   return token && (await tokenIsValid(token));
 }
