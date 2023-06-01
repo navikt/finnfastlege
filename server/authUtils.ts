@@ -42,16 +42,6 @@ export const getOrRefreshOnBehalfOfToken = async (
   return tokenSets[clientId];
 };
 
-export const ensureAuthenticated = () => {
-  return async (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
-    return next();
-  };
-};
-
 export const userIsLoggedIn = async (req: express.Request) => {
   const token = req.headers.authorization?.replace("Bearer ", "");
   return token && (await tokenIsValid(token));

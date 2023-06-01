@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { createRemoteJWKSet, decodeJwt, jwtVerify } from "jose";
+import { URL } from 'url';
 import {
   FlattenedJWSInput,
   GetKeyFunction,
