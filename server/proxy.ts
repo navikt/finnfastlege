@@ -58,7 +58,7 @@ const proxyOnBehalfOf = (
   next: express.NextFunction,
   externalAppConfig: Config.ExternalAppConfig
 ) => {
-  const user = req.session.user as any;
+  const user = req.session ? (req.session.user as any) : undefined;
   if (!user) {
     res
       .status(401)
