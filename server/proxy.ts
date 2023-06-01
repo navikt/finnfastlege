@@ -1,9 +1,16 @@
 import express from "express";
 import expressHttpProxy from "express-http-proxy";
 import url from "url";
+import session from "express-session";
 
 import * as AuthUtils from "./authUtils";
 import * as Config from "./config";
+
+declare module "express-session" {
+  export interface SessionData {
+    user: { [key: string]: any };
+  }
+}
 
 const proxyExternalHost = (host: any, accessToken: any, parseReqBody: any) =>
   expressHttpProxy(host, {
