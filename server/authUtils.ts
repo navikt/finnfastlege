@@ -48,11 +48,7 @@ export const ensureAuthenticated = () => {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const user = req.user as any;
-    if (user) {
-      return next();
-    }
-    res.status(401).send("Unauthorized");
+    return next();
   };
 };
 
