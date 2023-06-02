@@ -9,7 +9,7 @@ metadata:
   namespace: teamsykefravr
   name: finnfastlege-redis
 spec:
-  image: bitnami/redis:6.0.12
+  image: redis:5-alpine
   port: 6379
   replicas:
     min: 1
