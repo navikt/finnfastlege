@@ -25,6 +25,7 @@ spec:
     timeout: 5
   envFrom:
     - secret: finnfastlege-session-key
+    - secret: finnfastlege-redis-password
   env:
     - name: NODE_ENV
       value: production
