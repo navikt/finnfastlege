@@ -4,7 +4,7 @@ import OpenIdClient from "openid-client";
 import * as Config from "../config";
 import { tokenSetSelfId } from "../config";
 
-const OBO_TOKEN_EXPIRATION_MARGIN_SECONDS = 15;
+const OBO_TOKEN_EXPIRATION_MARGIN_SECONDS = 60;
 
 const expired = (oboToken: any) => {
   return oboToken.expires_in <= OBO_TOKEN_EXPIRATION_MARGIN_SECONDS;
