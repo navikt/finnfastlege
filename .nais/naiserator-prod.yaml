@@ -55,7 +55,6 @@ spec:
       value: "http://syfo-tilgangskontroll"
   resources:
     limits:
-      cpu: 500m
       memory: 256Mi
     requests:
       cpu: 100m
