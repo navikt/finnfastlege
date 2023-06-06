@@ -15,7 +15,6 @@ spec:
     max: 1
   resources:
     limits:
-      cpu: 100m
       memory: 100Mi
     requests:
       cpu: 100m
@@ -31,3 +30,5 @@ spec:
       value: finnfastlege-redis:6379
     - name: REDIS_EXPORTER_LOG_FORMAT
       value: json
+  envFrom:
+    - secret: finnfastlege-redis-password
