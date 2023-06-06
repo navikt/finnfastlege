@@ -28,6 +28,18 @@ const setupServer = async () => {
     next();
   };
 
+  const redirectIfUnauthorized = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    if (req.headers["authorization"]) {
+      next();
+    } else {
+      res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
+    }
+  };
+
   const DIST_DIR = path.join(__dirname, "dist");
   const HTML_FILE = path.join(DIST_DIR, "index.html");
 
@@ -44,8 +56,8 @@ const setupServer = async () => {
 
   server.get(
     ["/", "/fastlege", "/fastlege/*", /^\/fastlege\/(?!(resources|img)).*$/],
-    nocache,
-    (req, res) => {
+    [nocache, redirectIfUnauthorized],
+    (req: express.Request, res: express.Response) => {
       res.sendFile(HTML_FILE);
     }
   );
