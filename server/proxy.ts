@@ -55,10 +55,10 @@ const proxyOnBehalfOf = (
 ) => {
   getOrRefreshOnBehalfOfToken(authClient, req, externalAppConfig.clientId)
     .then((onBehalfOfToken) => {
-      if (!onBehalfOfToken.accessToken) {
+      if (!onBehalfOfToken || !onBehalfOfToken.accessToken) {
         res.status(500).send("Failed to fetch access token on behalf of user.");
         console.log(
-          "proxyReqOptDecorator: Got on-behalf-of token, but the access_token was undefined"
+          "proxyOnBehalfOf: on-behalf-of-token or access_token was undefined"
         );
         return;
       }
