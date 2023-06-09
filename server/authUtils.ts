@@ -13,11 +13,9 @@ type CachedOboToken = {
   expires: number;
 };
 
-type Scope = string;
-
 declare module "express-session" {
   export interface SessionData {
-    tokenCache: { [clientId: Scope]: CachedOboToken };
+    tokenCache: { [clientId: string]: CachedOboToken };
   }
 }
 
@@ -38,8 +36,8 @@ export const ensureAuthenticated = () => {
   };
 };
 
-const retrieveToken = (req: Request) => {
-  return req.headers.authorization?.replace("Bearer ", "") as string;
+const retrieveToken = (req: Request): string | undefined => {
+  return req.headers.authorization?.replace("Bearer ", "");
 };
 
 export const getOrRefreshOnBehalfOfToken = async (
@@ -51,7 +49,7 @@ export const getOrRefreshOnBehalfOfToken = async (
     req.session.tokenCache = {};
   }
 
-  var cachedOboToken = req.session.tokenCache[clientId];
+  let cachedOboToken = req.session.tokenCache[clientId];
   if (!cachedOboToken || isExpired(cachedOboToken)) {
     const token = retrieveToken(req);
     const onBehalfOfToken = await requestOnBehalfOfToken(
@@ -70,16 +68,16 @@ export const getOrRefreshOnBehalfOfToken = async (
 
 const requestOnBehalfOfToken = async (
   authClient: OpenIdClient.Client,
-  access_token: string,
+  accessToken: string | undefined,
   clientId: string
 ) => {
-  if (!access_token) {
+  if (!accessToken) {
     throw Error(
       "Could not get on-behalf-of token because the access_token was undefined"
     );
   }
   const grantBody = {
-    assertion: access_token,
+    assertion: accessToken,
     client_assertion_type:
       "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
     grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
