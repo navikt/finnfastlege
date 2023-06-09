@@ -5,9 +5,7 @@ import redis from "redis";
 
 import * as Config from "./config";
 
-const SESSION_MAX_AGE_MILLIS = 12 * 60 * 60 * 1000;
-
-const SESSION_MAX_AGE_SECONDS = SESSION_MAX_AGE_MILLIS / 1000;
+const SESSION_MAX_AGE_SECONDS = 12 * 60 * 60;
 
 const getRedisStore = () => {
   const RedisStore = connectRedis(session);
@@ -32,7 +30,7 @@ export const setupSession = (app: express.Application) => {
   app.use(
     session({
       cookie: {
-        maxAge: SESSION_MAX_AGE_MILLIS,
+        maxAge: SESSION_MAX_AGE_SECONDS * 1000,
         sameSite: "lax",
         httpOnly: true,
         secure: Config.isProd,

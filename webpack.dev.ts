@@ -6,7 +6,7 @@ import * as WebpackDevServer from "webpack-dev-server";
 
 import common from "./webpack.common";
 import mockEndepunkter from "./mock/mockEndepunkter";
-import * as Auth from "./server/auth";
+import * as Session from "./server/session";
 
 const devConfig: Webpack.Configuration = {
   mode: "development",
@@ -36,7 +36,7 @@ const setupDev = async (devServer: WebpackDevServer) => {
   const app = devServer.app!!;
   const compiler = devServer.compiler;
 
-  await Auth.setupAuth(app);
+  Session.setupSession(app);
 
   mockEndepunkter(app);
   app.use("/fastlege/img", express.static(path.resolve(__dirname, "img")));

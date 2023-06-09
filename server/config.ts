@@ -33,8 +33,6 @@ const envVar = ({ name, defaultValue }: EnvVarType) => {
 export const isDev = envVar({ name: "NODE_ENV" }) === "development";
 export const isProd = envVar({ name: "NODE_ENV" }) === "production";
 
-export const tokenSetSelfId = "self";
-
 export interface ExternalAppConfig {
   clientId: string;
   host: string;

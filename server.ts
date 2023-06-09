@@ -2,8 +2,10 @@ import express from "express";
 import path from "path";
 import prometheus from "prom-client";
 
-import { setupAuth } from "./server/auth";
+import * as Config from "./server/config";
+import { getOpenIdClient } from "./server/authUtils";
 import { setupProxy } from "./server/proxy";
+import { setupSession } from "./server/session";
 
 // Prometheus metrics
 const collectDefaultMetrics = prometheus.collectDefaultMetrics;
@@ -12,21 +14,34 @@ collectDefaultMetrics({});
 const server = express();
 server.use(express.json());
 
+const nocache = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
+  res.header("Expires", "-1");
+  res.header("Pragma", "no-cache");
+  next();
+};
+
+const redirectIfUnauthorized = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  if (req.headers["authorization"]) {
+    next();
+  } else {
+    res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
+  }
+};
+
 const setupServer = async () => {
-  const authClient = await setupAuth(server);
+  setupSession(server);
+  const authClient = await getOpenIdClient(Config.auth.discoverUrl);
 
   server.use(setupProxy(authClient));
-
-  const nocache = (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
-    res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
-    res.header("Expires", "-1");
-    res.header("Pragma", "no-cache");
-    next();
-  };
 
   const DIST_DIR = path.join(__dirname, "dist");
   const HTML_FILE = path.join(DIST_DIR, "index.html");
@@ -44,8 +59,8 @@ const setupServer = async () => {
 
   server.get(
     ["/", "/fastlege", "/fastlege/*", /^\/fastlege\/(?!(resources|img)).*$/],
-    nocache,
-    (req, res) => {
+    [nocache, redirectIfUnauthorized],
+    (req: express.Request, res: express.Response) => {
       res.sendFile(HTML_FILE);
     }
   );
