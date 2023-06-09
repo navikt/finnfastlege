@@ -4,8 +4,8 @@ import { Request, Response, NextFunction } from "express";
 import * as Config from "./config";
 
 type OboToken = {
-  access_token: string;
-  expires_in: number;
+  accessToken: string;
+  expiresIn: number;
 };
 
 type CachedOboToken = {
@@ -23,7 +23,7 @@ declare module "express-session" {
 
 const OBO_TOKEN_EXPIRATION_MARGIN_SECONDS = 60;
 
-const expired = (token: CachedOboToken) => {
+const isExpired = (token: CachedOboToken) => {
   return (
     token.expires < Date.now() - OBO_TOKEN_EXPIRATION_MARGIN_SECONDS * 1000
   );
@@ -52,7 +52,7 @@ export const getOrRefreshOnBehalfOfToken = async (
   }
 
   var cachedOboToken = req.session.tokenCache[clientId];
-  if (!cachedOboToken || expired(cachedOboToken)) {
+  if (!cachedOboToken || isExpired(cachedOboToken)) {
     const token = retrieveToken(req);
     const onBehalfOfToken = await requestOnBehalfOfToken(
       authClient,
@@ -61,7 +61,7 @@ export const getOrRefreshOnBehalfOfToken = async (
     );
     cachedOboToken = {
       token: onBehalfOfToken,
-      expires: Date.now() + onBehalfOfToken.expires_in * 1000,
+      expires: Date.now() + onBehalfOfToken.expiresIn * 1000,
     };
     req.session.tokenCache[clientId] = cachedOboToken;
   }
@@ -88,8 +88,8 @@ const requestOnBehalfOfToken = async (
   };
   const tokenSet = await authClient.grant(grantBody);
   return {
-    access_token: tokenSet.access_token,
-    expires_in: tokenSet.expires_in,
+    accessToken: tokenSet.access_token,
+    expiresIn: tokenSet.expires_in,
   } as OboToken;
 };
 
