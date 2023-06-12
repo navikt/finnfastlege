@@ -3,7 +3,7 @@ import expressHttpProxy from "express-http-proxy";
 import url from "url";
 import OpenIdClient from "openid-client";
 
-import * as AuthUtils from "./auth/utils";
+import { getOrRefreshOnBehalfOfToken } from "./authUtils";
 import * as Config from "./config";
 
 const proxyExternalHost = (host: any, accessToken: any, parseReqBody: any) =>
@@ -53,34 +53,18 @@ const proxyOnBehalfOf = (
   authClient: OpenIdClient.Client,
   externalAppConfig: Config.ExternalAppConfig
 ) => {
-  const user = req.user as any;
-  if (!user) {
-    res
-      .status(401)
-      .header(
-        "WWW-Authenticate",
-        `OAuth realm=${externalAppConfig.host}, charset="UTF-8"`
-      )
-      .send("Not authenticated");
-    return;
-  }
-
-  AuthUtils.getOrRefreshOnBehalfOfToken(
-    authClient,
-    user.tokenSets,
-    externalAppConfig.clientId
-  )
+  getOrRefreshOnBehalfOfToken(authClient, req, externalAppConfig.clientId)
     .then((onBehalfOfToken) => {
-      if (!onBehalfOfToken.access_token) {
+      if (!onBehalfOfToken || !onBehalfOfToken.accessToken) {
         res.status(500).send("Failed to fetch access token on behalf of user.");
         console.log(
-          "proxyReqOptDecorator: Got on-behalf-of token, but the access_token was undefined"
+          "proxyOnBehalfOf: on-behalf-of-token or access_token was undefined"
         );
         return;
       }
       return proxyExternalHost(
         externalAppConfig.host,
-        onBehalfOfToken.access_token,
+        onBehalfOfToken.accessToken,
         req.method === "POST"
       )(req, res, next);
     })

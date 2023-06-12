@@ -1,5 +1,5 @@
 import express from "express";
-import { ensureAuthenticated } from "../server/auth";
+import { ensureAuthenticated } from "../server/authUtils";
 
 const saksbehandler = {
   ident: "Z999999",
