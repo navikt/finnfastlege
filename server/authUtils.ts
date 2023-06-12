@@ -116,14 +116,6 @@ export const getOrRefreshOnBehalfOfToken = async (
   }
   let cachedOboToken = req.session.tokenCache[clientId];
   if (cachedOboToken && isNotExpired(cachedOboToken)) {
-    console.log(
-      "Session " +
-        req.sessionID +
-        ": Existing obotoken found in session cache for " +
-        clientId +
-        " expiring " +
-        cachedOboToken.expires
-    );
     return cachedOboToken.token;
   } else {
     const onBehalfOfToken = await requestOnBehalfOfToken(
@@ -139,14 +131,6 @@ export const getOrRefreshOnBehalfOfToken = async (
       expires: Date.now() + onBehalfOfToken.expiresIn * 1000,
     };
     req.session.tokenCache[clientId] = cachedOboToken;
-    console.log(
-      "Session " +
-        req.sessionID +
-        ": New obotoken put in session cache for " +
-        clientId +
-        " expiring " +
-        cachedOboToken.expires
-    );
   }
   return cachedOboToken.token;
 };
