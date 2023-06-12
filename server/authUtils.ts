@@ -23,7 +23,7 @@ const OBO_TOKEN_EXPIRATION_MARGIN_SECONDS = 60;
 
 const isNotExpired = (token: CachedOboToken) => {
   return (
-    token.expires >= Date.now() - OBO_TOKEN_EXPIRATION_MARGIN_SECONDS * 1000
+    token.expires >= Date.now() + OBO_TOKEN_EXPIRATION_MARGIN_SECONDS * 1000
   );
 };
 
