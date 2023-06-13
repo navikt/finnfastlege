@@ -77,6 +77,12 @@ export const auth = {
     name: "AZURE_APP_CLIENT_ID",
     defaultValue: { dev: "finnfastlege" },
   }),
+  jwksUri: envVar({
+    name: "AZURE_OPENID_CONFIG_JWKS_URI",
+    defaultValue: {
+      dev: `http://localhost:${server.mockOauthServerPort}/default`,
+    },
+  }),
   jwks: hasEnvVar("AZURE_APP_JWKS")
     ? JSON.parse(envVar({ name: "AZURE_APP_JWKS" }))
     : // Generert med https://mkjwk.org/ (key size: 2048, key use: signature, algorithm: RS256, key id: sha-256)

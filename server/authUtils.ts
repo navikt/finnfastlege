@@ -1,5 +1,13 @@
 import OpenIdClient from "openid-client";
 import { Request, Response, NextFunction } from "express";
+import {
+  createRemoteJWKSet,
+  FlattenedJWSInput,
+  JWSHeaderParameters,
+  jwtVerify,
+} from "jose";
+import { GetKeyFunction } from "jose/dist/types/types";
+import { URL } from "url";
 
 import * as Config from "./config";
 
@@ -21,11 +29,11 @@ declare module "express-session" {
 
 const OBO_TOKEN_EXPIRATION_MARGIN_SECONDS = 60;
 
-const isNotExpired = (token: CachedOboToken) => {
-  return (
-    token.expires >= Date.now() + OBO_TOKEN_EXPIRATION_MARGIN_SECONDS * 1000
-  );
-};
+let _remoteJWKSet: GetKeyFunction<JWSHeaderParameters, FlattenedJWSInput>;
+
+async function initJWKSet() {
+  _remoteJWKSet = await createRemoteJWKSet(new URL(Config.auth.jwksUri));
+}
 
 export const ensureAuthenticated = () => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -36,12 +44,59 @@ export const ensureAuthenticated = () => {
   };
 };
 
-const retrieveToken = (req: Request): string | undefined => {
-  return req.headers.authorization?.replace("Bearer ", "");
+const retrieveToken = async (
+  req: Request,
+  azureAdIssuer: OpenIdClient.Issuer<any>
+): Promise<string | undefined> => {
+  const token = req.headers.authorization?.replace("Bearer ", "") as string;
+  if (token && (await validateToken(token, azureAdIssuer))) {
+    return token;
+  }
+  return undefined;
+};
+
+const validateToken = async (
+  token: string,
+  azureAdIssuer: OpenIdClient.Issuer<any>
+) => {
+  try {
+    if (!_remoteJWKSet) {
+      await initJWKSet();
+    }
+    const verification = await jwtVerify(token, _remoteJWKSet, {
+      audience: Config.auth.clientId,
+      issuer: azureAdIssuer.metadata.issuer,
+    });
+    if (
+      verification.payload &&
+      verification.payload.aud == Config.auth.clientId &&
+      verification.payload.exp &&
+      verification.payload.exp * 1000 > Date.now()
+    ) {
+      return true;
+    } else {
+      console.error(
+        "Token audience or expiry check failed: aud " +
+          verification.payload.aud +
+          " exp " +
+          verification.payload.exp
+      );
+    }
+  } catch (e) {
+    console.error("Token validation failed:", e);
+  }
+  return false;
+};
+
+const isNotExpired = (token: CachedOboToken) => {
+  return (
+    token.expires >= Date.now() + OBO_TOKEN_EXPIRATION_MARGIN_SECONDS * 1000
+  );
 };
 
 export const getOrRefreshOnBehalfOfToken = async (
   authClient: OpenIdClient.Client,
+  issuer: OpenIdClient.Issuer<any>,
   req: Request,
   clientId: string
 ): Promise<OboToken | undefined> => {
@@ -61,7 +116,7 @@ export const getOrRefreshOnBehalfOfToken = async (
     );
     return cachedOboToken.token;
   } else {
-    const token = retrieveToken(req);
+    const token = await retrieveToken(req, issuer);
     const onBehalfOfToken = await requestOnBehalfOfToken(
       authClient,
       token,
@@ -116,23 +171,25 @@ const requestOnBehalfOfToken = async (
   }
 };
 
-export const getOpenIdClient = async (
-  issuerUrl: string
-): Promise<OpenIdClient.Client> => {
+export const getOpenIdIssuer = async (): Promise<OpenIdClient.Issuer<any>> => {
   try {
-    const issuer = await OpenIdClient.Issuer.discover(issuerUrl);
-
-    return new issuer.Client(
-      {
-        client_id: Config.auth.clientId,
-        redirect_uris: [Config.auth.redirectUri],
-        token_endpoint_auth_method: "private_key_jwt",
-        token_endpoint_auth_signing_alg: "RS256",
-      },
-      Config.auth.jwks
-    );
+    return OpenIdClient.Issuer.discover(Config.auth.discoverUrl);
   } catch (e) {
-    console.log("Could not discover issuer", issuerUrl);
+    console.log("Could not discover issuer", Config.auth.discoverUrl);
     throw e;
   }
+};
+
+export const getOpenIdClient = async (
+  issuer: OpenIdClient.Issuer<any>
+): Promise<OpenIdClient.Client> => {
+  return new issuer.Client(
+    {
+      client_id: Config.auth.clientId,
+      redirect_uris: [Config.auth.redirectUri],
+      token_endpoint_auth_method: "private_key_jwt",
+      token_endpoint_auth_signing_alg: "RS256",
+    },
+    Config.auth.jwks
+  );
 };

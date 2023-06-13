@@ -3,7 +3,7 @@ import path from "path";
 import prometheus from "prom-client";
 
 import * as Config from "./server/config";
-import { getOpenIdClient } from "./server/authUtils";
+import { getOpenIdClient, getOpenIdIssuer } from "./server/authUtils";
 import { setupProxy } from "./server/proxy";
 import { setupSession } from "./server/session";
 
@@ -39,9 +39,10 @@ const redirectIfUnauthorized = async (
 
 const setupServer = async () => {
   setupSession(server);
-  const authClient = await getOpenIdClient(Config.auth.discoverUrl);
+  const issuer = await getOpenIdIssuer();
+  const authClient = await getOpenIdClient(issuer);
 
-  server.use(setupProxy(authClient));
+  server.use(setupProxy(authClient, issuer));
 
   const DIST_DIR = path.join(__dirname, "dist");
   const HTML_FILE = path.join(DIST_DIR, "index.html");
