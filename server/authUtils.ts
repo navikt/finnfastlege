@@ -21,9 +21,9 @@ declare module "express-session" {
 
 const OBO_TOKEN_EXPIRATION_MARGIN_SECONDS = 60;
 
-const isExpired = (token: CachedOboToken) => {
+const isNotExpired = (token: CachedOboToken) => {
   return (
-    token.expires < Date.now() - OBO_TOKEN_EXPIRATION_MARGIN_SECONDS * 1000
+    token.expires >= Date.now() + OBO_TOKEN_EXPIRATION_MARGIN_SECONDS * 1000
   );
 };
 
@@ -50,7 +50,17 @@ export const getOrRefreshOnBehalfOfToken = async (
   }
 
   let cachedOboToken = req.session.tokenCache[clientId];
-  if (!cachedOboToken || isExpired(cachedOboToken)) {
+  if (cachedOboToken && isNotExpired(cachedOboToken)) {
+    console.log(
+      "Session " +
+        req.sessionID +
+        ": Existing obotoken found in session cache for " +
+        clientId +
+        " expiring " +
+        cachedOboToken.expires
+    );
+    return cachedOboToken.token;
+  } else {
     const token = retrieveToken(req);
     const onBehalfOfToken = await requestOnBehalfOfToken(
       authClient,
@@ -69,15 +79,6 @@ export const getOrRefreshOnBehalfOfToken = async (
       "Session " +
         req.sessionID +
         ": New obotoken put in session cache for " +
-        clientId +
-        " expiring " +
-        cachedOboToken.expires
-    );
-  } else {
-    console.log(
-      "Session " +
-        req.sessionID +
-        ": Existing obotoken found in session cache for " +
         clientId +
         " expiring " +
         cachedOboToken.expires
