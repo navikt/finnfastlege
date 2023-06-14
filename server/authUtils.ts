@@ -6,7 +6,7 @@ import {
   JWSHeaderParameters,
   jwtVerify,
 } from "jose";
-import { GetKeyFunction } from "jose/dist/types/types";
+import { GetKeyFunction, JWTPayload } from "jose/dist/types/types";
 import { URL } from "url";
 
 import * as Config from "./config";
@@ -48,7 +48,7 @@ const retrieveToken = async (
   req: Request,
   azureAdIssuer: OpenIdClient.Issuer<any>
 ): Promise<string | undefined> => {
-  const token = req.headers.authorization?.replace("Bearer ", "") as string;
+  const token = req.headers.authorization?.replace("Bearer ", "");
   if (token && (await validateToken(token, azureAdIssuer))) {
     return token;
   }
@@ -67,23 +67,28 @@ const validateToken = async (
       audience: Config.auth.clientId,
       issuer: azureAdIssuer.metadata.issuer,
     });
-    if (
-      verification.payload &&
-      verification.payload.aud == Config.auth.clientId &&
-      verification.payload.exp &&
-      verification.payload.exp * 1000 > Date.now()
-    ) {
-      return true;
-    } else {
-      console.error(
-        "Token audience or expiry check failed: aud " +
-          verification.payload.aud +
-          " exp " +
-          verification.payload.exp
-      );
-    }
+    return checkVerificationPayload(verification.payload);
   } catch (e) {
     console.error("Token validation failed:", e);
+  }
+  return false;
+};
+
+const checkVerificationPayload = (payload: JWTPayload) => {
+  if (
+    payload &&
+    payload.aud == Config.auth.clientId &&
+    payload.exp &&
+    payload.exp * 1000 > Date.now()
+  ) {
+    return true;
+  } else {
+    console.error(
+      "Token audience or expiry check failed: aud " +
+        payload.aud +
+        " exp " +
+        payload.exp
+    );
   }
   return false;
 };
