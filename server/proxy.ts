@@ -51,9 +51,15 @@ const proxyOnBehalfOf = (
   res: express.Response,
   next: express.NextFunction,
   authClient: OpenIdClient.Client,
+  issuer: OpenIdClient.Issuer<any>,
   externalAppConfig: Config.ExternalAppConfig
 ) => {
-  getOrRefreshOnBehalfOfToken(authClient, req, externalAppConfig.clientId)
+  getOrRefreshOnBehalfOfToken(
+    authClient,
+    issuer,
+    req,
+    externalAppConfig.clientId
+  )
     .then((onBehalfOfToken) => {
       if (!onBehalfOfToken || !onBehalfOfToken.accessToken) {
         res.status(500).send("Failed to fetch access token on behalf of user.");
@@ -76,7 +82,10 @@ const proxyOnBehalfOf = (
     });
 };
 
-export const setupProxy = (authClient: OpenIdClient.Client) => {
+export const setupProxy = (
+  authClient: OpenIdClient.Client,
+  issuer: OpenIdClient.Issuer<any>
+) => {
   const router = express.Router();
 
   router.use(
@@ -91,6 +100,7 @@ export const setupProxy = (authClient: OpenIdClient.Client) => {
         res,
         next,
         authClient,
+        issuer,
         Config.auth.modiacontextholder
       );
     }
@@ -103,7 +113,14 @@ export const setupProxy = (authClient: OpenIdClient.Client) => {
       res: express.Response,
       next: express.NextFunction
     ) => {
-      proxyOnBehalfOf(req, res, next, authClient, Config.auth.fastlegerest);
+      proxyOnBehalfOf(
+        req,
+        res,
+        next,
+        authClient,
+        issuer,
+        Config.auth.fastlegerest
+      );
     }
   );
 
@@ -114,7 +131,14 @@ export const setupProxy = (authClient: OpenIdClient.Client) => {
       res: express.Response,
       next: express.NextFunction
     ) => {
-      proxyOnBehalfOf(req, res, next, authClient, Config.auth.syfoperson);
+      proxyOnBehalfOf(
+        req,
+        res,
+        next,
+        authClient,
+        issuer,
+        Config.auth.syfoperson
+      );
     }
   );
 
@@ -130,6 +154,7 @@ export const setupProxy = (authClient: OpenIdClient.Client) => {
         res,
         next,
         authClient,
+        issuer,
         Config.auth.syfotilgangskontroll
       );
     }
