@@ -105,10 +105,15 @@ export const getOrRefreshOnBehalfOfToken = async (
   req: Request,
   clientId: string
 ): Promise<OboToken | undefined> => {
+  const token = await retrieveToken(req, issuer);
+  if (!token) {
+    throw Error(
+      "Could not get on-behalf-of token because the token was undefined"
+    );
+  }
   if (req.session.tokenCache === undefined) {
     req.session.tokenCache = {};
   }
-
   let cachedOboToken = req.session.tokenCache[clientId];
   if (cachedOboToken && isNotExpired(cachedOboToken)) {
     console.log(
@@ -121,7 +126,6 @@ export const getOrRefreshOnBehalfOfToken = async (
     );
     return cachedOboToken.token;
   } else {
-    const token = await retrieveToken(req, issuer);
     const onBehalfOfToken = await requestOnBehalfOfToken(
       authClient,
       token,
@@ -149,14 +153,9 @@ export const getOrRefreshOnBehalfOfToken = async (
 
 const requestOnBehalfOfToken = async (
   authClient: OpenIdClient.Client,
-  accessToken: string | undefined,
+  accessToken: string,
   clientId: string
 ): Promise<OboToken | undefined> => {
-  if (!accessToken) {
-    throw Error(
-      "Could not get on-behalf-of token because the access_token was undefined"
-    );
-  }
   const grantBody = {
     assertion: accessToken,
     client_assertion_type:
