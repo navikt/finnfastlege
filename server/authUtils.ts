@@ -48,10 +48,8 @@ const retrieveToken = async (
   req: Request,
   azureAdIssuer: OpenIdClient.Issuer<any>
 ): Promise<string | undefined> => {
-  const start = Date.now();
   const token = req.headers.authorization?.replace("Bearer ", "");
   if (token && (await validateToken(token, azureAdIssuer))) {
-    console.log("token validated: " + (Date.now() - start) + " ms");
     return token;
   }
   return undefined;
