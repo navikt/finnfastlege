@@ -44,20 +44,14 @@ export const ensureAuthenticated = () => {
   };
 };
 
-function getNanoSecTime() {
-  var hrTime = process.hrtime();
-  return hrTime[0] * 1000000000 + hrTime[1];
-}
-
 const retrieveToken = async (
   req: Request,
   azureAdIssuer: OpenIdClient.Issuer<any>
 ): Promise<string | undefined> => {
-  const start = getNanoSecTime();
+  const start = Date.now();
   const token = req.headers.authorization?.replace("Bearer ", "");
   if (token && (await validateToken(token, azureAdIssuer))) {
-    const end = getNanoSecTime();
-    console.log("token validated: " + (end - start) + " ns");
+    console.log("token validated: " + (Date.now() - start) + " ms");
     return token;
   }
   return undefined;
