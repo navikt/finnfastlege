@@ -33,7 +33,7 @@ describe("FastlegeContainerTests", () => {
 
   it("Manglende tilgang til finnfastlege gir melding om å kontakte identansvarlig", async () => {
     apiMockScope
-      .get(`/syfo-tilgangskontroll/api/tilgang/navident/syfo`)
+      .get(`/istilgangskontroll/api/tilgang/navident/syfo`)
       .reply(403, () => noAccess);
     render(
       <QueryClientProvider client={queryClient}>
@@ -51,7 +51,7 @@ describe("FastlegeContainerTests", () => {
 
   it("Feil i kall mot tilgangstjenesten gir generell feilmelding", async () => {
     apiMockScope
-      .get(`/syfo-tilgangskontroll/api/tilgang/navident/syfo`)
+      .get(`/istilgangskontroll/api/tilgang/navident/syfo`)
       .reply(500, () => generalError);
     render(
       <QueryClientProvider client={queryClient}>

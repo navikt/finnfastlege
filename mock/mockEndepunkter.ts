@@ -3,7 +3,7 @@ import express from "express";
 import mockFastlegerest from "./mockFastlegerest";
 import mockModiacontextholder from "./mockModiacontextholder";
 import mockSyfoperson from "./mockSyfoperson";
-import mockSyfotilgangskontroll from "./mockSyfotilgangskontroll";
+import mockIstilgangskontroll from "./mockIstilgangskontroll";
 
 const mockEndepunkter = (server: express.Application) => {
   server.use(express.json());
@@ -13,7 +13,7 @@ const mockEndepunkter = (server: express.Application) => {
     mockFastlegerest,
     mockModiacontextholder,
     mockSyfoperson,
-    mockSyfotilgangskontroll,
+    mockIstilgangskontroll,
   ].forEach((func) => {
     func(server);
   });
