@@ -1,5 +1,4 @@
 import express from "express";
-import { ensureAuthenticated } from "../server/authUtils";
 
 const saksbehandler = {
   ident: "Z999999",
@@ -36,7 +35,6 @@ const mockModiacontextholder = (server: express.Application) => {
 
   server.get(
     "/modiacontextholder/api/context/aktivbruker",
-    ensureAuthenticated(),
     (req: express.Request, res: express.Response) => {
       res.setHeader("Content-Type", "application/json");
       res.send(JSON.stringify(aktivBruker));
@@ -45,7 +43,6 @@ const mockModiacontextholder = (server: express.Application) => {
 
   server.get(
     "/modiacontextholder/api/context/aktivenhet",
-    ensureAuthenticated(),
     (req: express.Request, res: express.Response) => {
       res.setHeader("Content-Type", "application/json");
       res.send(JSON.stringify(aktivEnhet));
@@ -54,7 +51,6 @@ const mockModiacontextholder = (server: express.Application) => {
 
   server.post(
     "/modiacontextholder/api/context",
-    ensureAuthenticated(),
     (req: express.Request, res: express.Response) => {
       res.send().status(204);
     }

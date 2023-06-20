@@ -36,7 +36,7 @@ const setupDev = async (devServer: WebpackDevServer) => {
   const app = devServer.app!!;
   const compiler = devServer.compiler;
 
-  Session.setupSession(app);
+  await Session.setupSession(app);
 
   mockEndepunkter(app);
   app.use("/fastlege/img", express.static(path.resolve(__dirname, "img")));
