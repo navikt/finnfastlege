@@ -6,7 +6,11 @@ import OpenIdClient from "openid-client";
 import { getOrRefreshOnBehalfOfToken } from "./authUtils";
 import * as Config from "./config";
 
-const proxyExternalHost = (host: any, accessToken: any, parseReqBody: any) =>
+const proxyExternalHost = (
+  { applicationName, host, removePathPrefix }: any,
+  accessToken: any,
+  parseReqBody: any
+) =>
   expressHttpProxy(host, {
     https: false,
     parseReqBody: parseReqBody,
@@ -33,6 +37,11 @@ const proxyExternalHost = (host: any, accessToken: any, parseReqBody: any) =>
         (pathFromApi ? pathFromApi : "") +
         (pathFromRequest ? pathFromRequest : "") +
         (queryString ? "?" + queryString : "");
+
+      if (removePathPrefix) {
+        const newPathWithoutPrefix = newPath.replace(`${applicationName}/`, "");
+        return newPathWithoutPrefix;
+      }
 
       return newPath;
     },
@@ -69,7 +78,7 @@ const proxyOnBehalfOf = (
         return;
       }
       return proxyExternalHost(
-        externalAppConfig.host,
+        externalAppConfig,
         onBehalfOfToken.accessToken,
         req.method === "POST"
       )(req, res, next);
@@ -143,7 +152,7 @@ export const setupProxy = (
   );
 
   router.use(
-    "/syfo-tilgangskontroll/*",
+    "/istilgangskontroll/*",
     (
       req: express.Request,
       res: express.Response,
@@ -155,7 +164,7 @@ export const setupProxy = (
         next,
         authClient,
         issuer,
-        Config.auth.syfotilgangskontroll
+        Config.auth.istilgangskontroll
       );
     }
   );

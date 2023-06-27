@@ -117,6 +117,7 @@ export const auth = {
   }),
 
   modiacontextholder: {
+    applicationName: "modiacontextholder",
     clientId: envVar({
       name: "MODIACONTEXTHOLDER_AAD_APP_CLIENT_ID",
     }),
@@ -126,6 +127,7 @@ export const auth = {
   },
 
   fastlegerest: {
+    applicationName: "fastlegerest",
     clientId: envVar({
       name: "FASTLEGEREST_AAD_APP_CLIENT_ID",
     }),
@@ -134,6 +136,7 @@ export const auth = {
     }),
   },
   syfoperson: {
+    applicationName: "syfoperson",
     clientId: envVar({
       name: "SYFOPERSON_AAD_APP_CLIENT_ID",
     }),
@@ -141,13 +144,15 @@ export const auth = {
       name: "SYFOPERSON_HOST",
     }),
   },
-  syfotilgangskontroll: {
+  istilgangskontroll: {
+    applicationName: "istilgangskontroll",
     clientId: envVar({
-      name: "SYFOTILGANGSKONTROLL_AAD_APP_CLIENT_ID",
+      name: "ISTILGANGSKONTROLL_AAD_APP_CLIENT_ID",
     }),
     host: envVar({
-      name: "SYFOTILGANGKONTROLL_HOST",
+      name: "ISTILGANGKONTROLL_HOST",
     }),
+    removePathPrefix: true,
   },
 };
 
