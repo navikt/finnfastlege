@@ -7,7 +7,7 @@
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "outDir": "/",
+    "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]

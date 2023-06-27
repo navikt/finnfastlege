@@ -1,14 +1,26 @@
-FROM node:14-alpine
+FROM node:16-alpine as builder
 WORKDIR /finnfastlege
 
-COPY server.ts package.json ./
+COPY server.ts package.json tsconfig.json ./
 COPY server ./server
-
 COPY node_modules ./node_modules
 COPY img ./img
 COPY dist ./dist
 
-RUN npm install -g ts-node typescript
+RUN npm install -g typescript
+RUN tsc --build
+
+FROM gcr.io/distroless/nodejs16-debian11
+WORKDIR /finnfastlege
+
+COPY --from=builder /finnfastlege/package.json ./
+COPY --from=builder /finnfastlege/dist/server.js ./
+COPY --from=builder /finnfastlege/dist/server ./server
+COPY --from=builder /finnfastlege/dist/index.html ./dist/index.html
+COPY --from=builder /finnfastlege/dist/main.bundle.js ./dist/main.bundle.js
+COPY --from=builder /finnfastlege/node_modules ./node_modules
+COPY --from=builder /finnfastlege/img ./img
 
 EXPOSE 8080
-CMD ["ts-node", "server.ts"]
+USER nonroot
+CMD ["./server.js"]

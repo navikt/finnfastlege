@@ -8,6 +8,8 @@ import * as Config from "./config";
 const SESSION_MAX_AGE_SECONDS = 12 * 60 * 60;
 
 const getRedisStore = () => {
+  if (Config.isDev) return undefined;
+
   const RedisStore = connectRedis(session);
 
   const redisClient = redis.createClient({
