@@ -12,7 +12,7 @@ RUN tsc --build
 
 RUN ls -la
 RUN ls -la dist
-RUN ls -la dist/dist
+RUN ls -la dist/server
 RUN ls -la node_modules
 RUN ls -la img
 
@@ -21,9 +21,11 @@ WORKDIR /finnfastlege
 
 COPY --from=builder /finnfastlege/package.json ./
 COPY --from=builder /finnfastlege/dist/server.js ./
+COPY --from=builder /finnfastlege/dist/server.js.map ./
 COPY --from=builder /finnfastlege/dist/server ./server
 COPY --from=builder /finnfastlege/dist/index.html ./dist/index.html
 COPY --from=builder /finnfastlege/dist/main.bundle.js ./dist/main.bundle.js
+COPY --from=builder /finnfastlege/dist/main.bundle.js.map ./dist/main.bundle.js.map
 COPY --from=builder /finnfastlege/node_modules ./node_modules
 COPY --from=builder /finnfastlege/img ./img
 
