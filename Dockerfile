@@ -10,6 +10,12 @@ COPY dist ./dist
 RUN npm install -g typescript
 RUN tsc --build
 
+RUN ls -la
+RUN ls -la dist
+RUN ls -la dist/dist
+RUN ls -la node_modules
+RUN ls -la img
+
 FROM gcr.io/distroless/nodejs16-debian11
 WORKDIR /finnfastlege
 
