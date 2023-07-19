@@ -40,6 +40,8 @@ global.document = window.document;
 global.navigator = {
   userAgent: "node.js",
 };
+global.addEventListener = () => {};
+global.location = () => {};
 
 window.MutationObserver = MutationObserver;
 copyProps(window, global);

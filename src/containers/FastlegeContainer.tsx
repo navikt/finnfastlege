@@ -5,6 +5,7 @@ import Side from "../sider/Side";
 import Feilmelding from "../components/Feilmelding";
 import { useTilgangQuery } from "@/data/tilgang/tilgangQueryHooks";
 import { ApiErrorException } from "@/api/errors";
+import { initFaro } from "@/faro/faro";
 
 export const texts = {
   generalErrorTitle: "Det skjedde en feil!",
@@ -14,6 +15,9 @@ export const texts = {
   noAccessMessage:
     "For å få tilgang må du ta kontakt med din lokale identansvarlige.",
 };
+
+const faro = initFaro();
+console.log("----------------- FARO ---------------------\n", faro.metas);
 
 const FastlegeContainer = () => {
   const tilgang = useTilgangQuery();

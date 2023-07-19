@@ -26,7 +26,7 @@ const commonConfig: Configuration = {
       {
         test: /\.(js|ts|tsx)$/,
         use: { loader: "babel-loader" },
-        exclude: /node_modules/,
+        exclude: [/node_modules/, path.resolve(__dirname, "./nais.js")],
       },
       {
         test: /\.less$/,

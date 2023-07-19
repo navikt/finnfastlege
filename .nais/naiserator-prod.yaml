@@ -81,5 +81,8 @@ spec:
       claims:
         extra:
           - "NAVident"
+  frontend:
+    generatedConfig:
+      mountPath: /usr/share/nginx/html/js/nais.js
   ingresses:
     - "https://finnfastlege.intern.nav.no"
