@@ -1,7 +1,7 @@
 import { useFastlegeQuery } from "@/data/fastlege/fastlegeQueryHooks";
 import { ApiErrorException, getErrorMessage } from "@/api/errors";
 import Feilmelding from "@/components/Feilmelding";
-import FastlegeInfo from "@/components/FastlegeInfo";
+import FastlegeSearchResult from "@/components/FastlegeSearchResult";
 import AppSpinner from "@/components/AppSpinner";
 import React from "react";
 
@@ -72,7 +72,7 @@ export const Fastlege = ({ fnr }: FastlegeProps) => {
             />
           );
         }
-        return data ? <FastlegeInfo fastlegeList={data} /> : <></>;
+        return data ? <FastlegeSearchResult fastleger={data} /> : <></>;
       })()}
     </AppSpinner>
   );

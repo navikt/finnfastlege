@@ -3,8 +3,13 @@ export interface PeriodeDTO {
   tom: Date;
 }
 
+export enum RelasjonKodeVerdi {
+  FASTLEGE = "LPFL",
+  VIKAR = "LPVI",
+}
+
 export interface RelasjonDTO {
-  kodeVerdi: string;
+  kodeVerdi: RelasjonKodeVerdi;
   kodeTekst: string;
 }
 
@@ -27,7 +32,7 @@ export interface PasientDTO {
   fornavn?: string;
   mellomnavn?: string;
   etternavn?: string;
-  fnr?: string;
+  fnr: string;
 }
 
 export interface FastlegeDTO {

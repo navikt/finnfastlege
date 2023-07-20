@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
-import { Container, Row, Column } from "nav-frontend-grid";
 import Decorator from "../decorator/Decorator";
+import { Container } from "@/components/wrappers/Container";
+import styled from "styled-components";
+
+const Page = styled.div`
+  width: 32em;
+`;
 
 export interface SideProps {
   children: React.ReactNode;
@@ -14,13 +19,8 @@ const Side = ({ children }: SideProps) => {
   return (
     <>
       <Decorator />
-
       <Container>
-        <Row>
-          <Column className="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
-            {children}
-          </Column>
-        </Row>
+        <Page>{children}</Page>
       </Container>
     </>
   );

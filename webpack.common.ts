@@ -29,7 +29,7 @@ const commonConfig: Configuration = {
         exclude: /node_modules/,
       },
       {
-        test: /\.less$/,
+        test: /\.(css|sass)$/,
         use: [
           {
             loader: "style-loader",
@@ -48,9 +48,6 @@ const commonConfig: Configuration = {
                 plugins: [autoprefixer],
               },
             },
-          },
-          {
-            loader: "less-loader",
           },
         ],
       },

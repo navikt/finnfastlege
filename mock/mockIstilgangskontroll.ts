@@ -10,7 +10,7 @@ const harIkkeTilgang = {
 
 const mockIstilgangskontroll = (server: express.Application) => {
   server.get(
-    "/api/tilgang/navident/syfo",
+    "/istilgangskontroll/api/tilgang/navident/syfo",
     (req: express.Request, res: express.Response) => {
       res.setHeader("Content-Type", "application/json");
       // res.status(403).send(JSON.stringify(harIkkeTilgang));
