@@ -53,6 +53,8 @@ spec:
       value: "http://syfoperson"
     - name: ISTILGANGKONTROLL_HOST
       value: "http://istilgangskontroll"
+    - name: NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL
+      value: "https://telemetry.ekstern.dev.nav.no/collect"
   resources:
     limits:
       memory: 256Mi
