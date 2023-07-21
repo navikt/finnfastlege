@@ -151,6 +151,7 @@ const requestOnBehalfOfToken = async (
 };
 
 export const getOpenIdIssuer = async (): Promise<OpenIdClient.Issuer<any>> => {
+  console.log("URL:", Config.auth.discoverUrl);
   try {
     return OpenIdClient.Issuer.discover(Config.auth.discoverUrl);
   } catch (e) {

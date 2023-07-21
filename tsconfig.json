@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES2019",
-    "lib": ["es2019", "dom"],
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["es2021", "dom"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
@@ -16,8 +16,14 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "composite": true
   },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "include": ["src","vite.config.ts", "server", "server.ts", "test", "mock"],
   "exclude": [
     "node_modules",
     "build",

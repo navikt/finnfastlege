@@ -1,5 +1,3 @@
-import path from "path";
-
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -21,9 +19,11 @@ const envVar = ({ name, defaultValue }: EnvVarType) => {
     return defaultValue;
   } else if (typeof defaultValue === "object") {
     if (isDev && typeof defaultValue.dev === "string") {
+      console.log(`DEV FromEnv ${name}:`, fromEnv);
       return defaultValue.dev;
     }
     if (isProd && typeof defaultValue.prod === "string") {
+      console.log(`PROD FromEnv ${name}:`, fromEnv);
       return defaultValue.prod;
     }
   }
@@ -48,10 +48,10 @@ export const server = {
     defaultValue: "http://localhost:8080",
   }),
 
-  frontendDir: envVar({
-    name: "FRONTEND_DIR",
-    defaultValue: path.join(__dirname, "frontend"),
-  }),
+  // frontendDir: envVar({
+  //   name: "FRONTEND_DIR",
+  //   defaultValue: path.join(__dirname, "frontend"),
+  // }),
 
   sessionKey: envVar({ name: "SESSION_KEY" }),
   sessionCookieName: envVar({
