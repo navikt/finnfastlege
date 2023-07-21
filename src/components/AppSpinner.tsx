@@ -1,14 +1,13 @@
 import React, { ReactElement } from "react";
-import { Row } from "nav-frontend-grid";
-import NavFrontendSpinner from "nav-frontend-spinner";
 import styled from "styled-components";
+import { Loader } from "@navikt/ds-react";
 
 interface Props {
   laster: boolean;
   children: ReactElement;
 }
 
-const SpinnerContainer = styled(Row)`
+const SpinnerContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 4rem;
@@ -17,9 +16,7 @@ const SpinnerContainer = styled(Row)`
 const AppSpinner = ({ laster, children }: Props): ReactElement => {
   return laster ? (
     <SpinnerContainer>
-      <NavFrontendSpinner type="XL">
-        Vent litt mens siden laster
-      </NavFrontendSpinner>
+      <Loader size="3xlarge" title="Vent litt mens siden laster" />
     </SpinnerContainer>
   ) : (
     children

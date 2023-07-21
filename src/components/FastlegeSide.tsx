@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { Sidetittel, Undertekst } from "nav-frontend-typografi";
-import Sokeboks from "./Sokeboks";
+import FastlegeSearch from "./FastlegeSearch";
 import { Fastlege } from "@/components/Fastlege";
 import { useQueryClient } from "@tanstack/react-query";
 import { fastlegeQueryKeys } from "@/data/fastlege/fastlegeQueryHooks";
+import { Heading } from "@navikt/ds-react";
+import styled from "styled-components";
 
-export const texts = {
+const StyledHeading = styled(Heading)`
+  margin: 0.5em 0;
+  text-align: center;
+`;
+
+const texts = {
   title: "Finn fastlegen",
-  subtitle: "Søk opp fastlegen ved å skrive brukerens fødselsnummer",
 };
 
 const FastlegeSide = () => {
@@ -15,17 +20,14 @@ const FastlegeSide = () => {
   const queryClient = useQueryClient();
 
   return (
-    <div className="fastlege">
-      <Sidetittel>{texts.title}</Sidetittel>
-      <div className="fastlege__sokeboks">
-        <Undertekst>{texts.subtitle}</Undertekst>
-        <Sokeboks
-          handleSubmitGyldigFnr={(fnr) => {
-            setFodselsnummer(fnr);
-            queryClient.invalidateQueries(fastlegeQueryKeys.fastlege(fnr));
-          }}
-        />
-      </div>
+    <div>
+      <StyledHeading size={"xlarge"}>{texts.title}</StyledHeading>
+      <FastlegeSearch
+        handleSubmitGyldigFnr={(fnr) => {
+          setFodselsnummer(fnr);
+          queryClient.invalidateQueries(fastlegeQueryKeys.fastlege(fnr));
+        }}
+      />
       <Fastlege fnr={fodselsnummer} />
     </div>
   );

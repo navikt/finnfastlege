@@ -1,6 +1,6 @@
 import express from "express";
-import { RelasjonKodeVerdi } from "../src/data/fastlege/FastlegeInternal";
 import { leggTilDagerPaDato } from "./util/dateUtil";
+import { RelasjonKodeVerdi } from "../src/data/fastlege/FastlegeDTO";
 
 const fastlege = {
   fornavn: "Lege",

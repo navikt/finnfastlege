@@ -3,7 +3,8 @@ import "regenerator-runtime/runtime";
 
 import React from "react";
 import { createRoot } from "react-dom/client";
-import "./styles/styles.less";
+import "./styles/styles.css";
+import "@navikt/ds-css";
 import FastlegeContainer from "./containers/FastlegeContainer";
 import { minutesToMillis } from "@/utils/timeUtils";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
