@@ -3,11 +3,66 @@ name: main
 on: push
 
 jobs:
-  build-and-deploy:
-    uses: navikt/isworkflows/.github/workflows/node-build-deploy.yml@master
+  build-and-publish:
+    name: Bygg, test og publiser docker image
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
+    env:
+      ORG_GRADLE_PROJECT_githubUser: x-access-token
+      ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Use Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install deps
+        run: |
+          npm install
+      - name: Prettier check 💅
+        run: |
+          npx prettier --check .
+      - name: Run lint and typecheck
+        run: |
+          npm run lint-and-typecheck
+#      - name: Run unit tests
+#        run: |
+#          npm run test
+      - name: Build
+        run: |
+          npm run client:build
+      - name: Prune
+        run: |
+          npm prune --production
+      - name: Build and publish Docker image
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        if: (!startsWith(github.ref_name, 'dependabot'))
+        with:
+          team: teamsykefravr
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          tag: ${{ github.sha }}
+
+  nais-deploy:
+    needs: build-and-publish
+    uses: navikt/isworkflows/.github/workflows/deploy-dev-og-prod.yml@master
     with:
-      dev-cluster: dev-gcp
-      prod-cluster: prod-gcp
-      node-version: 18
-      distroless: true
+      image: ${{ needs.build-and-publish.outputs.image }}
+      dev-cluster: ${{ inputs.dev-cluster }}
+      prod-cluster: ${{ inputs.prod-cluster }}
     secrets: inherit

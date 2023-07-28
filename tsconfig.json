@@ -1,37 +1,30 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
     "target": "ESNext",
-    "lib": ["es2021", "dom"],
-    "sourceMap": true,
-    "allowJs": true,
-    "jsx": "react",
-    "moduleResolution": "node",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
     },
-    "strict": true,
-    "noImplicitAny": true,
+    "allowJs": false,
+    "jsx": "react",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "composite": true
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "sourceMap": true
   },
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  },
-  "include": ["src","vite.config.ts", "server", "server.ts", "test", "mock"],
+  "include": ["src", "test"],
   "exclude": [
     "node_modules",
-    "build",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest",
-    "src/setupTests.ts"
+    "dist",
   ],
-  "types": ["typePatches"]
+  "types": ["typePatches"],
 }

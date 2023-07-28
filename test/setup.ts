@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import MutationObserver from "@sheerun/mutationobserver-shim";
 
 import dotenv from "dotenv";
@@ -31,8 +30,8 @@ const localS = {
   },
 };
 
-global.HTMLElement = window.HTMLElement;
 global.localStorage = localS;
+global.HTMLElement = window.HTMLElement;
 global.XMLHttpRequest = window.XMLHttpRequest;
 
 global.window = window;

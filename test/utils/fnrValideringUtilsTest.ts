@@ -1,8 +1,8 @@
 import { expect } from "chai";
-import { erGyldigFodselsnummer } from "@/utils/fnrValideringUtil";
 import sinon from "sinon";
-import * as miljoutil from "@/utils/miljoUtil";
+import { erGyldigFodselsnummer } from "@/client/utils/fnrValideringUtil";
 import { after } from "mocha";
+import * as miljoutil from "@/client/utils/miljoUtil";
 
 describe("fnrValideringsUtils", () => {
   describe("erGyldigFodselsnummer in prod", () => {

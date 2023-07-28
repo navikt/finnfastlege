@@ -4,10 +4,10 @@ import { expect } from "chai";
 import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { apiMock } from "../stubs/stubApi";
-import { FASTLEGEREST_ROOT } from "@/api/constants";
-import { Fastlege, texts } from "@/components/Fastlege";
 import nock from "nock";
 import { testQueryClient } from "../testQueryClient";
+import { FASTLEGEREST_ROOT } from "@/client/api/constants";
+import { Fastlege, texts } from "@/client/components/Fastlege";
 
 const fnr = "01117302624";
 

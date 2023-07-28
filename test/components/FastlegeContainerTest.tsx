@@ -1,7 +1,7 @@
 import React from "react";
 import FastlegeContainer, {
   texts,
-} from "../../src/containers/FastlegeContainer";
+} from "../../src/client/containers/FastlegeContainer";
 import { apiMock } from "../stubs/stubApi";
 import nock from "nock";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

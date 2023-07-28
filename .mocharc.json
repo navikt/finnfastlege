@@ -1,5 +1,10 @@
 {
   "spec": "./test/**/*.ts*",
   "recursive": true,
-  "file": "./test/setup"
+  "file": "./test/setup.ts",
+  "extension": ["js", "cjs", "ts", "tsx", "jsx", "mjs"],
+  "node-option": [
+    "experimental-specifier-resolution=node",
+    "loader=ts-node/esm"
+  ]
 }
