@@ -1,11 +1,11 @@
 import express from "express";
 
 const tilgang = {
-  harTilgang: true,
+  erGodkjent: true,
 };
 
 const harIkkeTilgang = {
-  harTilgang: false,
+  erGodkjent: false,
 };
 
 const mockIstilgangskontroll = (server: express.Application) => {
