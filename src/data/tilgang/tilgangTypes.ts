@@ -1,3 +1,3 @@
 export interface Tilgang {
-  readonly harTilgang: boolean;
+  readonly erGodkjent: boolean;
 }

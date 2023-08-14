@@ -13,13 +13,11 @@ let queryClient: QueryClient;
 let apiMockScope: nock.Scope;
 
 const generalError = {
-  harTilgang: false,
-  begrunnelse: null,
+  erGodkjent: false,
 };
 
 const noAccess = {
-  harTilgang: false,
-  begrunnelse: "SYFO",
+  erGodkjent: false,
 };
 
 describe("FastlegeContainerTests", () => {

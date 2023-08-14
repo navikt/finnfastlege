@@ -7,7 +7,7 @@ import { ApiErrorException, ErrorType } from "@/api/errors";
 
 let stub: MockAdapter;
 
-const tilgangDenied: Tilgang = { harTilgang: false };
+const tilgangDenied: Tilgang = { erGodkjent: false };
 const tilgangDeniedMessage = { message: "Denied!" };
 const happyCaseMessage = "Woop woop";
 
