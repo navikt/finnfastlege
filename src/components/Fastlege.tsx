@@ -43,12 +43,12 @@ interface FastlegeProps {
 }
 
 export const Fastlege = ({ fnr }: FastlegeProps) => {
-  const { isInitialLoading, isError, error, data } = useFastlegeQuery(fnr);
+  const { isLoading, isError, error, data } = useFastlegeQuery(fnr);
   const ikkeTilgang = error instanceof ApiErrorException && error.code === 403;
   const ikkeFunnet = data?.length === 0;
 
   return (
-    <AppSpinner laster={isInitialLoading}>
+    <AppSpinner laster={isLoading}>
       {(() => {
         if (ikkeTilgang) {
           return (
