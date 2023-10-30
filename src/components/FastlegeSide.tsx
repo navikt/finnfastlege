@@ -25,7 +25,9 @@ const FastlegeSide = () => {
       <FastlegeSearch
         handleSubmitGyldigFnr={(fnr) => {
           setFodselsnummer(fnr);
-          queryClient.invalidateQueries(fastlegeQueryKeys.fastlege(fnr));
+          queryClient.invalidateQueries({
+            queryKey: fastlegeQueryKeys.fastlege(fnr),
+          });
         }}
       />
       <Fastlege fnr={fodselsnummer} />
