@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestHeaders } from "axios";
+import axios, { AxiosError } from "axios";
 import {
   accessDeniedError,
   ApiErrorException,
@@ -15,8 +15,8 @@ export const NAV_PERSONIDENT_HEADER = "nav-personident";
 
 export const defaultRequestHeaders = (
   personIdent?: string
-): AxiosRequestHeaders => {
-  const headers: AxiosRequestHeaders = {
+): Record<string, string> => {
+  const headers: Record<string, string> = {
     "Content-Type": "application/json",
     [NAV_CONSUMER_ID_HEADER]: NAV_CONSUMER_ID,
     [NAV_CALL_ID_HEADER]: `${NAV_CONSUMER_ID}-${generateUUID()}`,
@@ -40,9 +40,8 @@ function handleAxiosError(error: AxiosError) {
         );
       }
       case 403: {
-        const message = error.response.data.message || error.message;
         throw new ApiErrorException(
-          accessDeniedError(message),
+          accessDeniedError(error.message),
           error.response.status
         );
       }
