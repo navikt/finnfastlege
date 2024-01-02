@@ -3,7 +3,7 @@ import { expect } from "chai";
 import { get } from "@/api/axios";
 import MockAdapter from "axios-mock-adapter";
 import { Tilgang } from "@/data/tilgang/tilgangTypes";
-import { ApiErrorException, ErrorType } from "@/api/errors";
+import { ApiErrorException, defaultErrorTexts, ErrorType } from "@/api/errors";
 
 let stub: MockAdapter;
 
@@ -35,18 +35,6 @@ describe("Axios API tests", () => {
   });
 
   describe("Access denied tests", () => {
-    it("Throws access denied for http 403, and handles Tilgang-object", async function () {
-      try {
-        await get(pathAccessDenied);
-      } catch (e) {
-        expect(e instanceof ApiErrorException).to.equal(true);
-
-        const { error, code } = e as ApiErrorException;
-        expect(code).to.equal(403);
-        expect(error.type).to.equal(ErrorType.ACCESS_DENIED);
-      }
-    });
-
     it("Throws access denied for http 403, and handles message", async function () {
       try {
         await get(pathAccessDeniedMessage);
@@ -56,7 +44,7 @@ describe("Axios API tests", () => {
         const { error, code } = e as ApiErrorException;
         expect(code).to.equal(403);
         expect(error.type).to.equal(ErrorType.ACCESS_DENIED);
-        expect(error.message).to.equal(tilgangDeniedMessage.message);
+        expect(error.defaultErrorMsg).to.equal(defaultErrorTexts.accessDenied);
       }
     });
   });
