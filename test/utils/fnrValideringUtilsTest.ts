@@ -104,7 +104,7 @@ describe("fnrValideringsUtils", () => {
     });
     afterAll(() => {
       vi.restoreAllMocks();
-    })
+    });
     it("return true if valid NAV synthetic fnr (add 40 to month)", () => {
       const fnr = "15507600333";
 
