@@ -1,9 +1,9 @@
 import axios from "axios";
-import { expect } from "chai";
 import { get } from "@/api/axios";
 import MockAdapter from "axios-mock-adapter";
 import { Tilgang } from "@/data/tilgang/tilgangTypes";
 import { ApiErrorException, defaultErrorTexts, ErrorType } from "@/api/errors";
+import { describe, expect, it, beforeAll } from "vitest";
 
 let stub: MockAdapter;
 
@@ -18,7 +18,7 @@ const pathInternalServerError = "/500";
 const pathHappyCase = "/200";
 
 describe("Axios API tests", () => {
-  before(() => {
+  beforeAll(() => {
     stub = new MockAdapter(axios);
     stub.onGet(pathAccessDenied).replyOnce(403, tilgangDenied);
     stub.onGet(pathAccessDeniedMessage).replyOnce(403, tilgangDeniedMessage);

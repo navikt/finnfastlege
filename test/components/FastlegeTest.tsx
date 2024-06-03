@@ -1,6 +1,5 @@
 import React from "react";
 
-import { expect } from "chai";
 import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { apiMock } from "../stubs/stubApi";
@@ -8,6 +7,7 @@ import { FASTLEGEREST_ROOT } from "@/api/constants";
 import { Fastlege, texts } from "@/components/Fastlege";
 import nock from "nock";
 import { testQueryClient } from "../testQueryClient";
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
 
 const fnr = "01117302624";
 

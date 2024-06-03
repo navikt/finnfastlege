@@ -1,4 +1,4 @@
-import express from "express";
+import express, { RequestHandler } from "express";
 import path from "path";
 import prometheus from "prom-client";
 
@@ -12,7 +12,7 @@ const collectDefaultMetrics = prometheus.collectDefaultMetrics;
 collectDefaultMetrics({});
 
 const server = express();
-server.use(express.json());
+server.use(express.json() as RequestHandler);
 
 const nocache = (
   req: express.Request,
