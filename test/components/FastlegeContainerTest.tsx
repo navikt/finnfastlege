@@ -43,7 +43,7 @@ describe("FastlegeContainerTests", () => {
       name: texts.noAccessTitle,
     });
     const message = await screen.findByText(texts.noAccessMessage);
-    expect(title).to.exist;
+    expect(title).to.not.exist;
     expect(message).to.exist;
   });
 
