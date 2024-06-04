@@ -6,8 +6,8 @@ import { apiMock } from "../stubs/stubApi";
 import nock from "nock";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
-import { expect } from "chai";
 import { testQueryClient } from "../testQueryClient";
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
 
 let queryClient: QueryClient;
 let apiMockScope: nock.Scope;

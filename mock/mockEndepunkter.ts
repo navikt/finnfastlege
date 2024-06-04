@@ -1,4 +1,4 @@
-import express from "express";
+import express, { RequestHandler } from "express";
 
 import mockFastlegerest from "./mockFastlegerest";
 import mockModiacontextholder from "./mockModiacontextholder";
@@ -6,8 +6,8 @@ import mockSyfoperson from "./mockSyfoperson";
 import mockIstilgangskontroll from "./mockIstilgangskontroll";
 
 const mockEndepunkter = (server: express.Application) => {
-  server.use(express.json());
-  server.use(express.urlencoded());
+  server.use(express.json() as RequestHandler);
+  server.use(express.urlencoded() as RequestHandler);
 
   [
     mockFastlegerest,
