@@ -44,9 +44,9 @@ spec:
     - name: ISTILGANGSKONTROLL_AAD_APP_CLIENT_ID
       value: "prod-gcp.teamsykefravr.istilgangskontroll"
     - name: MODIACONTEXTHOLDER_AAD_APP_CLIENT_ID
-      value: "prod-fss.personoversikt.modiacontextholder"
+      value: "prod-gcp.personoversikt.modiacontextholder"
     - name: MODIACONTEXTHOLDER_HOST
-      value: "https://modiacontextholder.prod-fss-pub.nais.io"
+      value: "http://modiacontextholder.personoversikt"
     - name: FASTLEGEREST_HOST
       value: "http://fastlegerest"
     - name: SYFOPERSON_HOST
@@ -64,12 +64,13 @@ spec:
       external:
         - host: "login.microsoftonline.com"
         - host: "internarbeidsflatedecorator.prod-fss-pub.nais.io"
-        - host: "modiacontextholder.prod-fss-pub.nais.io"
       rules:
         - application: fastlegerest
         - application: istilgangskontroll
         - application: syfoperson
         - application: finnfastlege-redis
+        - application: modiacontextholder
+          namespace: personoversikt
   azure:
     sidecar:
       enabled: true
