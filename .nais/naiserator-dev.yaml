@@ -84,3 +84,4 @@ spec:
           - "NAVident"
   ingresses:
     - "https://finnfastlege.intern.dev.nav.no"
+    - "https://finnfastlege.ansatt.dev.nav.no"
