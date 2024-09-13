@@ -31,12 +31,8 @@ spec:
       value: production
     - name: REDIS_HOST
       value: finnfastlege-redis
-    - name: FINNFASTLEGE_URL
-      value: "http://finnfastlege"
     - name: AUTH_REDIRECT_URI
       value: "https://finnfastlege.intern.dev.nav.no/oauth2/callback"
-    - name: INTERNARBEIDSFLATEDECORATOR_HOST
-      value: "internarbeidsflatedecorator-q1.dev-fss-pub.nais.io"
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
       value: "dev-gcp.teamsykefravr.fastlegerest"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
@@ -63,7 +59,6 @@ spec:
     outbound:
       external:
         - host: "login.microsoftonline.com"
-        - host: "internarbeidsflatedecorator-q1.dev-fss-pub.nais.io"
       rules:
         - application: fastlegerest
         - application: istilgangskontroll
