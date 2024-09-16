@@ -1,8 +1,4 @@
-import {
-  DecoratorProps,
-  Environment,
-  UrlFormat,
-} from "./decoratorProps";
+import { DecoratorProps, Environment, UrlFormat } from "./decoratorProps";
 import { erAnsattDev, erDev, erLokal, erProd } from "@/utils/miljoUtil";
 
 const decoratorConfig = (setFnr: (fnr: string) => void): DecoratorProps => {
