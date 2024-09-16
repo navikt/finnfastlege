@@ -34,7 +34,7 @@ async function initJWKSet() {
   _remoteJWKSet = await createRemoteJWKSet(new URL(Config.auth.jwksUri));
 }
 
-const retrieveToken = async (
+const retrieveAndValidateToken = async (
   req: Request,
   azureAdIssuer: OpenIdClient.Issuer<any>
 ): Promise<string | undefined> => {
@@ -95,7 +95,7 @@ export const getOrRefreshOnBehalfOfToken = async (
   req: Request,
   clientId: string
 ): Promise<OboToken | undefined> => {
-  const token = await retrieveToken(req, issuer);
+  const token = await retrieveAndValidateToken(req, issuer);
   if (!token) {
     throw Error(
       "Could not get on-behalf-of token because the token was undefined"
@@ -104,6 +104,7 @@ export const getOrRefreshOnBehalfOfToken = async (
   if (req.session.tokenCache === undefined) {
     req.session.tokenCache = {};
   }
+
   let cachedOboToken = req.session.tokenCache[clientId];
   if (cachedOboToken && isNotExpired(cachedOboToken)) {
     return cachedOboToken.token;

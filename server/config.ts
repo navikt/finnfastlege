@@ -43,16 +43,6 @@ export interface ExternalAppConfig {
 export const server = {
   host: envVar({ name: "HOST", defaultValue: "localhost" }),
   port: Number.parseInt(envVar({ name: "PORT", defaultValue: "8080" })),
-  finnfastlegeUrl: envVar({
-    name: "FINNFASTLEGE_URL",
-    defaultValue: "http://localhost:8080",
-  }),
-
-  frontendDir: envVar({
-    name: "FRONTEND_DIR",
-    defaultValue: path.join(__dirname, "frontend"),
-  }),
-
   sessionKey: envVar({ name: "SESSION_KEY" }),
   sessionCookieName: envVar({
     name: "SESSION_COOKIE_NAME",
@@ -109,10 +99,6 @@ export const auth = {
   responseMode: "query",
   tokenEndpointAuthSigningAlg: "RS256",
 
-  internarbeidsflatedecoratorHost: envVar({
-    name: "INTERNARBEIDSFLATEDECORATOR_HOST",
-  }),
-
   modiacontextholder: {
     applicationName: "modiacontextholder",
     clientId: envVar({
@@ -121,6 +107,7 @@ export const auth = {
     host: envVar({
       name: "MODIACONTEXTHOLDER_HOST",
     }),
+    removePathPrefix: true,
   },
 
   fastlegerest: {

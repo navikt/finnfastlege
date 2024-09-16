@@ -75,3 +75,23 @@ export const get = <ResponseData>(
       }
     });
 };
+
+export const post = <ResponseData>(
+  url: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: Record<string, any> | Record<string, any>[],
+  personIdent?: string
+): Promise<ResponseData> => {
+  return axios
+    .post(url, data, {
+      headers: defaultRequestHeaders(personIdent),
+    })
+    .then((response) => response.data)
+    .catch(function (error) {
+      if (axios.isAxiosError(error)) {
+        handleAxiosError(error);
+      } else {
+        throw new ApiErrorException(generalError(error), error.code);
+      }
+    });
+};
