@@ -1,6 +1,5 @@
 import {
   DecoratorProps,
-  Enhet,
   Environment,
   UrlFormat,
 } from "./decoratorProps";
@@ -10,7 +9,7 @@ const decoratorConfig = (setFnr: (fnr: string) => void): DecoratorProps => {
   return {
     appName: "Sykefraværsoppfølging",
     fetchActiveEnhetOnMount: false,
-    onEnhetChanged: (enhetId?: string | null, enhet?: Enhet) => {
+    onEnhetChanged: () => {
       // do nothing
     },
     onFnrChanged: (fnr?: string | null) => {
