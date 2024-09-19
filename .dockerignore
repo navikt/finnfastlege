@@ -1,8 +1,6 @@
 .git/
-.babelrc
 .eslintignore
 .gitignore
-.babelrc
 .nais.yaml
 Dockerfile
 build-html.js
