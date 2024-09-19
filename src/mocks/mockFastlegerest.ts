@@ -1,6 +1,6 @@
-import express from "express";
-import { leggTilDagerPaDato } from "./util/dateUtil";
-import { RelasjonKodeVerdi } from "../src/data/fastlege/FastlegeDTO";
+import { leggTilDagerPaDato } from "@/mocks/util/dateUtil";
+import { RelasjonKodeVerdi } from "../data/fastlege/FastlegeDTO";
+import { http, HttpResponse } from "msw";
 
 const fastlege = {
   fornavn: "Lege",
@@ -85,14 +85,9 @@ const fastlegeList = [
   },
 ];
 
-const mockFastlegerest = (server: express.Application) => {
-  server.get(
-    "/fastlegerest/api/v2/fastlege/fastleger",
-    (req: express.Request, res: express.Response) => {
-      res.setHeader("Content-Type", "application/json");
-      res.send(JSON.stringify(fastlegeList));
-    }
-  );
-};
+const mockFastlegerest =
+  http.get("/fastlegerest/api/v2/fastlege/fastleger", () => {
+    return HttpResponse.json(fastlegeList);
+  });
 
 export default mockFastlegerest;
