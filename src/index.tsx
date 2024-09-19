@@ -36,20 +36,11 @@ const queryClient = new QueryClient({
 
 initFaro();
 
-async function setupMocking() {
-  if (erLokal()) {
-    const { worker } = await import('./mocks/browser');
-    return worker.start();
-  } else {
-    return Promise.resolve()
-  }
-}
-
 const container =
   document.getElementById("maincontent") || new DocumentFragment();
 const root = createRoot(container);
 
-setupMocking().then(() => {
+function renderApp() {
   root.render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
@@ -57,5 +48,16 @@ setupMocking().then(() => {
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </React.StrictMode>
-  );
-});
+  )
+}
+
+async function setupMocking() {
+  const { worker } = await import('./mocks/browser');
+  return worker.start();
+}
+
+if (erLokal()) {
+  setupMocking().then(() => renderApp());
+} else {
+  renderApp()
+}
