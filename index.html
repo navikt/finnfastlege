@@ -5,6 +5,7 @@
     <title>Fastlege</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
     <% if (process.env.NODE_ENV !== 'development') { %>
     <script src="https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod/latest/dist/bundle.js"></script>
     <link
@@ -12,18 +13,16 @@
       href="https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod/latest/dist/index.css"
     />
     <% } %> <% if (process.env.NODE_ENV === 'development') { %>
+    -->
     <script src="https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist/bundle.js"></script>
     <link
       rel="stylesheet"
       href="https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist/index.css"
     />
-    <% } %>
   </head>
   <body>
     <div id="header"></div>
-
-    <div id="maincontent" class="app app--laster" tabindex="-1">
-      <div class="app-spinner" aria-label="Vent litt mens siden laster"></div>
-    </div>
+    <div id="maincontent" class="app app--laster" tabindex="-1"></div>
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

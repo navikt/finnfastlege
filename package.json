@@ -5,12 +5,14 @@
   "main": "index.tsx",
   "test": "npm run test",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "node server.js",
     "test": "vitest run",
     "lint-and-typecheck": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint src test --ext .ts  --ext .tsx  --ext .js  --ext .jsx",
-    "start": "webpack serve --config webpack.dev.ts",
-    "build": "webpack --config webpack.prod.ts"
+    "start": "webpack serve --config webpack.dev.ts"
   },
   "author": "Team DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
@@ -69,6 +71,7 @@
     "@types/webpack": "5.28.0",
     "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",
+    "@vitejs/plugin-react": "4.3.1",
     "autoprefixer": "10.4.7",
     "axios-mock-adapter": "1.22.0",
     "babel-loader": "8.2.5",
@@ -86,19 +89,26 @@
     "html-webpack-plugin": "5.5.0",
     "jsdom": "21.1.1",
     "jsdom-global": "3.0.2",
+    "msw": "2.4.8",
     "nock": "13.2.4",
     "postcss-loader": "7.0.0",
     "prettier": "2.6.2",
     "style-loader": "3.3.1",
     "ts-node": "10.8.0",
     "tsconfig-paths-webpack-plugin": "3.5.2",
-    "typescript": "4.7.2",
+    "typescript": "5.6.2",
     "url-loader": "4.1.1",
-    "vitest": "1.6.0",
+    "vite": "5.4.6",
     "vite-tsconfig-paths": "4.3.2",
+    "vitest": "1.6.0",
     "webpack": "5.76.0",
     "webpack-cli": "4.9.2",
     "webpack-dev-server": "4.9.0",
     "webpack-merge": "5.8.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
