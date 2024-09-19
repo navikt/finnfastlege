@@ -85,9 +85,11 @@ const fastlegeList = [
   },
 ];
 
-const mockFastlegerest =
-  http.get("/fastlegerest/api/v2/fastlege/fastleger", () => {
+const mockFastlegerest = http.get(
+  "/fastlegerest/api/v2/fastlege/fastleger",
+  () => {
     return HttpResponse.json(fastlegeList);
-  });
+  }
+);
 
 export default mockFastlegerest;

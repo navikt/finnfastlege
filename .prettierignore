@@ -11,3 +11,4 @@ settings.json
 .vscode/
 *.yaml
 *.yml
+public/

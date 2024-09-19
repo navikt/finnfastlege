@@ -48,16 +48,16 @@ function renderApp() {
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </React.StrictMode>
-  )
+  );
 }
 
 async function setupMocking() {
-  const { worker } = await import('./mocks/browser');
+  const { worker } = await import("./mocks/browser");
   return worker.start();
 }
 
 if (erLokal()) {
   setupMocking().then(() => renderApp());
 } else {
-  renderApp()
+  renderApp();
 }

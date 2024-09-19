@@ -32,26 +32,17 @@ const mockModiacontextholder = [
     return HttpResponse.json(saksbehandler);
   }),
 
-  http.get(
-    "/modiacontextholder/api/context/aktivbruker",
-    () => {
-      return HttpResponse.json(aktivBruker);
-    }
-  ),
+  http.get("/modiacontextholder/api/context/aktivbruker", () => {
+    return HttpResponse.json(aktivBruker);
+  }),
 
-  http.get(
-    "/modiacontextholder/api/context/aktivenhet",
-    () => {
-      return HttpResponse.json(aktivEnhet);
-    }
-  ),
+  http.get("/modiacontextholder/api/context/aktivenhet", () => {
+    return HttpResponse.json(aktivEnhet);
+  }),
 
-  http.post(
-    "/modiacontextholder/api/context",
-    () => {
-      return new HttpResponse(null, { status: 204 });
-    }
-  ),
+  http.post("/modiacontextholder/api/context", () => {
+    return new HttpResponse(null, { status: 204 });
+  }),
 ];
 
 export default mockModiacontextholder;

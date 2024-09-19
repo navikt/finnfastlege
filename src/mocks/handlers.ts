@@ -8,6 +8,6 @@ const handlers = [
   mockIstilgangskontroll,
   ...mockModiacontextholder,
   ...mockSyfoperson,
-]
+];
 
 export default handlers;
