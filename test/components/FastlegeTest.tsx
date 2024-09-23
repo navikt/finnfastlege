@@ -2,29 +2,28 @@ import React from "react";
 
 import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { apiMock } from "../stubs/stubApi";
-import { FASTLEGEREST_ROOT } from "@/api/constants";
 import { Fastlege, texts } from "@/components/Fastlege";
-import nock from "nock";
 import { testQueryClient } from "../testQueryClient";
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import { describe, expect, it, beforeEach } from "vitest";
+import { mockServer } from "../setup";
+import { http, HttpResponse } from "msw";
 
 const fnr = "01117302624";
 
 let queryClient: QueryClient;
-let apiMockScope: nock.Scope;
 
 describe("FastlegeTests", () => {
   beforeEach(() => {
-    apiMockScope = apiMock();
     queryClient = testQueryClient();
-  });
-  afterEach(() => {
-    nock.cleanAll();
   });
 
   it("Feil i kall mot fastlegerest gir generell feilmelding", async () => {
-    apiMockScope.get(`${FASTLEGEREST_ROOT}/fastlege/fastleger`).reply(500);
+    mockServer.use(
+      http.get("*/fastlege/fastleger", () =>
+        HttpResponse.text("error", { status: 500 })
+      )
+    );
+
     render(
       <QueryClientProvider client={queryClient}>
         <Fastlege fnr={fnr} />
@@ -40,7 +39,12 @@ describe("FastlegeTests", () => {
   });
 
   it("Manglende tilgang gir ingen tilgang-feilmelding", async () => {
-    apiMockScope.get(`${FASTLEGEREST_ROOT}/fastlege/fastleger`).reply(403);
+    mockServer.use(
+      http.get("*/fastlege/fastleger", () =>
+        HttpResponse.text("no access", { status: 403 })
+      )
+    );
+
     render(
       <QueryClientProvider client={queryClient}>
         <Fastlege fnr={fnr} />
@@ -56,9 +60,10 @@ describe("FastlegeTests", () => {
   });
 
   it("Fant ikke fastlege gir ikke funnet-feilmelding", async () => {
-    apiMockScope
-      .get(`${FASTLEGEREST_ROOT}/fastlege/fastleger`)
-      .reply(200, () => []);
+    mockServer.use(
+      http.get("*/fastlege/fastleger", () => HttpResponse.json([]))
+    );
+
     render(
       <QueryClientProvider client={queryClient}>
         <Fastlege fnr={fnr} />
