@@ -28,7 +28,7 @@ const getEnvironment = (): Environment => {
   } else if (erDev()) {
     return "q2";
   } else {
-    return "local";
+    return "mock";
   }
 };
 

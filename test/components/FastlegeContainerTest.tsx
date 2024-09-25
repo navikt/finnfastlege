@@ -2,15 +2,14 @@ import React from "react";
 import FastlegeContainer, {
   texts,
 } from "../../src/containers/FastlegeContainer";
-import { apiMock } from "../stubs/stubApi";
-import nock from "nock";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import { testQueryClient } from "../testQueryClient";
-import { describe, expect, it, beforeEach, afterEach } from "vitest";
+import { describe, expect, it, beforeEach } from "vitest";
+import { mockServer } from "../setup";
+import { http, HttpResponse } from "msw";
 
 let queryClient: QueryClient;
-let apiMockScope: nock.Scope;
 
 const generalError = {
   erGodkjent: false,
@@ -23,16 +22,14 @@ const noAccess = {
 describe("FastlegeContainerTests", () => {
   beforeEach(() => {
     queryClient = testQueryClient();
-    apiMockScope = apiMock();
-  });
-  afterEach(() => {
-    nock.cleanAll();
   });
 
   it("Manglende tilgang til finnfastlege gir melding om å kontakte identansvarlig", async () => {
-    apiMockScope
-      .get(`/istilgangskontroll/api/tilgang/navident/syfo`)
-      .reply(403, () => noAccess);
+    mockServer.use(
+      http.get("*/istilgangskontroll/api/tilgang/navident/syfo", () =>
+        HttpResponse.json(noAccess, { status: 403 })
+      )
+    );
     render(
       <QueryClientProvider client={queryClient}>
         <FastlegeContainer />
@@ -48,9 +45,11 @@ describe("FastlegeContainerTests", () => {
   });
 
   it("Feil i kall mot tilgangstjenesten gir generell feilmelding", async () => {
-    apiMockScope
-      .get(`/istilgangskontroll/api/tilgang/navident/syfo`)
-      .reply(500, () => generalError);
+    mockServer.use(
+      http.get("*/istilgangskontroll/api/tilgang/navident/syfo", () =>
+        HttpResponse.json(generalError, { status: 500 })
+      )
+    );
     render(
       <QueryClientProvider client={queryClient}>
         <FastlegeContainer />
