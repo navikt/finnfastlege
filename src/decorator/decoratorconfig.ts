@@ -19,6 +19,8 @@ const decoratorConfig = (setFnr: (fnr: string) => void): DecoratorProps => {
     environment: getEnvironment(),
     urlFormat: getUrlFormat(),
     proxy: "/modiacontextholder",
+    fnrSyncMode: "writeOnly",
+    enhetSyncMode: "writeOnly",
   };
 };
 
