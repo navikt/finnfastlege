@@ -1,4 +1,4 @@
-FROM node:18-alpine as builder
+FROM node:18-alpine AS builder
 WORKDIR /finnfastlege
 
 COPY server.ts package.json tsconfig.json ./
