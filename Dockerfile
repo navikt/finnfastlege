@@ -1,4 +1,4 @@
-FROM node:18-alpine as builder
+FROM node:18-alpine AS builder
 WORKDIR /finnfastlege
 
 COPY server.ts package.json tsconfig.json ./
@@ -10,7 +10,7 @@ COPY dist ./dist
 RUN npm install -g typescript
 RUN tsc --build
 
-FROM gcr.io/distroless/nodejs18-debian11
+FROM gcr.io/distroless/nodejs18-debian12
 WORKDIR /finnfastlege
 
 COPY --from=builder /finnfastlege/package.json ./
