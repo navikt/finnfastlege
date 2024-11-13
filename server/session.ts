@@ -7,20 +7,21 @@ import * as Config from "./config";
 
 const SESSION_MAX_AGE_SECONDS = 12 * 60 * 60;
 
+const getRedisClient = () => {
+  const redisClient = redis.createClient({
+    url: Config.redis.uri,
+    no_ready_check: true,
+  });
+  redisClient.auth(Config.redis.password, Config.redis.username);
+  redisClient.select(Config.redis.database);
+  return redisClient;
+};
+
 const getRedisStore = () => {
   if (Config.isDev) return undefined;
-
   const RedisStore = connectRedis(session);
-
-  const redisClient = redis.createClient({
-    host: Config.redis.host,
-    port: Config.redis.port,
-    password: Config.redis.password,
-  });
-  redisClient.unref();
-
   return new RedisStore({
-    client: redisClient,
+    client: getRedisClient(),
     ttl: SESSION_MAX_AGE_SECONDS,
     disableTouch: true,
   });

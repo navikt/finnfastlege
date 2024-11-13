@@ -31,6 +31,4 @@ $ npm install --legacy-peer-deps # installerer avhengigheter
 
 ## Redis Cache
 
-Brukes for å cache bruker-sessions. Nais-oppsettet ligger i `.nais/redis.yaml`.
-Redis pod deployes automatisk ved endringer i workflow eller config i master,
-men kan også deployes manuelt til NAIS ved å kjøre følgdende kommando: `kubectl apply -f .nais/redis.yaml`.
+Bruker teamsykefravr sin felles Redis-cache på Aiven for å cache bruker-sessions.

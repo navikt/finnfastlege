@@ -23,14 +23,14 @@ spec:
     initialDelay: 30
     periodSeconds: 5
     timeout: 5
+  redis:
+    - instance: cache
+      access: readwrite
   envFrom:
     - secret: finnfastlege-session-key
-    - secret: finnfastlege-redis-password
   env:
     - name: NODE_ENV
       value: production
-    - name: REDIS_HOST
-      value: finnfastlege-redis
     - name: AUTH_REDIRECT_URI
       value: "https://finnfastlege.intern.nav.no/oauth2/callback"
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
@@ -63,7 +63,6 @@ spec:
         - application: fastlegerest
         - application: istilgangskontroll
         - application: syfoperson
-        - application: finnfastlege-redis
         - application: modiacontextholder
           namespace: personoversikt
   azure:
