@@ -141,10 +141,8 @@ export const auth = {
 };
 
 export const redis = {
-  host: envVar({ name: "REDIS_HOST", defaultValue: "" }),
-  port: Number.parseInt(envVar({ name: "REDIS_PORT", defaultValue: "6379" })),
-  password: envVar({
-    name: "REDIS_PASSWORD",
-    defaultValue: { dev: "", prod: "" },
-  }),
+  uri: envVar({ name: "REDIS_URI_CACHE", defaultValue: "" }),
+  username: envVar({ name: "REDIS_USERNAME_CACHE", defaultValue: "" }),
+  password: envVar({ name: "REDIS_PASSWORD_CACHE", defaultValue: "" }),
+  database: 2,
 };
