@@ -4,7 +4,6 @@ import { erAnsattDev, erDev, erLokal, erProd } from "@/utils/miljoUtil";
 const decoratorConfig = (setFnr: (fnr: string) => void): DecoratorProps => {
   return {
     appName: "Sykefraværsoppfølging",
-    fetchActiveEnhetOnMount: false,
     onEnhetChanged: () => {
       // do nothing
     },
@@ -13,14 +12,14 @@ const decoratorConfig = (setFnr: (fnr: string) => void): DecoratorProps => {
         setFnr(fnr);
       }
     },
-    showEnheter: true,
+    showEnheter: false,
     showSearchArea: true,
     showHotkeys: false,
     environment: getEnvironment(),
     urlFormat: getUrlFormat(),
     proxy: "/modiacontextholder",
     fnrSyncMode: "writeOnly",
-    enhetSyncMode: "writeOnly",
+    enhetSyncMode: "ignore",
   };
 };
 
