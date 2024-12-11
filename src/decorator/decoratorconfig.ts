@@ -12,7 +12,7 @@ const decoratorConfig = (setFnr: (fnr: string) => void): DecoratorProps => {
         setFnr(fnr);
       }
     },
-    showEnheter: false,
+    showEnheter: true,
     showSearchArea: true,
     showHotkeys: false,
     environment: getEnvironment(),
