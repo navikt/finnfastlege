@@ -4,6 +4,7 @@ import { erAnsattDev, erDev, erLokal, erProd } from "@/utils/miljoUtil";
 const decoratorConfig = (setFnr: (fnr: string) => void): DecoratorProps => {
   return {
     appName: "Sykefraværsoppfølging",
+    fetchActiveEnhetOnMount: true
     onEnhetChanged: () => {
       // do nothing
     },
@@ -19,7 +20,6 @@ const decoratorConfig = (setFnr: (fnr: string) => void): DecoratorProps => {
     urlFormat: getUrlFormat(),
     proxy: "/modiacontextholder",
     fnrSyncMode: "writeOnly",
-    enhetSyncMode: "sync",
   };
 };
 
