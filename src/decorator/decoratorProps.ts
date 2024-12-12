@@ -18,8 +18,8 @@ export interface DecoratorProps {
   environment: Environment; // Miljø som skal brukes.
   urlFormat: UrlFormat; // URL format
   proxy?: string | undefined; // Manuell overstyring av urlene til BFFs. Gjør alle kall til relativt path hvis true, og bruker verdien som domene om satt til en string. Default: false
-  fnrSyncMode: "sync" | "writeOnly"; // Modus til fnr state management. "sync" er default. "writeOnly" gjør at endringer aldri hentes men vil settes dersom det oppdateres lokalt i appen
-  enhetSyncMode?: "sync" | "writeOnly"; // Samme som fnrSyncMode, men for enhet state.
+  fnrSyncMode: "sync" | "writeOnly" | "ignore"; // Modus til fnr state management. "sync" er default. "writeOnly" gjør at endringer aldri hentes men vil settes dersom det oppdateres lokalt i appen
+  enhetSyncMode?: "sync" | "writeOnly" | "ignore"; // Samme som fnrSyncMode, men for enhet state.
 }
 
 export interface Markup {
