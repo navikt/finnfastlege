@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import { ReactNode } from "react";
 
-export const Row = styled.div`
+interface RowProps {
+  children?: ReactNode;
+}
+
+export const Row = styled.div<RowProps>`
   display: flex;
   margin-bottom: 1em;
   > * {
