@@ -9,6 +9,6 @@ jobs:
       id-token: write
     uses: navikt/isworkflows/.github/workflows/node-build-deploy.yml@master
     with:
-      node-version: 18
+      node-version: 22
       distroless: true
     secrets: inherit
