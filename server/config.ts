@@ -141,7 +141,10 @@ export const auth = {
 };
 
 export const valkey = {
-  uri: envVar({ name: "VALKEY_URI_CACHE", defaultValue: "" }).replace("valkeys","rediss"),
+  uri: envVar({ name: "VALKEY_URI_CACHE", defaultValue: "" }).replace(
+    "valkeys",
+    "rediss"
+  ),
   username: envVar({ name: "VALKEY_USERNAME_CACHE", defaultValue: "" }),
   password: envVar({ name: "VALKEY_PASSWORD_CACHE", defaultValue: "" }),
   database: 2,
