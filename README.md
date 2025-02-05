@@ -31,4 +31,4 @@ $ npm install --legacy-peer-deps # installerer avhengigheter
 
 ## Redis Cache
 
-Bruker teamsykefravr sin felles Redis-cache på Aiven for å cache bruker-sessions.
+Bruker teamsykefravr sin felles Valkey-cache på Aiven for å cache bruker-sessions.

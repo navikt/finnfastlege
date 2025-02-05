@@ -23,7 +23,7 @@ spec:
     initialDelay: 30
     periodSeconds: 5
     timeout: 5
-  redis:
+  valkey:
     - instance: cache
       access: readwrite
   envFrom:
