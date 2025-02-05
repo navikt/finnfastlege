@@ -19,7 +19,7 @@ const getValkeyClient = () => {
 
 const getValkeyStore = () => {
   if (Config.isDev) return undefined;
-  connectRedis(session);
+  const RedisStore = connectRedis(session);
   return new RedisStore({
     client: getValkeyClient(),
     ttl: SESSION_MAX_AGE_SECONDS,
