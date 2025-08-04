@@ -43,7 +43,7 @@
     "http-proxy": "1.18.1",
     "https-proxy-agent": "5.0.1",
     "jose": "6.0.10",
-    "openid-client": "4.2.2",
+    "openid-client": "6.4.2",
     "prom-client": "14.0.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
