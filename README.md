@@ -20,7 +20,7 @@ Du må ha Node v22 og npm v10 installert.
 - Kjør tester med `npm test` eller `npm test:watch`
 - Lint JS-kode med `npm run lint` eller `npm run lint:fix`
 
-Appen nås på [http://localhost:8080/fastlege/](http://localhost:8080/fastlege/)
+Appen nås på [http://localhost:8080](http://localhost:8080)
 
 Ved første kjøring:
 

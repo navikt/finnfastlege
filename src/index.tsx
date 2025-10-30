@@ -11,7 +11,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { isClientError } from "@/api/errors";
 import { initFaro } from "@/faro";
-import { erLokal } from "@/utils/miljoUtil";
+import { erLokal, erProd } from "@/utils/miljoUtil";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +34,21 @@ const queryClient = new QueryClient({
   },
 });
 
+function addUmamiScript() {
+  const dataWebsiteId = erProd()
+    ? "cc98e91e-23c4-4a06-b9f2-87bb225132b9"
+    : "0fb4abdf-21fc-40d1-9d63-a833f56095b7";
+  const script = document.createElement("script");
+  script.setAttribute("data-host-url", "https://umami.nav.no");
+  script.setAttribute("data-website-id", dataWebsiteId);
+  script.setAttribute(
+    "src",
+    "https://cdn.nav.no/team-researchops/sporing/sporing.js"
+  );
+  script.setAttribute("defer", "defer");
+  document.head.appendChild(script);
+}
+
 initFaro();
 
 const container =
@@ -41,6 +56,9 @@ const container =
 const root = createRoot(container);
 
 function renderApp() {
+  if (!erLokal()) {
+    addUmamiScript();
+  }
   root.render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
