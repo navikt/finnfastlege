@@ -2,21 +2,18 @@ FROM node:22-alpine AS builder
 WORKDIR /finnfastlege
 
 COPY server.ts package.json tsconfig.json ./
-COPY server ./server
+COPY dist-server ./dist-server
 COPY node_modules ./node_modules
 COPY img ./img
 COPY dist ./dist
-
-RUN npm install -g typescript
-RUN tsc --build
 
 FROM gcr.io/distroless/nodejs22-debian12
 WORKDIR /finnfastlege
 
 COPY --from=builder /finnfastlege/package.json ./
-COPY --from=builder /finnfastlege/dist/server.js ./
-COPY --from=builder /finnfastlege/dist/server.js.map ./
-COPY --from=builder /finnfastlege/dist/server ./server
+COPY --from=builder /finnfastlege/dist-server/server.js ./
+COPY --from=builder /finnfastlege/dist-server/server.js.map ./
+COPY --from=builder /finnfastlege/dist-server/server ./server
 COPY --from=builder /finnfastlege/dist/index.html ./dist/index.html
 COPY --from=builder /finnfastlege/dist/main.bundle.js ./dist/main.bundle.js
 COPY --from=builder /finnfastlege/node_modules ./node_modules
