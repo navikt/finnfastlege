@@ -12,5 +12,4 @@ jobs:
     with:
       node-version: 22
       distroless: true
-      buildServer: true
     secrets: inherit
