@@ -21,7 +21,7 @@ const proxyExternalHost = (
       if (!options.headers) {
         options.headers = {};
       }
-      options.headers["Authorization"] = `Bearer ${accessToken}`;
+      (options.headers as Record<string, string>)["Authorization"] = `Bearer ${accessToken}`;
       return options;
     },
     proxyReqPathResolver: (req) => {
