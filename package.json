@@ -111,13 +111,6 @@
   "pnpm": {
     "overrides": {
       "@webpack-cli/serve": "1.6.1"
-    },
-    "onlyBuiltDependencies": [
-      "core-js",
-      "esbuild",
-      "msw",
-      "protobufjs",
-      "styled-components"
-    ]
+    }
   }
 }
