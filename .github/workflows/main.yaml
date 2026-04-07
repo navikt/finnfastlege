@@ -8,7 +8,7 @@ jobs:
       packages: read
       contents: read
       id-token: write
-    uses: navikt/isworkflows/.github/workflows/node-build-deploy-pnpm.yml@master
+    uses: navikt/isworkflows/.github/workflows/node-build-deploy-pnpm.yml@pnpm-2
     with:
       node-version: 22
     secrets: inherit
