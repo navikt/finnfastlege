@@ -21,7 +21,9 @@ const proxyExternalHost = (
       if (!options.headers) {
         options.headers = {};
       }
-      options.headers["Authorization"] = `Bearer ${accessToken}`;
+      (options.headers as Record<string, string>)[
+        "Authorization"
+      ] = `Bearer ${accessToken}`;
       return options;
     },
     proxyReqPathResolver: (req) => {
@@ -94,7 +96,7 @@ const proxyOnBehalfOf = (
 export const setupProxy = (
   authClient: OpenIdClient.Client,
   issuer: OpenIdClient.Issuer<any>
-) => {
+): express.Router => {
   const router = express.Router();
 
   router.use(
