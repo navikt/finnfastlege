@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint src test --ext .ts  --ext .tsx  --ext .js  --ext .jsx",
     "start": "webpack serve --config webpack.dev.ts",
-    "build": "webpack --config webpack.prod.ts",
+    "build": "webpack --config webpack.prod.ts && pnpm run build:server",
     "build:server": "tsc --build ./server/tsconfig.json"
   },
   "author": "Team DigiSyfo <digisyfo@nav.no>",
