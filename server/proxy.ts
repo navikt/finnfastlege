@@ -96,7 +96,7 @@ const proxyOnBehalfOf = (
 export const setupProxy = (
   authClient: OpenIdClient.Client,
   issuer: OpenIdClient.Issuer<any>
-) => {
+): express.Router => {
   const router = express.Router();
 
   router.use(
