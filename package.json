@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Digitalisering av sykefraværsoppfølging",
   "main": "index.tsx",
-  "test": "npm run test",
+  "test": "pnpm test",
   "scripts": {
     "test": "vitest run",
     "lint-and-typecheck": "pnpm lint && pnpm typecheck",
