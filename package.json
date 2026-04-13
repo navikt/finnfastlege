@@ -2,6 +2,7 @@
   "name": "finnfastlege",
   "version": "0.0.1",
   "description": "Digitalisering av sykefraværsoppfølging",
+  "type": "module",
   "main": "index.tsx",
   "test": "pnpm test",
   "scripts": {
@@ -9,8 +10,8 @@
     "lint-and-typecheck": "pnpm lint && pnpm typecheck",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint src test --ext .ts  --ext .tsx  --ext .js  --ext .jsx",
-    "start": "webpack serve --config webpack.dev.ts",
-    "build": "webpack --config webpack.prod.ts && pnpm run build:server",
+    "start": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js && pnpm run build:server",
     "build:server": "tsc --build ./server/tsconfig.json"
   },
   "author": "Team DigiSyfo <digisyfo@nav.no>",
@@ -112,6 +113,9 @@
     "overrides": {
       "@webpack-cli/serve": "1.6.1",
       "lodash": "4.18.1"
+    },
+    "patchedDependencies": {
+      "openid-client@4.2.2": "patches/openid-client@4.2.2.patch"
     }
   }
 }

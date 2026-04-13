@@ -1,9 +1,7 @@
 import { merge } from "webpack-merge";
-import * as Webpack from "webpack";
+import common from "./webpack.common.js";
 
-import common from "./webpack.common";
-
-const devConfig: Webpack.Configuration = {
+const devConfig = {
   mode: "development",
   devtool: "eval-source-map",
   output: {

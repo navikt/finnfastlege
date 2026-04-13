@@ -3,7 +3,7 @@ import connectRedis from "connect-redis";
 import session from "express-session";
 import redis from "redis";
 
-import * as Config from "./config";
+import * as Config from "./config.js";
 
 const SESSION_MAX_AGE_SECONDS = 12 * 60 * 60;
 

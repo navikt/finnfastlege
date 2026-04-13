@@ -1,14 +1,15 @@
-import OpenIdClient from "openid-client";
+import { Client, Issuer } from "openid-client";
 import { Request } from "express";
 import {
   createRemoteJWKSet,
   FlattenedJWSInput,
+  GetKeyFunction,
   JWSHeaderParameters,
+  JWTPayload,
   jwtVerify,
 } from "jose";
-import { GetKeyFunction, JWTPayload } from "jose/dist/types/types";
 
-import * as Config from "./config";
+import * as Config from "./config.js";
 
 type OboToken = {
   accessToken: string;
@@ -36,7 +37,7 @@ async function initJWKSet() {
 
 const retrieveAndValidateToken = async (
   req: Request,
-  azureAdIssuer: OpenIdClient.Issuer<any>
+  azureAdIssuer: Issuer<any>
 ): Promise<string | undefined> => {
   const token = req.headers.authorization?.replace("Bearer ", "");
   if (token && (await validateToken(token, azureAdIssuer))) {
@@ -45,10 +46,7 @@ const retrieveAndValidateToken = async (
   return undefined;
 };
 
-const validateToken = async (
-  token: string,
-  azureAdIssuer: OpenIdClient.Issuer<any>
-) => {
+const validateToken = async (token: string, azureAdIssuer: Issuer<any>) => {
   try {
     if (!_remoteJWKSet) {
       await initJWKSet();
@@ -90,8 +88,8 @@ const isNotExpired = (token: CachedOboToken) => {
 };
 
 export const getOrRefreshOnBehalfOfToken = async (
-  authClient: OpenIdClient.Client,
-  issuer: OpenIdClient.Issuer<any>,
+  authClient: Client,
+  issuer: Issuer<any>,
   req: Request,
   clientId: string
 ): Promise<OboToken | undefined> => {
@@ -127,7 +125,7 @@ export const getOrRefreshOnBehalfOfToken = async (
 };
 
 const requestOnBehalfOfToken = async (
-  authClient: OpenIdClient.Client,
+  authClient: Client,
   accessToken: string,
   clientId: string
 ): Promise<OboToken | undefined> => {
@@ -150,18 +148,16 @@ const requestOnBehalfOfToken = async (
   }
 };
 
-export const getOpenIdIssuer = async (): Promise<OpenIdClient.Issuer<any>> => {
+export const getOpenIdIssuer = async (): Promise<Issuer<any>> => {
   try {
-    return OpenIdClient.Issuer.discover(Config.auth.discoverUrl);
+    return Issuer.discover(Config.auth.discoverUrl);
   } catch (e) {
     console.log("Could not discover issuer", Config.auth.discoverUrl);
     throw e;
   }
 };
 
-export const getOpenIdClient = async (
-  issuer: OpenIdClient.Issuer<any>
-): Promise<OpenIdClient.Client> => {
+export const getOpenIdClient = async (issuer: Issuer<any>): Promise<Client> => {
   return new issuer.Client(
     {
       client_id: Config.auth.clientId,

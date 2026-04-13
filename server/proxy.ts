@@ -1,10 +1,10 @@
 import express from "express";
 import expressHttpProxy from "express-http-proxy";
 import url from "url";
-import OpenIdClient from "openid-client";
+import { Client, Issuer } from "openid-client";
 
-import { getOrRefreshOnBehalfOfToken } from "./authUtils";
-import * as Config from "./config";
+import { getOrRefreshOnBehalfOfToken } from "./authUtils.js";
+import * as Config from "./config.js";
 
 const proxyExternalHost = (
   { applicationName, host, removePathPrefix }: any,
@@ -61,8 +61,8 @@ const proxyOnBehalfOf = (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
-  authClient: OpenIdClient.Client,
-  issuer: OpenIdClient.Issuer<any>,
+  authClient: Client,
+  issuer: Issuer<any>,
   externalAppConfig: Config.ExternalAppConfig
 ) => {
   getOrRefreshOnBehalfOfToken(
@@ -94,8 +94,8 @@ const proxyOnBehalfOf = (
 };
 
 export const setupProxy = (
-  authClient: OpenIdClient.Client,
-  issuer: OpenIdClient.Issuer<any>
+  authClient: Client,
+  issuer: Issuer<any>
 ): express.Router => {
   const router = express.Router();
 
