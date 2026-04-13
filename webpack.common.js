@@ -1,15 +1,16 @@
-import "regenerator-runtime/runtime";
-
 import path from "path";
-import { Configuration } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import Dotenv from "dotenv-webpack";
 import autoprefixer from "autoprefixer";
+import { fileURLToPath } from "url";
 
 const extensions = [".tsx", ".jsx", ".js", ".ts", ".json"];
 
-const commonConfig: Configuration = {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const commonConfig = {
   entry: {
     main: ["./src/index.tsx"],
   },

@@ -1,11 +1,13 @@
 import express, { RequestHandler } from "express";
 import path from "path";
 import prometheus from "prom-client";
+import { getOpenIdClient, getOpenIdIssuer } from "./server/authUtils.js";
+import { setupProxy } from "./server/proxy.js";
+import { setupSession } from "./server/session.js";
+import { fileURLToPath } from "url";
 
-import * as Config from "./server/config";
-import { getOpenIdClient, getOpenIdIssuer } from "./server/authUtils";
-import { setupProxy } from "./server/proxy";
-import { setupSession } from "./server/session";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Prometheus metrics
 const collectDefaultMetrics = prometheus.collectDefaultMetrics;
