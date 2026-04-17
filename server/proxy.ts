@@ -76,9 +76,7 @@ const proxyOnBehalfOf = (
     })
     .catch((error) => {
       console.log("Failed to get OBO token. Original error: %s", error);
-      res
-        .status(500)
-        .send("Failed to fetch access tokens on behalf of user");
+      res.status(500).send("Failed to fetch access tokens on behalf of user");
     });
 };
 
