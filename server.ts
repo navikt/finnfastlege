@@ -1,9 +1,8 @@
 import express, { RequestHandler } from "express";
 import path from "path";
 import prometheus from "prom-client";
-import { getOpenIdClient, getOpenIdIssuer } from "./server/authUtils.js";
+import { validateToken } from "./server/authUtils.js";
 import { setupProxy } from "./server/proxy.js";
-import { setupSession } from "./server/session.js";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -32,7 +31,7 @@ const redirectIfUnauthorized = async (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  if (req.headers["authorization"]) {
+  if (await validateToken(req)) {
     next();
   } else {
     res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
@@ -40,11 +39,7 @@ const redirectIfUnauthorized = async (
 };
 
 const setupServer = async () => {
-  setupSession(server);
-  const issuer = await getOpenIdIssuer();
-  const authClient = await getOpenIdClient(issuer);
-
-  server.use(setupProxy(authClient, issuer));
+  server.use(setupProxy());
 
   const DIST_DIR = path.join(__dirname, "dist");
   const HTML_FILE = path.join(DIST_DIR, "index.html");

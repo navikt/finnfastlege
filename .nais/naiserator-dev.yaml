@@ -5,6 +5,8 @@ metadata:
   namespace: teamsykefravr
   labels:
     team: teamsykefravr
+  annotations:
+    texas.nais.io/enabled: "true"
 spec:
   image: {{ image }}
   replicas:
@@ -26,13 +28,9 @@ spec:
   valkey:
     - instance: cache
       access: readwrite
-  envFrom:
-    - secret: finnfastlege-session-key
   env:
     - name: NODE_ENV
       value: production
-    - name: AUTH_REDIRECT_URI
-      value: "https://finnfastlege.intern.dev.nav.no/oauth2/callback"
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
       value: "dev-gcp.teamsykefravr.fastlegerest"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
