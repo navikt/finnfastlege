@@ -1,32 +1,54 @@
-import React, { useCallback } from "react";
-import NAVSPA from "@navikt/navspa";
-import { DecoratorProps } from "./decoratorProps";
-import decoratorConfig from "./decoratorconfig";
+import React, { useLayoutEffect, useRef } from "react";
+import { decoratorConfig } from "./decoratorconfig";
 import { fullNaisUrlDefault } from "@/utils/miljoUtil";
 import { useAktivBruker } from "@/data/modiacontext/useAktivBruker";
 
-const InternflateDecorator = NAVSPA.importer<DecoratorProps>(
-  "internarbeidsflate-decorator-v3"
-);
-
 const Decorator = () => {
   const aktivBruker = useAktivBruker();
+  const decoratorRef = useRef<InternarbeidsflateDecoratorElement>(null);
 
-  const handlePersonsokSubmit = (nyttFnr: string) => {
-    aktivBruker.mutate(nyttFnr, {
-      onSuccess: () => {
-        const host = "syfomodiaperson";
-        const path = `/sykefravaer`;
-        window.location.href = fullNaisUrlDefault(host, path);
-      },
-    });
-  };
+  useLayoutEffect(() => {
+    const handlePersonsokSubmit = (nyttFnr: string) => {
+      aktivBruker.mutate(nyttFnr, {
+        onSuccess: () => {
+          const host = "syfomodiaperson";
+          const path = `/sykefravaer`;
+          window.location.href = fullNaisUrlDefault(host, path);
+        },
+      });
+    };
 
-  const config = useCallback(decoratorConfig, [handlePersonsokSubmit])(
-    handlePersonsokSubmit
+    const decoratorElement = decoratorRef.current;
+    if (!decoratorElement) return;
+
+    const onFnrChanged = (event: CustomEvent<FnrChangedDetail>) => {
+      const { fnr } = event.detail;
+      if (fnr) handlePersonsokSubmit(fnr);
+    };
+
+    decoratorElement.addEventListener("fnr-changed", onFnrChanged);
+
+    return () => {
+      decoratorElement.removeEventListener("fnr-changed", onFnrChanged);
+    };
+  });
+
+  return (
+    <internarbeidsflate-decorator
+      ref={decoratorRef}
+      app-name={decoratorConfig.appName}
+      fetch-active-enhet-on-mount={String(
+        decoratorConfig.fetchActiveEnhetOnMount
+      )}
+      show-enheter={String(decoratorConfig.showEnheter)}
+      show-search-area={String(decoratorConfig.showSearchArea)}
+      show-hotkeys={String(decoratorConfig.showHotkeys)}
+      environment={decoratorConfig.environment}
+      url-format={decoratorConfig.urlFormat}
+      proxy={decoratorConfig.proxy}
+      fnr-sync-mode={decoratorConfig.fnrSyncMode}
+    />
   );
-
-  return <InternflateDecorator {...config} />;
 };
 
 export default Decorator;
