@@ -31,8 +31,8 @@ spec:
   env:
     - name: NODE_ENV
       value: production
-    - name: APP_ENV
-      value: production
+    - name: DECORATOR_CDN_URL
+      value: https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist/internarbeidsflate-decorator.wc.js
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
       value: "prod-gcp.teamsykefravr.fastlegerest"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
