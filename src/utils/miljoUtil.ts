@@ -29,7 +29,7 @@ const finnNaisUrlDefault = (): string => {
 
 export const fullNaisUrlDefault = (host: string, path: string) => {
   if (erLokal()) {
-    return `http://localhost:8081${path}`;
+    return `http://localhost:3000${path}`;
   }
   return `https://${host}${finnNaisUrlDefault()}${path}`;
 };

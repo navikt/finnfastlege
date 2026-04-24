@@ -29,6 +29,8 @@ spec:
     - instance: cache
       access: readwrite
   env:
+      # Must be set to production in dev.
+      # See https://expressjs.com/en/advanced/best-practice-performance.html#set-node_env-to-production
     - name: NODE_ENV
       value: production
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
