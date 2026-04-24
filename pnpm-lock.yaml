@@ -32,9 +32,6 @@ importers:
       '@navikt/fnrvalidator':
         specifier: 1.3.0
         version: 1.3.0
-      '@navikt/navspa':
-        specifier: 7.5.0
-        version: 7.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tanstack/react-query':
         specifier: 5.99.2
         version: 5.99.2(react@19.2.5)
@@ -1278,12 +1275,6 @@ packages:
 
   '@navikt/fnrvalidator@1.3.0':
     resolution: {integrity: sha512-k1MEZ8xwxtmY570gB+BF38kr9Xta1KIcx0yUExHQZWIsD1PNGSVagoriRTxqGyyTTkt4ajk1Z18WPfWX7rtpgQ==, tarball: https://npm.pkg.github.com/download/@navikt/fnrvalidator/1.3.0/8cea6bae592f772d07efebe9a5ab7179552e1d6f}
-
-  '@navikt/navspa@7.5.0':
-    resolution: {integrity: sha512-md8EDCzOpv5aHdDYHxW23fxQCFghHklli+AyfSBkGZ5gGKApi4LatDYUoJuTlnTZihMI89FX80sFC79ms/QewA==, tarball: https://npm.pkg.github.com/download/@navikt/navspa/7.5.0/d82d23977eec915b4a7bcd7d287d53074632462e}
-    peerDependencies:
-      react: '>=19.2.1'
-      react-dom: '>=19.2.1'
 
   '@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.3':
     resolution: {integrity: sha512-s88O1aVtXftvp5bCPB7WnmXc5IwOZZ7YPuwNPt+GtOOXpPvad1LfbmjYv+qII7zP6RU2QGnqve27dnLycEnyEQ==}
@@ -3505,9 +3496,6 @@ packages:
   loader-utils@2.0.4:
     resolution: {integrity: sha512-xXqpXoINfFhgua9xiqD8fPFHgkoq1mmmpE92WlDbm9rNRd/EbRb+Gqf908T2DMfuHjjJlksiK2RbHVOdD/MqSw==}
     engines: {node: '>=8.9.0'}
-
-  loadjs@4.3.0:
-    resolution: {integrity: sha512-vNX4ZZLJBeDEOBvdr2v/F+0aN5oMuPu7JTqrMwp+DtgK+AryOlpy6Xtm2/HpNr+azEa828oQjOtWsB6iDtSfSQ==}
 
   locate-path@3.0.0:
     resolution: {integrity: sha512-7AO748wWnIhNqAuaty2ZWHkQHRSNfPVIsPIfwEOWO22AmaoVrWavlOcMR5nzTLNYvp36X220/maaRsrec1G65A==}
@@ -6137,12 +6125,6 @@ snapshots:
 
   '@navikt/fnrvalidator@1.3.0': {}
 
-  '@navikt/navspa@7.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
-    dependencies:
-      loadjs: 4.3.0
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
-
   '@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.3':
     optional: true
 
@@ -8685,8 +8667,6 @@ snapshots:
       big.js: 5.2.2
       emojis-list: 3.0.0
       json5: 2.2.3
-
-  loadjs@4.3.0: {}
 
   locate-path@3.0.0:
     dependencies:

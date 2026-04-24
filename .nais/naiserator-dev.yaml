@@ -29,8 +29,12 @@ spec:
     - instance: cache
       access: readwrite
   env:
+      # Must be set to production in dev.
+      # See https://expressjs.com/en/advanced/best-practice-performance.html#set-node_env-to-production
     - name: NODE_ENV
       value: production
+    - name: DECORATOR_CDN_URL
+      value: https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist/internarbeidsflate-decorator.wc.js
     - name: FASTLEGEREST_AAD_APP_CLIENT_ID
       value: "dev-gcp.teamsykefravr.fastlegerest"
     - name: SYFOPERSON_AAD_APP_CLIENT_ID
