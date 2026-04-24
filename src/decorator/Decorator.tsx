@@ -1,16 +1,15 @@
-import React, { useCallback } from "react";
-import NAVSPA from "@navikt/navspa";
-import { DecoratorProps } from "./decoratorProps";
-import decoratorConfig from "./decoratorconfig";
+import React, { useLayoutEffect, useRef } from "react";
+import { decoratorConfig } from "./decoratorconfig";
+import type {
+  FnrChangedDetail,
+  InternarbeidsflateDecoratorElement,
+} from "./internarbeidsflateDecorator";
 import { fullNaisUrlDefault } from "@/utils/miljoUtil";
 import { useAktivBruker } from "@/data/modiacontext/useAktivBruker";
 
-const InternflateDecorator = NAVSPA.importer<DecoratorProps>(
-  "internarbeidsflate-decorator-v3"
-);
-
 const Decorator = () => {
   const aktivBruker = useAktivBruker();
+  const decoratorRef = useRef<InternarbeidsflateDecoratorElement>(null);
 
   const handlePersonsokSubmit = (nyttFnr: string) => {
     aktivBruker.mutate(nyttFnr, {
@@ -22,11 +21,41 @@ const Decorator = () => {
     });
   };
 
-  const config = useCallback(decoratorConfig, [handlePersonsokSubmit])(
-    handlePersonsokSubmit
-  );
+  useLayoutEffect(() => {
+    const decoratorElement = decoratorRef.current;
 
-  return <InternflateDecorator {...config} />;
+    if (!decoratorElement) {
+      return;
+    }
+
+    const onFnrChanged = (event: CustomEvent<FnrChangedDetail>) => {
+      const { fnr } = event.detail;
+
+      if (fnr) {
+        handlePersonsokSubmit(fnr);
+      }
+    };
+
+    decoratorElement.addEventListener("fnr-changed", onFnrChanged);
+
+    return () => {
+      decoratorElement.removeEventListener("fnr-changed", onFnrChanged);
+    };
+  }, [handlePersonsokSubmit]);
+
+  return (
+    <internarbeidsflate-decorator
+      ref={decoratorRef}
+      app-name={decoratorConfig.appName}
+      fetch-active-enhet-on-mount={true}
+      show-enheter={true}
+      show-search-area={true}
+      environment={decoratorConfig.environment}
+      url-format={decoratorConfig.urlFormat}
+      proxy={decoratorConfig.proxy}
+      fnr-sync-mode={decoratorConfig.fnrSyncMode}
+    />
+  );
 };
 
 export default Decorator;
