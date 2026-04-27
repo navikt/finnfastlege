@@ -1,5 +1,5 @@
 import React from "react";
-import PersonIkon from "@/svg/PersonIkon";
+import PersonIkon from "@/svg/PersonIkon.svg";
 import { SearchResultPanel } from "@/components/wrappers/SearchResultPanel";
 import { BodyShort, Heading } from "@navikt/ds-react";
 import { PersonTags } from "@/components/pasient/PersonTags";
