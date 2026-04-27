@@ -6,7 +6,7 @@ import {
   RelasjonKodeVerdi,
 } from "@/data/fastlege/FastlegeDTO";
 import { SearchResultPanel } from "@/components/wrappers/SearchResultPanel";
-import LegeIkon from "@/svg/LegeIkon";
+import LegeIkon from "@/svg/LegeIkon.svg";
 import { Column } from "@/components/wrappers/Column";
 import { tilLangtDatoFormat } from "@/utils/datoUtils";
 import { VERDI_IKKE_FUNNET } from "@/components/FastlegeSearchResult";
