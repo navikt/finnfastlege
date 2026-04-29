@@ -39,10 +39,10 @@ const redirectIfUnauthorized = async (
 };
 
 const setupServer = async () => {
-  server.use(setupProxy());
-
   const DIST_DIR = path.join(__dirname, "dist");
   const HTML_FILE = path.join(DIST_DIR, "index.html");
+
+  server.use(setupProxy());
 
   server.get("/health/isReady", (req, res) => {
     res.status(200).send("Im ready!");
@@ -51,19 +51,23 @@ const setupServer = async () => {
     res.status(200).send("Im alive!");
   });
 
-  server.use("/fastlege", express.static(path.join(__dirname, "..", "build")));
-
-  server.use("/fastlege/img", express.static(path.resolve(__dirname, "img")));
+  server.use("/fastlege", express.static(DIST_DIR));
 
   server.get(
-    ["/", "/fastlege", "/fastlege/*", /^\/fastlege\/(?!(resources|img)).*$/],
+    ["/", "/fastlege", "/fastlege/*"],
     [nocache, redirectIfUnauthorized],
-    (req: express.Request, res: express.Response) => {
+    (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      if (path.extname(req.path)) {
+        return next();
+      }
+
       res.sendFile(HTML_FILE);
     }
   );
-
-  server.use("/static", express.static(DIST_DIR));
 
   const port = 8080;
 
