@@ -72,7 +72,7 @@
     "babel-plugin-styled-components": "2.1.4",
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "6.7.1",
-    "dotenv-webpack": "7.1.0",
+    "dotenv-webpack": "9.0.0",
     "eslint": "8.16.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-react": "7.37.5",
