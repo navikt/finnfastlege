@@ -4,26 +4,28 @@
   "description": "Digitalisering av sykefraværsoppfølging",
   "type": "module",
   "main": "index.tsx",
+  "test": "pnpm test",
   "scripts": {
-    "start": "pnpm msw:update && vite",
-    "build": "pnpm build:client && pnpm build:server",
-    "build:client": "vite build",
-    "build:server": "tsc --build ./server/tsconfig.json",
     "test": "vitest run",
     "lint-and-typecheck": "pnpm lint && pnpm typecheck",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint src test --ext .ts  --ext .tsx  --ext .js  --ext .jsx",
-    "msw:update": "msw init . --save"
+    "start": "pnpm msw:update && webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js && pnpm run build:server",
+    "build:server": "tsc --build ./server/tsconfig.json",
+    "msw:update": "msw init public --save"
   },
   "author": "Team DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
+    "@babel/runtime": "7.29.2",
     "@grafana/faro-react": "1.19.0",
     "@grafana/faro-web-sdk": "1.19.0",
     "@grafana/faro-web-tracing": "1.19.0",
     "@navikt/ds-css": "7.33.2",
     "@navikt/ds-react": "7.33.2",
+    "@navikt/fnrvalidator": "1.3.0",
     "@navikt/navspa": "7.5.0",
     "@tanstack/react-query": "5.99.2",
     "@tanstack/react-query-devtools": "5.99.2",
@@ -32,7 +34,6 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/styled-components": "5.1.25",
-    "@vitejs/plugin-react": "6.0.1",
     "axios": "1.15.1",
     "classnames": "2.5.1",
     "core-js": "3.49.0",
@@ -46,34 +47,64 @@
     "react-dom": "19.2.5",
     "regenerator-runtime": "0.14.1",
     "styled-components": "5.3.5",
-    "vite": "8.0.10"
+    "ts-custom-error": "3.3.1"
   },
   "devDependencies": {
+    "@babel/cli": "7.28.6",
+    "@babel/core": "7.29.0",
+    "@babel/plugin-transform-regenerator": "7.29.0",
+    "@babel/plugin-transform-runtime": "7.29.0",
+    "@babel/preset-env": "7.29.2",
+    "@babel/preset-react": "7.28.5",
+    "@babel/preset-typescript": "7.28.5",
     "@tanstack/eslint-plugin-query": "4.38.0",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
+    "@types/dotenv-webpack": "7.0.3",
     "@types/jsdom": "16.2.14",
+    "@types/webpack": "5.28.5",
     "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",
     "autoprefixer": "10.5.0",
+    "babel-loader": "8.2.5",
+    "babel-plugin-module-resolver": "5.0.3",
+    "babel-plugin-styled-components": "2.1.4",
+    "clean-webpack-plugin": "4.0.0",
+    "css-loader": "6.7.1",
+    "dotenv-webpack": "7.1.0",
     "eslint": "8.16.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-testing-library": "5.5.0",
     "eslint-plugin-unused-imports": "2.0.0",
+    "html-webpack-plugin": "5.6.7",
     "jsdom": "26.1.0",
     "jsdom-global": "3.0.2",
     "msw": "2.13.4",
+    "postcss-loader": "7.0.0",
     "prettier": "2.6.2",
+    "style-loader": "3.3.1",
+    "ts-node": "10.9.2",
+    "tsconfig-paths-webpack-plugin": "3.5.2",
     "typescript": "5.9.3",
-    "vite-plugin-svgr": "5.2.0",
-    "vitest": "4.1.5"
+    "url-loader": "4.1.1",
+    "vite-tsconfig-paths": "4.3.2",
+    "vitest": "3.1.1",
+    "webpack": "5.106.2",
+    "webpack-cli": "5.1.4",
+    "webpack-dev-server": "5.2.3",
+    "webpack-merge": "5.8.0"
   },
   "msw": {
     "workerDirectory": [
-      ""
+      "public"
     ]
+  },
+  "pnpm": {
+    "overrides": {
+      "lodash": "4.18.1"
+    }
   }
 }
