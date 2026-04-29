@@ -54,7 +54,7 @@ const setupServer = async () => {
   server.use("/fastlege", express.static(DIST_DIR));
 
   server.get(
-    ["/", "/fastlege", "/fastlege/*"],
+    ["/", "/fastlege/*"],
     [nocache, redirectIfUnauthorized],
     (
       req: express.Request,

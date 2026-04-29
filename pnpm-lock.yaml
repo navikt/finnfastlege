@@ -47,9 +47,6 @@ importers:
       '@types/styled-components':
         specifier: 5.1.25
         version: 5.1.25
-      '@vitejs/plugin-react':
-        specifier: 6.0.1
-        version: 6.0.1(vite@8.0.10(@types/node@25.6.0)(terser@5.46.1))
       axios:
         specifier: 1.15.1
         version: 1.15.1
@@ -89,9 +86,6 @@ importers:
       styled-components:
         specifier: 5.3.5
         version: 5.3.5(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react-is@17.0.2)(react@19.2.5)
-      vite:
-        specifier: 8.0.10
-        version: 8.0.10(@types/node@25.6.0)(terser@5.46.1)
     devDependencies:
       '@tanstack/eslint-plugin-query':
         specifier: 4.38.0
@@ -114,6 +108,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: 5.26.0
         version: 5.26.0(eslint@8.16.0)(typescript@5.9.3)
+      '@vitejs/plugin-react':
+        specifier: 6.0.1
+        version: 6.0.1(vite@8.0.10(@types/node@25.6.0)(terser@5.46.1))
       autoprefixer:
         specifier: 10.5.0
         version: 10.5.0(postcss@8.5.10)
@@ -150,6 +147,9 @@ importers:
       typescript:
         specifier: 5.9.3
         version: 5.9.3
+      vite:
+        specifier: 8.0.10
+        version: 8.0.10(@types/node@25.6.0)(terser@5.46.1)
       vite-plugin-svgr:
         specifier: 5.2.0
         version: 5.2.0(typescript@5.9.3)(vite@8.0.10(@types/node@25.6.0)(terser@5.46.1))
