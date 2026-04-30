@@ -23,9 +23,6 @@ importers:
       '@navikt/ds-react':
         specifier: 7.33.2
         version: 7.33.2(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@navikt/navspa':
-        specifier: 7.5.0
-        version: 7.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tanstack/react-query':
         specifier: 5.99.2
         version: 5.99.2(react@19.2.5)
@@ -442,12 +439,6 @@ packages:
 
   '@navikt/ds-tokens@7.40.0':
     resolution: {integrity: sha512-zBaBKLS5R2OZyXI4UUPOmiB15L/u/aJPHiyoccJDtmqrv5wRkc1oM6UCjzKK0D4gLZHBoxp7YBT0sR9Mp4DXFQ==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/7.40.0/36f981e12d4d90f18155615b7666b737039a3ff0}
-
-  '@navikt/navspa@7.5.0':
-    resolution: {integrity: sha512-md8EDCzOpv5aHdDYHxW23fxQCFghHklli+AyfSBkGZ5gGKApi4LatDYUoJuTlnTZihMI89FX80sFC79ms/QewA==, tarball: https://npm.pkg.github.com/download/@navikt/navspa/7.5.0/d82d23977eec915b4a7bcd7d287d53074632462e}
-    peerDependencies:
-      react: '>=19.2.1'
-      react-dom: '>=19.2.1'
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2133,9 +2124,6 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  loadjs@4.3.0:
-    resolution: {integrity: sha512-vNX4ZZLJBeDEOBvdr2v/F+0aN5oMuPu7JTqrMwp+DtgK+AryOlpy6Xtm2/HpNr+azEa828oQjOtWsB6iDtSfSQ==}
-
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
@@ -3374,12 +3362,6 @@ snapshots:
       '@types/react': 19.2.14
 
   '@navikt/ds-tokens@7.40.0': {}
-
-  '@navikt/navspa@7.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
-    dependencies:
-      loadjs: 4.3.0
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -5226,8 +5208,6 @@ snapshots:
       lightningcss-win32-x64-msvc: 1.32.0
 
   lines-and-columns@1.2.4: {}
-
-  loadjs@4.3.0: {}
 
   lodash.merge@4.6.2: {}
 
