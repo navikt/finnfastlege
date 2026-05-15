@@ -19,7 +19,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
-    "@grafana/faro-react": "1.19.0",
+    "@grafana/faro-react": "2.6.3",
     "@grafana/faro-web-sdk": "1.19.0",
     "@grafana/faro-web-tracing": "1.19.0",
     "@navikt/ds-css": "7.33.2",
