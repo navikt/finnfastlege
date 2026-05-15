@@ -32,7 +32,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/styled-components": "5.1.25",
-    "axios": "1.15.1",
+    "axios": "1.15.2",
     "classnames": "2.5.1",
     "core-js": "3.49.0",
     "dotenv": "16.5.0",
