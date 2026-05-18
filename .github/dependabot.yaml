@@ -4,7 +4,7 @@ updates:
     directory: "/"
     schedule:
       interval: daily
-      time: "07:00"
+      time: "09:00"
       timezone: "Europe/Oslo"
       days:
         - monday
@@ -20,7 +20,7 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
-      time: "07:00"
+      time: "09:00"
       timezone: "Europe/Oslo"
     cooldown:
       default-days: 3
