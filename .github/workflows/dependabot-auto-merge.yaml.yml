@@ -22,7 +22,7 @@ jobs:
       - name: Dependabot metadata
         if: steps.freeze-check.outputs.frozen == 'false'
         id: metadata
-        uses: dependabot/fetch-metadata@v1
+        uses: dependabot/fetch-metadata@v3
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Auto-merge changes from Dependabot
