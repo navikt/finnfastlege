@@ -5,6 +5,13 @@ updates:
     schedule:
       interval: daily
       time: "07:00"
+      timezone: "Europe/Oslo"
+      days:
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+        - friday
     cooldown:
       default-days: 3
     open-pull-requests-limit: 10
@@ -13,6 +20,8 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
+      time: "07:00"
+      timezone: "Europe/Oslo"
     cooldown:
       default-days: 3
     open-pull-requests-limit: 10
