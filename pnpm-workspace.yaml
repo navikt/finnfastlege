@@ -4,3 +4,4 @@ allowBuilds:
   msw: true
   protobufjs: true
   styled-components: true
+  ignoreScripts: true

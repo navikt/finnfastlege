@@ -12,3 +12,4 @@ settings.json
 .vscode/
 *.yaml
 *.yml
+mockServiceWorker.js
