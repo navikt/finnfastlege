@@ -4,4 +4,10 @@ allowBuilds:
   msw: true
   protobufjs: true
   styled-components: true
-  ignoreScripts: true
+minimumReleaseAge: 4320 # 3 days
+ignoreScripts: true
+minimumReleaseAgeExclude:
+  - protobufjs@7.5.6
+  - '@protobufjs/utf8@1.1.1'
+  - ws@8.20.1
+  - protobufjs@7.5.8
