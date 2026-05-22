@@ -27,4 +27,19 @@ module.exports = {
     "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off",
   },
+  overrides: [
+    {
+      files: ["src/**/*.{ts,tsx,js,jsx}"],
+      rules: {
+        "no-restricted-syntax": [
+          "error",
+          {
+            selector: "ImportDeclaration[source.value=/^(\\.\\.\\/)+test\\//]",
+            message:
+              "Production code must not import from test/. Move shared data/helpers to src/mocks, src/utils, or a domain module.",
+          },
+        ],
+      },
+    },
+  ],
 };
