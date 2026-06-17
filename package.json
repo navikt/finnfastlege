@@ -39,7 +39,7 @@
     "express": "4.22.1",
     "express-http-proxy": "1.6.3",
     "http-proxy": "1.18.1",
-    "https-proxy-agent": "5.0.1",
+    "https-proxy-agent": "9.1.0",
     "pino": "10.3.1",
     "prom-client": "14.0.1",
     "react": "19.2.6",
