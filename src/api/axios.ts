@@ -14,7 +14,7 @@ export const NAV_CONSUMER_ID = "finnfastlege";
 export const NAV_PERSONIDENT_HEADER = "nav-personident";
 
 export const defaultRequestHeaders = (
-  personIdent?: string
+  personIdent?: string,
 ): Record<string, string> => {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -36,19 +36,19 @@ function handleAxiosError(error: AxiosError) {
         window.location.href = `/oauth2/login?redirectTo=${window.location.pathname}`;
         throw new ApiErrorException(
           loginRequiredError(error.message),
-          error.response.status
+          error.response.status,
         );
       }
       case 403: {
         throw new ApiErrorException(
           accessDeniedError(error.message),
-          error.response.status
+          error.response.status,
         );
       }
       default:
         throw new ApiErrorException(
           generalError(error.message),
-          error.response.status
+          error.response.status,
         );
     }
   } else if (error.request) {
@@ -60,7 +60,7 @@ function handleAxiosError(error: AxiosError) {
 
 export const get = <ResponseData>(
   url: string,
-  personIdent?: string
+  personIdent?: string,
 ): Promise<ResponseData> => {
   return axios
     .get(url, {
@@ -80,7 +80,7 @@ export const post = <ResponseData>(
   url: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: Record<string, any> | Record<string, any>[],
-  personIdent?: string
+  personIdent?: string,
 ): Promise<ResponseData> => {
   return axios
     .post(url, data, {

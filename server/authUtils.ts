@@ -38,7 +38,7 @@ export async function validateToken(req: Request): Promise<boolean> {
 
 export async function getOnBehalfOfToken(
   req: Request,
-  clientId: string
+  clientId: string,
 ): Promise<string | undefined> {
   const userToken = extractBearerToken(req);
   if (!userToken) return undefined;

@@ -51,7 +51,7 @@ export const FastlegeInfo = ({ fastleger }: FastlegeInfoProps) => {
   const fastlegekontor: FastlegekontorDTO | undefined = fastleger.find(
     (lege) => {
       return lege.fastlegekontor;
-    }
+    },
   )?.fastlegekontor;
   const vikarList: FastlegeDTO[] = fastleger.filter((lege) => {
     return lege.relasjon.kodeVerdi === RelasjonKodeVerdi.VIKAR;
@@ -67,7 +67,7 @@ export const FastlegeInfo = ({ fastleger }: FastlegeInfoProps) => {
                 {hentTekstFastlegeNavn(fastlege)}
               </Heading>
               <Detail>{`Fastlege: ${tilLangtDatoFormat(
-                fastlege.pasientforhold.fom
+                fastlege.pasientforhold.fom,
               )} - nå`}</Detail>
             </Column>
           </Row>
@@ -83,7 +83,7 @@ export const FastlegeInfo = ({ fastleger }: FastlegeInfoProps) => {
               <Detail>
                 {fastlegekontor.besoeksadresse &&
                   hentTekstFastlegeBesoeksadresse(
-                    fastlegekontor.besoeksadresse
+                    fastlegekontor.besoeksadresse,
                   )}
               </Detail>
             </Column>
@@ -106,7 +106,7 @@ export const FastlegeInfo = ({ fastleger }: FastlegeInfoProps) => {
               <Column>
                 <Label>{hentTekstFastlegeNavn(legevikar)}</Label>
                 <Detail>{`Vikarperiode: ${tilLangtDatoFormat(
-                  legevikar.gyldighet.fom
+                  legevikar.gyldighet.fom,
                 )} - ${tilLangtDatoFormat(legevikar.gyldighet.tom)}`}</Detail>
                 {legevikar.stillingsprosent && (
                   <Detail>{`Stillingsprosent: ${legevikar.stillingsprosent}%`}</Detail>

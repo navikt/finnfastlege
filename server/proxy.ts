@@ -9,7 +9,7 @@ import { logger } from "@navikt/pino-logger";
 const proxyExternalHost = (
   { applicationName, host, removePathPrefix }: any,
   accessToken: any,
-  parseReqBody: any
+  parseReqBody: any,
 ) =>
   expressHttpProxy(host, {
     https: false,
@@ -21,9 +21,8 @@ const proxyExternalHost = (
       if (!options.headers) {
         options.headers = {};
       }
-      (options.headers as Record<string, string>)[
-        "Authorization"
-      ] = `Bearer ${accessToken}`;
+      (options.headers as Record<string, string>)["Authorization"] =
+        `Bearer ${accessToken}`;
       return options;
     },
     proxyReqPathResolver: (req) => {
@@ -60,7 +59,7 @@ const proxyOnBehalfOf = (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
-  externalAppConfig: Config.ExternalAppConfig
+  externalAppConfig: Config.ExternalAppConfig,
 ) => {
   getOnBehalfOfToken(req, externalAppConfig.clientId)
     .then((accessToken) => {
@@ -72,7 +71,7 @@ const proxyOnBehalfOf = (
       return proxyExternalHost(
         externalAppConfig,
         accessToken,
-        req.method === "POST"
+        req.method === "POST",
       )(req, res, next);
     })
     .catch((error) => {
@@ -89,10 +88,10 @@ export const setupProxy = (): express.Router => {
     (
       req: express.Request,
       res: express.Response,
-      next: express.NextFunction
+      next: express.NextFunction,
     ) => {
       proxyOnBehalfOf(req, res, next, Config.auth.modiacontextholder);
-    }
+    },
   );
 
   router.use(
@@ -100,10 +99,10 @@ export const setupProxy = (): express.Router => {
     (
       req: express.Request,
       res: express.Response,
-      next: express.NextFunction
+      next: express.NextFunction,
     ) => {
       proxyOnBehalfOf(req, res, next, Config.auth.fastlegerest);
-    }
+    },
   );
 
   router.use(
@@ -111,10 +110,10 @@ export const setupProxy = (): express.Router => {
     (
       req: express.Request,
       res: express.Response,
-      next: express.NextFunction
+      next: express.NextFunction,
     ) => {
       proxyOnBehalfOf(req, res, next, Config.auth.syfoperson);
-    }
+    },
   );
 
   router.use(
@@ -122,10 +121,10 @@ export const setupProxy = (): express.Router => {
     (
       req: express.Request,
       res: express.Response,
-      next: express.NextFunction
+      next: express.NextFunction,
     ) => {
       proxyOnBehalfOf(req, res, next, Config.auth.istilgangskontroll);
-    }
+    },
   );
   return router;
 };

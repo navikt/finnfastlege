@@ -19,7 +19,7 @@ server.use(express.json() as RequestHandler);
 const nocache = (
   req: express.Request,
   res: express.Response,
-  next: express.NextFunction
+  next: express.NextFunction,
 ) => {
   res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
   res.header("Expires", "-1");
@@ -30,7 +30,7 @@ const nocache = (
 const redirectIfUnauthorized = async (
   req: express.Request,
   res: express.Response,
-  next: express.NextFunction
+  next: express.NextFunction,
 ) => {
   if (await validateToken(req)) {
     next();
@@ -60,14 +60,14 @@ const setupServer = async () => {
     (
       req: express.Request,
       res: express.Response,
-      next: express.NextFunction
+      next: express.NextFunction,
     ) => {
       if (path.extname(req.path)) {
         return next();
       }
 
       res.sendFile(HTML_FILE);
-    }
+    },
   );
 
   const port = 8080;

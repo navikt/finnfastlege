@@ -73,11 +73,11 @@ export function erGyldigFodselsnummer(fodselsnummer: string) {
   });
   const kontrollSiffer1 = hentKontrollSiffer(
     fodselsnummerListe.slice(0, 9),
-    kontrollRekke1
+    kontrollRekke1,
   );
   const kontrollSiffer2 = hentKontrollSiffer(
     fodselsnummerListe.slice(0, 10),
-    kontrollRekke2
+    kontrollRekke2,
   );
   return (
     fodselsnummerListe[9] === kontrollSiffer1 &&

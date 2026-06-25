@@ -72,7 +72,7 @@ export const Fastlege = ({ fnr }: FastlegeProps) => {
             />
           );
         }
-        return data ? <FastlegeSearchResult fastleger={data} /> : <></>;
+        return data ? <FastlegeSearchResult fastleger={data} /> : null;
       })()}
     </AppSpinner>
   );
