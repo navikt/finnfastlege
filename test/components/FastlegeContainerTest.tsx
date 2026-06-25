@@ -27,13 +27,13 @@ describe("FastlegeContainerTests", () => {
   it("Manglende tilgang til finnfastlege gir melding om å kontakte identansvarlig", async () => {
     mockServer.use(
       http.get("*/istilgangskontroll/api/tilgang/navident/syfo", () =>
-        HttpResponse.json(noAccess, { status: 403 })
-      )
+        HttpResponse.json(noAccess, { status: 403 }),
+      ),
     );
     render(
       <QueryClientProvider client={queryClient}>
         <FastlegeContainer />
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const title = await screen.findByRole("heading", {
@@ -47,13 +47,13 @@ describe("FastlegeContainerTests", () => {
   it("Feil i kall mot tilgangstjenesten gir generell feilmelding", async () => {
     mockServer.use(
       http.get("*/istilgangskontroll/api/tilgang/navident/syfo", () =>
-        HttpResponse.json(generalError, { status: 500 })
-      )
+        HttpResponse.json(generalError, { status: 500 }),
+      ),
     );
     render(
       <QueryClientProvider client={queryClient}>
         <FastlegeContainer />
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const title = await screen.findByRole("heading", {

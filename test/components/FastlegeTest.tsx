@@ -20,20 +20,20 @@ describe("FastlegeTests", () => {
   it("Feil i kall mot fastlegerest gir generell feilmelding", async () => {
     mockServer.use(
       http.get("*/fastlege/fastleger", () =>
-        HttpResponse.text("error", { status: 500 })
-      )
+        HttpResponse.text("error", { status: 500 }),
+      ),
     );
 
     render(
       <QueryClientProvider client={queryClient}>
         <Fastlege fnr={fnr} />
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(
       await screen.findByRole("heading", {
         name: texts.generalErrorTitle,
-      })
+      }),
     ).to.exist;
     expect(await screen.findByText(texts.generalErrorMessage)).to.exist;
   });
@@ -41,39 +41,39 @@ describe("FastlegeTests", () => {
   it("Manglende tilgang gir ingen tilgang-feilmelding", async () => {
     mockServer.use(
       http.get("*/fastlege/fastleger", () =>
-        HttpResponse.text("no access", { status: 403 })
-      )
+        HttpResponse.text("no access", { status: 403 }),
+      ),
     );
 
     render(
       <QueryClientProvider client={queryClient}>
         <Fastlege fnr={fnr} />
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(
       await screen.findByRole("heading", {
         name: texts.noAccessTitle,
-      })
+      }),
     ).to.exist;
     expect(await screen.findByText(texts.noAccessFallback)).to.exist;
   });
 
   it("Fant ikke fastlege gir ikke funnet-feilmelding", async () => {
     mockServer.use(
-      http.get("*/fastlege/fastleger", () => HttpResponse.json([]))
+      http.get("*/fastlege/fastleger", () => HttpResponse.json([])),
     );
 
     render(
       <QueryClientProvider client={queryClient}>
         <Fastlege fnr={fnr} />
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(
       await screen.findByRole("heading", {
         name: texts.fastlegeNotFoundTitle,
-      })
+      }),
     ).to.exist;
     expect(await screen.findByText(texts.fastlegeNotFoundMessage)).to.exist;
   });

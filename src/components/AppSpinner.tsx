@@ -1,10 +1,10 @@
-import React, { ReactElement } from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { Loader } from "@navikt/ds-react";
 
 interface Props {
   laster: boolean;
-  children: ReactElement;
+  children: ReactNode;
 }
 
 const SpinnerContainer = styled.div`
@@ -13,7 +13,7 @@ const SpinnerContainer = styled.div`
   margin-top: 4rem;
 `;
 
-const AppSpinner = ({ laster, children }: Props): ReactElement => {
+const AppSpinner = ({ laster, children }: Props) => {
   return laster ? (
     <SpinnerContainer>
       <Loader size="3xlarge" title="Vent litt mens siden laster" />

@@ -43,7 +43,7 @@ function addUmamiScript() {
   script.setAttribute("data-website-id", dataWebsiteId);
   script.setAttribute(
     "src",
-    "https://cdn.nav.no/team-researchops/sporing/sporing.js"
+    "https://cdn.nav.no/team-researchops/sporing/sporing.js",
   );
   script.setAttribute("defer", "defer");
   document.head.appendChild(script);
@@ -65,7 +65,7 @@ function renderApp() {
         <FastlegeContainer />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }
 

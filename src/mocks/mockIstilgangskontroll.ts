@@ -6,7 +6,7 @@ const mockIstilgangskontroll = http.get(
     return HttpResponse.json({
       erGodkjent: true,
     });
-  }
+  },
 );
 
 export default mockIstilgangskontroll;
