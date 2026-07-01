@@ -17,6 +17,10 @@ const generalError = {
 
 const noAccess = {
   erGodkjent: false,
+  erAvslatt: true,
+  fullTilgang: false,
+  finnfastlegeTilgang: false,
+  legacyTilgang: false,
 };
 
 describe("FastlegeContainerTests", () => {
@@ -26,7 +30,7 @@ describe("FastlegeContainerTests", () => {
 
   it("Manglende tilgang til finnfastlege gir melding om å kontakte identansvarlig", async () => {
     mockServer.use(
-      http.get("*/istilgangskontroll/api/tilgang/navident/syfo", () =>
+      http.get("*/istilgangskontroll/api/tilgang/navident/finnfastlege", () =>
         HttpResponse.json(noAccess, { status: 403 }),
       ),
     );
@@ -46,7 +50,7 @@ describe("FastlegeContainerTests", () => {
 
   it("Feil i kall mot tilgangstjenesten gir generell feilmelding", async () => {
     mockServer.use(
-      http.get("*/istilgangskontroll/api/tilgang/navident/syfo", () =>
+      http.get("*/istilgangskontroll/api/tilgang/navident/finnfastlege", () =>
         HttpResponse.json(generalError, { status: 500 }),
       ),
     );
