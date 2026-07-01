@@ -3,7 +3,7 @@
   "plugins": ["typescript", "react", "jsx-a11y"],
   "jsPlugins": [],
   "categories": {
-    "correctness": "off"
+    "correctness": "warn"
   },
   "env": {
     "builtin": true
