@@ -45,6 +45,11 @@ const setupServer = async () => {
 
   server.use(setupProxy());
 
+  server.get("/actuator/metrics", (req, res) => {
+    res.set("Content-Type", prometheus.register.contentType);
+    res.end(prometheus.register.metrics());
+  });
+
   server.get("/health/isReady", (req, res) => {
     res.status(200).send("Im ready!");
   });
