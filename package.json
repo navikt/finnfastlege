@@ -23,7 +23,7 @@
   "dependencies": {
     "@grafana/faro-react": "2.8.2",
     "@grafana/faro-web-sdk": "2.8.2",
-    "@grafana/faro-web-tracing": "2.8.2",
+    "@grafana/faro-web-tracing": "2.9.0",
     "@navikt/ds-css": "7.33.2",
     "@navikt/ds-react": "7.33.2",
     "@navikt/pino-logger": "5.0.0",
