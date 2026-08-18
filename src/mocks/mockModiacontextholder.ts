@@ -36,7 +36,7 @@ const mockModiacontextholder = [
     return HttpResponse.json(aktivBruker);
   }),
 
-  http.get("/modiacontextholder/api/context/aktivenhet", () => {
+  http.get("/modiacontextholder/api/context/v2/aktivenhet", () => {
     return HttpResponse.json(aktivEnhet);
   }),
 
