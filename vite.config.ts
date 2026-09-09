@@ -12,6 +12,7 @@ export default defineConfig({
   },
   build: {
     outDir: "./dist",
+    sourcemap: true,
   },
   base: "/fastlege/",
   plugins: [react(), svgr({ include: "**/*.svg" })],
