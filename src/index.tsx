@@ -10,8 +10,8 @@ import { minutesToMillis } from "@/utils/timeUtils";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { isClientError } from "@/api/errors";
-import { initFaro } from "@/faro";
 import { erLokal, erProd } from "@/utils/miljoUtil";
+import "@/naisApm.ts";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,8 +48,6 @@ function addUmamiScript() {
   script.setAttribute("defer", "defer");
   document.head.appendChild(script);
 }
-
-initFaro();
 
 const container =
   document.getElementById("maincontent") || new DocumentFragment();
