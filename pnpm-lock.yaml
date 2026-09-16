@@ -167,7 +167,7 @@ importers:
         specifier: 5.0.1
         version: 5.0.1(supports-color@5.5.0)
       mime-types:
-        specifier: ^3.0.0
+        specifier: 3.0.2
         version: 3.0.2
       pino:
         specifier: 10.3.1
