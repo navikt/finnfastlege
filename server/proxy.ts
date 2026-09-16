@@ -84,7 +84,7 @@ export const setupProxy = (): express.Router => {
   const router = express.Router();
 
   router.use(
-    "/modiacontextholder/*",
+    "/modiacontextholder/*splat",
     (
       req: express.Request,
       res: express.Response,
@@ -95,7 +95,7 @@ export const setupProxy = (): express.Router => {
   );
 
   router.use(
-    "/fastlegerest/*",
+    "/fastlegerest/*splat",
     (
       req: express.Request,
       res: express.Response,
@@ -106,7 +106,7 @@ export const setupProxy = (): express.Router => {
   );
 
   router.use(
-    "/syfoperson/*",
+    "/syfoperson/*splat",
     (
       req: express.Request,
       res: express.Response,
@@ -117,7 +117,7 @@ export const setupProxy = (): express.Router => {
   );
 
   router.use(
-    "/istilgangskontroll/*",
+    "/istilgangskontroll/*splat",
     (
       req: express.Request,
       res: express.Response,
