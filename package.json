@@ -40,13 +40,13 @@
     "express-http-proxy": "1.6.3",
     "http-proxy": "1.18.1",
     "https-proxy-agent": "5.0.1",
+    "mime-types": "^3.0.0",
     "pino": "10.3.1",
     "prom-client": "14.0.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "regenerator-runtime": "0.14.1",
-    "styled-components": "5.3.5",
-    "mime-types": "^3.0.0"
+    "styled-components": "5.3.5"
   },
   "devDependencies": {
     "@testing-library/dom": "10.4.1",
