@@ -128,7 +128,7 @@ importers:
         specifier: 5.101.4
         version: 5.101.4(@tanstack/react-query@5.101.4(react@19.2.8))(react@19.2.8)
       '@types/express':
-        specifier: ^5.0.0
+        specifier: 5.0.6
         version: 5.0.6
       '@types/express-http-proxy':
         specifier: 1.6.3
@@ -155,7 +155,7 @@ importers:
         specifier: 16.5.0
         version: 16.5.0
       express:
-        specifier: ^5.0.0
+        specifier: 5.2.1
         version: 5.2.1(supports-color@5.5.0)
       express-http-proxy:
         specifier: 1.6.3
