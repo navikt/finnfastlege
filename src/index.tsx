@@ -12,6 +12,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { isClientError } from "@/api/errors";
 import { erLokal, erProd } from "@/utils/miljoUtil";
 import "@/naisApm.ts";
+import { loadDecoratorScript } from "@/decorator/loadDecoratorScript.ts";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -57,6 +58,7 @@ function renderApp() {
   if (!erLokal()) {
     addUmamiScript();
   }
+  loadDecoratorScript();
   root.render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
