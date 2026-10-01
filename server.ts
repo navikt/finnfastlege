@@ -1,10 +1,11 @@
-import express, { RequestHandler } from "express";
+import express from "express";
 import path from "path";
 import prometheus from "prom-client";
 import { logger } from "@navikt/pino-logger";
 import { validateToken } from "./server/authUtils.js";
 import { setupProxy } from "./server/proxy.js";
 import { fileURLToPath } from "url";
+import helmet from "helmet";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,7 +15,13 @@ const collectDefaultMetrics = prometheus.collectDefaultMetrics;
 collectDefaultMetrics({});
 
 const server = express();
-server.use(express.json() as RequestHandler);
+
+server.use(express.json());
+server.use(
+  helmet({
+    contentSecurityPolicy: false,
+  }),
+);
 
 const nocache = (
   req: express.Request,
