@@ -1,6 +1,5 @@
 import express from "express";
 import path from "path";
-import prometheus from "prom-client";
 import { logger } from "@navikt/pino-logger";
 import { validateToken } from "./server/authUtils.js";
 import { setupProxy } from "./server/proxy.js";
@@ -9,10 +8,6 @@ import helmet from "helmet";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// Prometheus metrics
-const collectDefaultMetrics = prometheus.collectDefaultMetrics;
-collectDefaultMetrics({});
 
 const server = express();
 
@@ -51,11 +46,6 @@ const setupServer = async () => {
   const HTML_FILE = path.join(DIST_DIR, "index.html");
 
   server.use(setupProxy());
-
-  server.get("/actuator/metrics", (req, res) => {
-    res.set("Content-Type", prometheus.register.contentType);
-    res.end(prometheus.register.metrics());
-  });
 
   server.get("/health/isReady", (req, res) => {
     res.status(200).send("Im ready!");
