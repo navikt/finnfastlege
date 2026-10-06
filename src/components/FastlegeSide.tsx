@@ -12,7 +12,7 @@ const StyledHeading = styled(Heading)`
 `;
 
 const texts = {
-  title: "Finn fastlegen",
+  title: "Finland fastland",
 };
 
 const FastlegeSide = () => {
