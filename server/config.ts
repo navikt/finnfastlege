@@ -28,6 +28,7 @@ export const isDev = envVar({ name: "NODE_ENV" }) === "development";
 export const isProd = envVar({ name: "NODE_ENV" }) === "production";
 
 export interface ExternalAppConfig {
+  applicationName: string;
   clientId: string;
   host: string;
   removePathPrefix?: boolean;
