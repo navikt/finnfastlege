@@ -11,5 +11,6 @@ export default defineConfig({
     environment: "jsdom",
     include: ["test/**/*{test,Test}.*"],
     setupFiles: ["test/setup.ts"],
+    execArgv: ["--no-webstorage"],
   },
 });
